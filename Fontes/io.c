@@ -11,6 +11,7 @@
 *  $HA Histórico de evolução:
 *     Versão  Autor     Data        Observações
 *     1       hpg/gmm   09/jun/2014 início desenvolvimento
+*     2       hpg/gmm   11/jun/2014 continucao
 *
 *  $ED Descrição do módulo
 *      Lida com a entrada de dados do usuario e a resposta a ele
