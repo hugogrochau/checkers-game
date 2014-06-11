@@ -1,0 +1,28 @@
+﻿Data	     Horas Trabalhadas	        Tipo de Tarefa								   Descrição da Tarefa Realizada
+
+31/03/2014        3                     Revisar codigo, revisar teste, especificar funcoes    			   Estudei o arcabouço. Analisei o lista.
+                                        Estudar, especificar inferfaces, especificar modulos   			   Ajudei a especificar modulos, interfaces e a revisar os scripts
+	                                Revisar script                                                             Revisei e dei suporte na codificação do modulo lista e do peca.
+										
+07/04/2014        3		        Revisar codigo, revisar script, escrever script,      			   Codifiquei o modulo de teste do modulo peca. Revisei codigos já escritos
+                                        Codificar modulo de teste, Estudar, testar modulos    			   Testei o modulo lista com o arcabouço. Estudei o modulo testalista.
+                                        Suporte na codificação								  	          Ajudei outros integrantes a codificar.		
+										
+16/04/2014        2                     Codificar modulo tabuleiro, estudar, testar modulo,                        Iniciei a codificação do modulo tabuleiro, defini os tipos a serem usados
+                                        Definir interface do tabuleiro, revisar codigo                             e a interface basica. 
+
+18/04/2014        2                     Codificar modulo tabuleiro, testar modulo,                                 Implementei mais funções do modulo tabuleiro e melhorei a interface
+                                        Definir interface do tabuleiro, revisar codigo
+
+19/04/2014        2                     Codificar modulo tabuleiro, testar modulo,                                 Implementei funções que estavam faltando, melhorei algumsa partes do codigo
+                                        Revisar codigo                                                             Retirei alguns bugs e fiz um teste visual com todas as funções escritas
+
+21/04/2014        5                     Codifiquei script, atualizei todos os modulos
+                                        Dei suporte no modulo tabuleiro, atulizei codigos
+                                        Codifiquei modulo de teste
+										
+01/05/2014        3                     Correção de código, testes finais, documentação                            Chequei todos os modulos, codifiquei codigos de testes que estavam
+                                                                                                                   pendendes, documentei as funções que estavam sem documentação
+																										  
+01/05/2014        6                     Modelagem da arquitetura, Modelo físico                           Modelei a arquitetura, fiz o modelo físico e fiz o exemplo
+                                        Exemplo modelo físico                                             do modelo fisico utilizando a ferramenta da Embarcadero Delphi XE5

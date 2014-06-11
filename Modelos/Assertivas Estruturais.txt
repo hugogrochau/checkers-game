@@ -1,0 +1,28 @@
+Asserts estruturais do módulo peça:
+
+PECA_tpPeca:
+    * PECA_tpCor cor deve ser um inteiro de valor 0 (para cor preta) ou 1 (para cor branca).
+    * PECA_tpStatus status deve ser um inteiro de valor 0 (para peça normal), 1 (para peça dama) ou -1 (status da peça inválida).
+
+Asserts estruturais do módulo lista:
+
+LIS_tagElemLista:
+    * Tem que apontar para algum elemento em frente (tagElemLista *pProx) a não ser que seja o último elemento da lista.
+    * Tem que apontar para algum elemento atrás (tagElemLista *pAnt) a não ser que seja a cabeça da lista.
+
+LIS_tagLista:
+    * O ponteiro para cabeça da lista (tpElemLista *pOrigemLista) não pode ser NULL a não ser que a lista esteja vazia.
+    * O ponteiro para o final da lista (tpElemLista *pFimLista) não pode ser NULL a não ser que a lista esteja vazia.
+    * O ponteiro para o elemento corrente (tpElemLista *pElemCorr) não pode ser NULL e tem que apontar para um elemento que pertence à lista a não ser que a lista esteja vazia.
+    * O número de elementos (int numElem) tem que ser maior do que zero, a não ser que a lista esteja vazia, ai o número de elementos é 0.
+
+Asserts estruturais do módulo tabuleiro:
+
+TAB_tpTamanho:
+    * O tamanho do tabuleiro não pode ser nulo ou negativo.
+
+TAB_tpPosicao:
+    * Uma posição do tabuleiro não pode ser negativa.
+
+TAB_tpTabuleiro:
+    * O tabuleiro tem que ter pelo menos uma coluna (LIS_tppLista coluna) não nula.

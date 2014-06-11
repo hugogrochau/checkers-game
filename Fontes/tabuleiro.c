@@ -1,0 +1,414 @@
+/***************************************************************************
+*  $MCI Módulo de implementação: TAB  tabuleiro de damas ou qualquer outro jogo
+*
+*  Arquivo gerado:              tabuleiro.c
+*  Letras identificadoras:      TAB
+*
+*  Projeto: INF 1301 / 1628 Jogo de Damas
+*  Gestor:  LES/DI/PUC-Rio
+*  Autores: Gustavo Marques Martins (gmm), Hugo Pedrotti Grochau (hpg)
+*
+*  $HA Histórico de evolução:
+*     Versão  Autor     Data        Observações
+*     4       hpg,gmm   30/abr/2014  Comentários
+*     3       gmm       19/abr/2014  Mais implementação
+*     2       gmm       18/abr/2014  Mais implementação
+*     1       gmm       16/abr/2014  início desenvolvimento
+*
+***************************************************************************/
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "lista.h"
+
+#define tabuleiro_OWN
+#include "tabuleiro.h"
+#undef tabuleiro_OWN
+
+#define TRUE  1
+#define FALSE 0
+
+/***********************************************************************
+*
+*  $TC Tipo de dados: TAB Tabuleiro
+*
+***********************************************************************/
+
+struct TAB_tagTabuleiro
+{
+    TAB_tpTamanho tam;
+    
+    LIS_tppLista coluna;
+    /* PONTEIRO PARA O COMEÇO DA LISTA DE LISTAS */ 
+};
+
+/***** PROTÓTIPOS DAS FUNÇÕES ENCAPULADAS NO MÓDULO *****/
+
+/***********************************************************************
+*
+*  $FC Função: TAB  -Destruir linha do tabuleiro
+*
+***********************************************************************/
+
+static void TAB_DestruirLinha (void * lstLin);
+
+/***********************************************************************
+*
+*  $FC Função: TAB  -Destruir uma lista por completo
+*
+*  $ED Descrição da função
+*      Destroi por completo uma lista. Destroi os elementos e dps a cabeça da lista
+*
+***********************************************************************/
+
+static void TAB_DestruirLista (LIS_tppLista lst);
+
+/***********************************************************************
+*
+*  $FC Função: TAB  -Checar posição
+*
+*  $ED Descrição da função
+*      Checa se a posição é invalida ou nao. Para ser invalida,
+*      POS < 0 ou POS >= tabuleiro.tamanho
+*      Se a posicao for valida retorna 1, se for invaliad retorna 0
+*
+***********************************************************************/
+
+static int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
+
+/***********************************************************************
+*
+*  $FC Função: TAB  -Obter casa
+*
+*  $ED Descrição da função
+*      Retorna uma lista apontando para a posição desejada 
+*
+***********************************************************************/
+
+static LIS_tppLista TAB_ObterCasa (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
+
+/***********************************************************************
+*
+*  $FC Função: TAB  -Ir inicio tabuleiro
+*
+*  $ED Descrição da função
+*      Vai para o inicio do tabuleiro, resetando posição onde estava 
+*
+***********************************************************************/
+
+static void TAB_IrInicioTabuleiro (TAB_tppTabuleiro tab);
+
+/*****  CÓDIGO DAS FUNÇÕES EXPORTADAS PELO MÓDULO  *****/
+
+
+/***********************************************************************
+*
+*  Função: TAB &Criar tabuleiro
+*
+***********************************************************************/
+
+TAB_tppTabuleiro TAB_CriarTabuleiro (short int colunas, short int linhas, void (*DestruirPeca) (void *pDado))
+{
+    TAB_tppTabuleiro tab = NULL;
+    int i, j;
+    LIS_tppLista lstCol = NULL;
+    LIS_tppLista lstLin = NULL;
+
+    tab = (TAB_tppTabuleiro) malloc(sizeof(struct TAB_tagTabuleiro));
+
+    if (tab == NULL) 
+    {
+        return NULL;
+    }
+
+    lstCol = LIS_CriarLista(TAB_DestruirLinha);
+
+    /* CRIA COLUNA DE REFERENCIA PARA AS LINHAS. SE A COLUNA FOR NULL, DESTROI O TABULEIRO E RETORNA NULL */
+
+    if (lstCol == NULL)
+    {
+        free(tab);
+        return NULL;
+    }
+
+    /* CRIA AS LINHAS E AS INSERE NA LISTA COLUNA. OS ELEMENTOS DAS LISTAS LINHAS SAO INICIALIZADOS COM NULL. SE OCORRER ALGUM PROBLEMA DE ALOCACAO,
+    DETROU TODA A MEMORIA ALOCADA ATÉ ENTAO E RETORNA NULL */
+
+    for (i = 0; i < linhas ; i++)
+    {
+        lstLin = LIS_CriarLista(DestruirPeca);  /* PASSAR A FUNÇÃO DE DESTRUIR A PECA AQUI */
+        for (j = 0; j < colunas; j++)
+        {
+            if (LIS_InserirElementoAntes(lstLin, NULL) != LIS_CondRetOK)
+            {
+                TAB_DestruirLista(lstLin);
+                return NULL;
+            }
+        }
+        if (LIS_InserirElementoAntes(lstCol, lstLin) != LIS_CondRetOK)
+        {
+            LIS_EsvaziarLista(lstCol);
+            return NULL;
+        }
+    }
+
+    /*ATUALIZA O TAMANHO DO TABULEIRO E SETA O PONTEIRO PARA A COLUNA DE REFERENCIA */
+
+    tab->tam.colunas = colunas;
+    tab->tam.linhas = linhas;
+    tab->coluna = lstCol;
+    return tab;
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Destruir tabuleiro
+*
+***********************************************************************/
+
+void TAB_DestruirTabuleiro (TAB_tppTabuleiro tab)
+{
+    if (tab == NULL) 
+    {
+        return;
+    }
+    TAB_DestruirLista(tab->coluna);
+    free(tab);
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Obter tamanho
+*
+***********************************************************************/
+
+TAB_tpTamanho TAB_ObterTamanho (TAB_tppTabuleiro tab)
+{
+    return tab->tam;
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Incluir peca
+*
+***********************************************************************/
+
+TAB_tpCondRet TAB_IncluirPeca (TAB_tppTabuleiro tab, void * pPeca, TAB_tpPosicao pos)
+{
+    LIS_tppLista lst;
+    if (tab == NULL) 
+    {
+        return TAB_CondRetTabuleiroVazio;
+    }
+
+    if (!TAB_ChecarPos(tab, pos))
+    {
+        return TAB_CondRetPosicaoInvalida;
+    }
+
+    lst = TAB_ObterCasa(tab, pos);
+    LIS_SobrescreverValorCorrente(lst, pPeca);
+    TAB_IrInicioTabuleiro(tab);
+    return TAB_CondRetOk;
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Obter tamanho
+*
+***********************************************************************/
+
+TAB_tpCondRet TAB_MoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao Original, TAB_tpPosicao Destino)
+{
+    LIS_tppLista lst;
+    void *pDado;
+
+    if (tab == NULL) 
+    {
+        return TAB_CondRetTabuleiroVazio;
+    }
+
+    if (!TAB_ChecarPos(tab, Original) || !TAB_ChecarPos(tab, Destino)) 
+    {
+        return TAB_CondRetPosicaoInvalida;
+    }
+
+    lst = TAB_ObterCasa(tab, Original);
+    pDado = LIS_ObterValor(lst);
+    if (pDado == NULL)
+	{
+		TAB_IrInicioTabuleiro(tab);
+        return TAB_CondRetOk;
+	}
+    LIS_SobrescreverValorCorrente(lst, NULL);
+    TAB_IrInicioTabuleiro(tab);
+    lst = TAB_ObterCasa(tab, Destino);
+    LIS_SobrescreverValorCorrente(lst, pDado);
+    TAB_IrInicioTabuleiro(tab);
+    return TAB_CondRetOk;
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Obter peca
+*
+***********************************************************************/
+
+void * TAB_ObterPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
+{
+    LIS_tppLista lst;
+    void *pDado;
+	if (tab == NULL)
+    {
+		return NULL;
+    }
+    if (!TAB_ChecarPos(tab, pos))
+    {
+        return NULL;
+    }
+    lst = TAB_ObterCasa(tab, pos);
+    pDado = LIS_ObterValor(lst);
+    TAB_IrInicioTabuleiro(tab);
+    return pDado;
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Destruir peca
+*
+***********************************************************************/
+
+TAB_tpCondRet TAB_DestruirPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
+{
+    LIS_tppLista lst;
+    if (tab == NULL)
+    {
+        return TAB_CondRetTabuleiroVazio;
+    }
+    if (!TAB_ChecarPos(tab, pos))
+    {
+        return TAB_CondRetPosicaoInvalida;
+    }
+    lst = TAB_ObterCasa(tab, pos);
+    LIS_ExcluirValorElementoCorrente(lst);
+    TAB_IrInicioTabuleiro(tab);
+    return TAB_CondRetOk;
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Remover peca
+*
+***********************************************************************/
+
+void * TAB_RemoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
+{
+    void *pDado;
+    LIS_tppLista lst;
+    if (tab == NULL)
+    {
+        return NULL;
+    }
+    if (!TAB_ChecarPos(tab, pos))
+    { 
+            return NULL;
+    }
+
+    lst = TAB_ObterCasa(tab, pos);
+    pDado = LIS_ObterValor(lst);
+    LIS_SobrescreverValorCorrente(lst, NULL);
+    TAB_IrInicioTabuleiro(tab);
+    return pDado;
+}
+
+/* DEFINIÇÃO DE FUNÇÕES ENCAPSULADAS NO MODULO */
+
+
+/***********************************************************************
+*
+*  Função: TAB &Destruir linha
+*
+***********************************************************************/
+
+static void TAB_DestruirLinha (void * lstLin)
+{
+    LIS_tppLista lst = (LIS_tppLista) lstLin;
+    if (lst == NULL)
+    {
+        return;
+    }
+    LIS_EsvaziarLista(lst);
+    LIS_DestruirLista(lst);
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Destruir lista
+*
+***********************************************************************/
+
+static void TAB_DestruirLista (LIS_tppLista lst)
+{
+    if (lst == NULL)
+    {
+        return;
+    }
+    LIS_EsvaziarLista(lst);
+    LIS_DestruirLista(lst);
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Checar pos
+*
+***********************************************************************/
+
+static int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
+{
+    if (((tab->tam.colunas <= pos.coluna) || (pos.coluna < 0)) ||
+        ((tab->tam.linhas <= pos.linha) || (pos.linha < 0)))
+    {
+        return FALSE;
+    }
+    return TRUE;
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Obter casa
+*
+***********************************************************************/
+
+static LIS_tppLista TAB_ObterCasa (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
+{
+    LIS_tppLista lst = NULL;
+    LIS_AvancarElementoCorrente(tab->coluna, pos.linha);
+    lst = (LIS_tppLista) LIS_ObterValor(tab->coluna);
+    LIS_AvancarElementoCorrente(lst, pos.coluna);
+    return lst;
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Ir inicio tabuleiro
+*
+***********************************************************************/
+
+static void TAB_IrInicioTabuleiro (TAB_tppTabuleiro tab)
+{
+    LIS_tppLista lst;
+    if (tab == NULL)
+    {
+        return;
+    }
+    lst = (LIS_tppLista)LIS_ObterValor(tab->coluna);
+    if (lst != NULL)
+    {
+        IrInicioLista(lst);
+    }
+    IrInicioLista(tab->coluna);
+}
+
+/********** FIM DO MÓDULO DE IMPLEMENTAÇÃO: TAB  TABULEIRO DE DAMAS OU QUALQUER OUTRO JOGO **********/

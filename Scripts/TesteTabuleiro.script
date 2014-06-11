@@ -1,0 +1,67 @@
+// Script:    TesteTabuleiro.script
+// Autor:     Hugo Pedrotti Grochau (hpg)
+// Data:      21/abr/2014
+// Propósito: Testar o módulo tabuleiro
+
+== Inicializar valores
+=declararparm tab0 int 0
+=declararparm tab1 int 1
+=declararparm tab2 int 2
+
+=declararparm OK int 0
+=declararparm TabuleiroVazio int 1
+=declararparm PosicaoInvalida int 2
+
+==Parametros de cor
+=declararparm preto int 0
+=declararparm branco int 1
+
+=declararparm pNull int 0
+=declararparm pNaoNull int 1
+
+== Criar o tabuleiro 0
+=criartabuleiro tab0 8 8 pNaoNull
+
+== Verificar se o tamanho corresponde
+=obtertamanho tab0 8 8
+
+== Incluir uma peуa
+=incluirpeca tab0 0 0 branco OK
+
+== Verificar se ela foi inserida
+=obterpeca tab0 0 0 pNaoNull
+
+== Mover a peça
+=moverpeca tab0 0 0 7 7 OK
+
+== Verificar se ela foi movida
+=obterpeca tab0 7 7 pNaoNull
+
+== Destruir a peça
+=destruirpeca tab0 7 7 OK
+
+== Verificar se ela foi destruida
+=obterpeca tab0 7 7 pNull
+
+== Verificar se a peça foi removida
+=incluirpeca tab0 5 5 branco OK
+=obterpeca tab0 5 5 pNaoNull
+=removerpeca tab0 5 5 pNaoNull
+=obterpeca tab0 5 5 pNull
+
+== Verificar se o módulo reconhece posições invalidas
+=incluirpeca tab0 8 8 branco PosicaoInvalida
+=moverpeca tab0 8 8 0 0 PosicaoInvalida
+=moverpeca tab0 7 7 -1 -1PosicaoInvalida
+=destruirpeca tab0 8 8 PosicaoInvalida
+=destruirpeca tab0 -1 -1 PosicaoInvalida
+
+== Destruir Tabuleiro
+=destruirtabuleiro tab0
+
+== Verificar se o tab0 está vazio
+=incluirpeca tab0 0 0 branco TabuleiroVazio
+=moverpeca tab0 0 0 5 5 TabuleiroVazio
+=destruirpeca tab0 0 0 TabuleiroVazio
+
+=resetartabuleiro

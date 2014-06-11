@@ -1,0 +1,47 @@
+// Script:    TestePeca.script
+// Autor:     Hugo Pedrotti Grochau (hpg)
+// Data:      07/abr/2014
+// Propósito: Testar o módulo peça
+//
+
+== Inicializar valores
+=declararparm   peca0  int 0
+=declararparm   peca1  int 1
+
+=declararparm   preto   int 0
+=declararparm   branco  int 1
+=declararparm   normal	int 0
+=declararparm   dama    int 1
+=declararparm	inval	int -1
+
+=declararparm   OK             int  0
+=declararparm   EhDama		   int  1
+=declararparm   NaoExiste      int  2
+
+=declararparm   pNULL          int  0
+=declararparm   pNaoNULL       int  1
+
+== Criar a peca 0
+=criarpeca		peca0		preto
+
+== ObterCor
+=obtercor		peca0		preto
+=obtercor		peca1		inval
+
+
+== Virar dama
+=virardama		peca0		OK
+=virardama		peca0		EhDama
+=virardama      peca1       NaoExiste
+
+== Obter status
+=obterstatus    peca0		dama
+=obterstatus    peca1       inval
+
+== Destruir Peca
+=destruirpeca   peca0
+=obtercor		peca0		inval
+=obterstatus	peca0		inval
+
+== Reseta as pecas
+=resetarpecas

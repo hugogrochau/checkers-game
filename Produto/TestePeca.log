@@ -1,0 +1,27 @@
+
+!!! Inicio dos testes
+!!!      Construto sob teste: ..\Produto\TestePeca
+!!!      Script de teste:     ..\Scripts\TestePeca.script
+
+!!!    0  Linha:     1  // Script:    TestePeca.script 
+!!!    0  Linha:     2  // Autor:     Hugo Pedrotti Grochau (hpg) 
+!!!    0  Linha:     3  // Data:      07/abr/2014 
+!!!    0  Linha:     4  // Propósito: Testar o módulo peça 
+!!!    0  Linha:     5  // 
+    7  == Inicializar valores
+   24  == Criar a peca 0
+   27  == ObterCor
+   32  == Virar dama
+   37  == Obter status
+   41  == Destruir Peca
+   46  == Reseta as pecas
+
+!!! Número de linhas lidas:          47
+!!! Número de casos de teste:         7
+!!! Número comandos corretos:        24
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

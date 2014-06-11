@@ -1,0 +1,43 @@
+
+!!! Inicio dos testes
+!!!      Construto sob teste: ..\Produto\TesteLista
+!!!      Script de teste:     ..\Scripts\TesteLista.script
+
+!!!    0  Linha:     1  // Script:    TesteLista.script 
+!!!    0  Linha:     2  // Autores:   Hugo Pedrotti Grochau (hpg), Gustavo Marques Martins (gmm), Lucas Reis (lr), avs 
+!!!    0  Linha:     3  // Data:      07/abr/2014 
+!!!    0  Linha:     4  // Propósito: Testar o módulo lista genérica duplamente encadeada 
+!!!    0  Linha:     5  // 
+    7  == Inicializar valores
+   27  == Criar a lista 0
+   30  == Verificar ObterValor relativo a lista vazia
+   33  == Inserir elemento em lista vazia
+   37  == Inserir elemento após primeiro
+   41  == Inserir elemento antes do último
+   45  == Inserir elemento ordenado
+   49  == Sobrescrever Valor
+   53  == Excluir Valor
+   57  == Excluir o elemento nulo
+   60  == Excluir elemento do início
+   64  == Excluir elementos finais, único
+   70  == Ver se a lista ficou vazia
+   73  == Destruir a lista
+   76  == Criar uma lista com dois elementos
+   81  == Esvaziar a lista e ver se ficou vazia
+   85  == Destruir a lista
+   88  == Criar uma lista com quatro elementos
+   95  == Verificar a lista de trás para diante
+  105  == Verificar a lista de frente para trás
+  115  == Verificar a lista andando demais de trás para diante
+  119  == Verificar a lista andando demais de frente para trás
+  123  == Destruir a lista
+
+!!! Número de linhas lidas:         124
+!!! Número de casos de teste:        23
+!!! Número comandos corretos:        70
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

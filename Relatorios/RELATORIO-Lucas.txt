@@ -1,0 +1,19 @@
+Data        Horas Trabalhadas   Tipo de Tarefa                                      Descrição da Tarefa Realizada
+
+31/03/2014  1                   Estudar                                             Estudei o arcabouços e fiz a especificação de requisitos. 
+
+31/03/2014  2                   Codificar módulo, revisar script de teste,
+                                realizar os testes, especificar as funções          Ajudei a implementar, testar e documentar a função de inserção ordenada do modulo lista.
+                                                                                    Ainda não sabia direito como impelmentar tudo, meus companheiros me ensinaram.
+
+31/03/2014  2                   Codificar módulo, especificar os módulos            Ainda com dificuldade, mas ajudei a implementação do módulo Peça.h.
+
+07/04/2014  2                   Projetar                                            Dividi o projeto em diretórios distintos e atualizei os .bats.
+
+07/04/2014  2                   Codificar                                           Integrei o módulo Peça com o resto dos módulos e escrevi o módulo de teste para ele.
+
+07/04/2014  1                   Revisar script de teste, realizar os testes         Escrevi o script de teste para Peça e realizei os testes.
+
+21/04/2014  5                   Comentar, codificar, testar                         Comentei o script de teste pro módulo Peca, codificamos o teste do módulo tabuleiro e testamos parte.iro e testamos parte.
+
+30/04/2014  4                   Projetar                                            Projetei modelo de arquitetura, modelo físico e fiz as assertivas estruturais.

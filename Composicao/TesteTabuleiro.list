@@ -1,0 +1,169 @@
+GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
+   LES / Informática / PUC-Rio    Versão 6.00 (c) 2005
+
+Composição do construto: TesteTabuleiro.comp
+
+   Nome do Construto:           TesteTabuleiro
+   Diretório base:              C:\Users\c1310966.LAB-GRAD\Dropbox\prog-modular-damas\Composicao
+
+   Arquivo composição:          TesteTabuleiro.comp
+   Arquivo plataforma:          gmake.parm
+
+   Arquivo diretivas MAKE:      TesteTabuleiro.make
+   Arquivo diretivas LINK:      TesteTabuleiro.build
+   Arquivo listagem:            TesteTabuleiro.list
+
+Módulos do construto: TesteTabuleiro.comp
+
+   Lista.c
+   Peca.c
+   Tabuleiro.c
+   TestTab.c
+
+Estatísticas do construto
+
+   Estatísticas do arquivo: Lista.c
+      Total linhas:             627
+      Linhas de código:         333
+      Linhas de comentário:     154
+      Linhas em branco:         161
+   Arquivos de inclusão de que necessita
+      lista.h
+
+   Estatísticas do arquivo: Peca.c
+      Total linhas:             135
+      Linhas de código:          68
+      Linhas de comentário:      48
+      Linhas em branco:          19
+   Arquivos de inclusão de que necessita
+      peca.h
+
+   Estatísticas do arquivo: TST_Espc.h
+      Total linhas:             226
+      Linhas de código:          23
+      Linhas de comentário:     182
+      Linhas em branco:          21
+   Arquivos em que é incluído
+      TestTab.c
+      generico.h
+
+   Estatísticas do arquivo: Tabuleiro.c
+      Total linhas:             414
+      Linhas de código:         214
+      Linhas de comentário:     137
+      Linhas em branco:          64
+   Arquivos de inclusão de que necessita
+      lista.h
+      tabuleiro.h
+
+   Estatísticas do arquivo: TestTab.c
+      Total linhas:             366
+      Linhas de código:         213
+      Linhas de comentário:      71
+      Linhas em branco:          93
+   Arquivos de inclusão de que necessita
+      TST_Espc.h
+      generico.h
+      lerparm.h
+      peca.h
+      tabuleiro.h
+      tst_espc.h
+
+   Estatísticas do arquivo: generico.h
+      Total linhas:             711
+      Linhas de código:          59
+      Linhas de comentário:     569
+      Linhas em branco:          83
+   Arquivos de inclusão de que necessita
+      TST_Espc.h
+   Arquivos em que é incluído
+      TestTab.c
+
+   Estatísticas do arquivo: lerparm.h
+      Total linhas:             289
+      Linhas de código:          36
+      Linhas de comentário:     185
+      Linhas em branco:          68
+   Arquivos em que é incluído
+      TestTab.c
+
+   Estatísticas do arquivo: lista.h
+      Total linhas:             408
+      Linhas de código:          41
+      Linhas de comentário:     312
+      Linhas em branco:          55
+   Arquivos em que é incluído
+      Lista.c
+      Tabuleiro.c
+
+   Estatísticas do arquivo: peca.h
+      Total linhas:             193
+      Linhas de código:          34
+      Linhas de comentário:     126
+      Linhas em branco:          33
+   Arquivos em que é incluído
+      Peca.c
+      TestTab.c
+
+   Estatísticas do arquivo: tabuleiro.h
+      Total linhas:             245
+      Linhas de código:          35
+      Linhas de comentário:     177
+      Linhas em branco:          33
+   Arquivos em que é incluído
+      Tabuleiro.c
+      TestTab.c
+
+   Estatísticas do arquivo: tst_espc.h
+      Total linhas:             226
+      Linhas de código:          23
+      Linhas de comentário:     182
+      Linhas em branco:          21
+   Arquivos em que é incluído
+      TestTab.c
+
+Totais por tipo de arquivo
+
+  Tipo: h        Path: ..\Fontes
+         Total linhas do tipo:      2298
+         Linhas de código:           251
+         Linhas de comentário:      1733
+         Linhas em branco:           314
+         Arquivos deste tipo:          7
+
+  Tipo: obj      Path: ..\Objetos
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: err      Path: ..\Produto
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: DEFAULT  Path: ..\Fontes
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: c        Path: ..\Fontes
+         Total linhas do tipo:      1542
+         Linhas de código:           828
+         Linhas de comentário:       410
+         Linhas em branco:           337
+         Arquivos deste tipo:          4
+
+Totais para todo o construto TesteTabuleiro
+
+   Total linhas:              3840
+   Linhas de código:          1079
+   Linhas de comentário:      2143
+   Linhas em branco:           651
+   Arquivos processados:        11
+

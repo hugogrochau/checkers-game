@@ -1,0 +1,26 @@
+Data        Horas Trabalhadas   Tipo de Tarefa                                      Descrição da Tarefa Realizada
+
+31/03/2014  1                   Estudar, projetar                                   Estudei o arcabouços
+
+31/03/2014  2                   Codificar, revisar script de teste,
+                                realizar os testes, especificar as funções          Implementei, testei e documentei a função de inserção ordenada do modulo lista
+
+31/03/2014  2                   Codificar, especificar os módulos                   Implementei e parcialmente documentei o módulo Peça
+
+07/04/2014  2                   Projetar                                            Dividi o projeto em diretórios distintos e atualizei os .bats
+
+07/04/2014  2                   Codificar                                           Integrei o módulo Peça com o resto dos módulos e escrevi o módulo de teste para ele.
+
+07/04/2014  1                   Revisar script de teste, realizar os testes         Escrevi o script de teste para Peça e realizei os testes
+
+21/04/2014  2                   Especificar as funções                              Terminei de documentar o resto das funções do módulo peça
+
+21/04/2014  3                   Codificar, revisar script de teste                  Escrevi o script de teste para Tabuleiro
+
+30/04/2014  4			        Codificar, especificar as funções e os módulos	    Revisei todos os modulos, fazendo pequenas alterações
+
+30/04/2014  3                   Codificar, Projetar                                 Escrevi testes para excluir e sobrescrever valor no módulo lista e escrevi o leiame.txt
+
+30/04/2014  2                   Modelar                                             Fiz o modelo da arquitetura e as assertivas estruturais
+
+09/06/2014  4                   Codificar, projetar, especificar                    Planejei e parcialmente implementei os módulos de Jogo e IO

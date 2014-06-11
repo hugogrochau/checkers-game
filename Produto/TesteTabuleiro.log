@@ -1,0 +1,33 @@
+
+!!! Inicio dos testes
+!!!      Construto sob teste: ..\Produto\TesteTabuleiro
+!!!      Script de teste:     ..\Scripts\TesteTabuleiro.script
+
+!!!    0  Linha:     1  // Script:    TesteTabuleiro.script 
+!!!    0  Linha:     2  // Autor:     Hugo Pedrotti Grochau (hpg) 
+!!!    0  Linha:     3  // Data:      21/abr/2014 
+!!!    0  Linha:     4  // Propósito: Testar o módulo tabuleiro 
+    6  == Inicializar valores
+   15  ==Parametros de cor
+   22  == Criar o tabuleiro 0
+   25  == Verificar se o tamanho corresponde
+   28  == Incluir uma peуa
+   31  == Verificar se ela foi inserida
+   34  == Mover a peça
+   37  == Verificar se ela foi movida
+   40  == Destruir a peça
+   43  == Verificar se ela foi destruida
+   46  == Verificar se a peça foi removida
+   52  == Verificar se o módulo reconhece posições invalidas
+   59  == Destruir Tabuleiro
+   62  == Verificar se o tab0 está vazio
+
+!!! N�mero de linhas lidas:          67
+!!! N�mero de casos de teste:        14
+!!! N�mero comandos corretos:        32
+!!! N�mero de falhas encontradas:     0
+
+!!! N�o foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

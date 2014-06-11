@@ -1,0 +1,131 @@
+GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
+   LES / Informática / PUC-Rio    Versão 6.00 (c) 2005
+
+Composição do construto: TestePeca.comp
+
+   Nome do Construto:           TestePeca
+   Diretório base:              C:\Users\c1310966.LAB-GRAD\Dropbox\prog-modular-damas\Composicao
+
+   Arquivo composição:          TestePeca.comp
+   Arquivo plataforma:          gmake.parm
+
+   Arquivo diretivas MAKE:      TestePeca.make
+   Arquivo diretivas LINK:      TestePeca.build
+   Arquivo listagem:            TestePeca.list
+
+Módulos do construto: TestePeca.comp
+
+   TestPeca.c
+   Peca.c
+
+Estatísticas do construto
+
+   Estatísticas do arquivo: Peca.c
+      Total linhas:             135
+      Linhas de código:          68
+      Linhas de comentário:      48
+      Linhas em branco:          19
+   Arquivos de inclusão de que necessita
+      peca.h
+
+   Estatísticas do arquivo: TST_Espc.h
+      Total linhas:             226
+      Linhas de código:          23
+      Linhas de comentário:     182
+      Linhas em branco:          21
+   Arquivos em que é incluído
+      TestPeca.c
+      generico.h
+
+   Estatísticas do arquivo: TestPeca.c
+      Total linhas:             240
+      Linhas de código:         130
+      Linhas de comentário:      54
+      Linhas em branco:          56
+   Arquivos de inclusão de que necessita
+      TST_Espc.h
+      generico.h
+      lerparm.h
+      peca.h
+      tst_espc.h
+
+   Estatísticas do arquivo: generico.h
+      Total linhas:             711
+      Linhas de código:          59
+      Linhas de comentário:     569
+      Linhas em branco:          83
+   Arquivos de inclusão de que necessita
+      TST_Espc.h
+   Arquivos em que é incluído
+      TestPeca.c
+
+   Estatísticas do arquivo: lerparm.h
+      Total linhas:             289
+      Linhas de código:          36
+      Linhas de comentário:     185
+      Linhas em branco:          68
+   Arquivos em que é incluído
+      TestPeca.c
+
+   Estatísticas do arquivo: peca.h
+      Total linhas:             193
+      Linhas de código:          34
+      Linhas de comentário:     126
+      Linhas em branco:          33
+   Arquivos em que é incluído
+      Peca.c
+      TestPeca.c
+
+   Estatísticas do arquivo: tst_espc.h
+      Total linhas:             226
+      Linhas de código:          23
+      Linhas de comentário:     182
+      Linhas em branco:          21
+   Arquivos em que é incluído
+      TestPeca.c
+
+Totais por tipo de arquivo
+
+  Tipo: h        Path: ..\Fontes
+         Total linhas do tipo:      1645
+         Linhas de código:           175
+         Linhas de comentário:      1244
+         Linhas em branco:           226
+         Arquivos deste tipo:          5
+
+  Tipo: obj      Path: ..\Objetos
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: err      Path: ..\Produto
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: DEFAULT  Path: ..\Fontes
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: c        Path: ..\Fontes
+         Total linhas do tipo:       375
+         Linhas de código:           198
+         Linhas de comentário:       102
+         Linhas em branco:            75
+         Arquivos deste tipo:          2
+
+Totais para todo o construto TestePeca
+
+   Total linhas:              2020
+   Linhas de código:           373
+   Linhas de comentário:      1346
+   Linhas em branco:           301
+   Arquivos processados:         7
+
