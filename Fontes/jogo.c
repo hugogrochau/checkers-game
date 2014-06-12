@@ -12,13 +12,11 @@
 *     Versão  Autor     Data        Observações
 *     1       hpg/gmm   09/jun/2014 início desenvolvimento
 *
-*  $ED Descrição do módulo
-*     Implementa a lógica e funcionamento geral do jogo de damas.
-*
 ***************************************************************************/
 
 
 #include <stdio.h>
+#include "jogo.h"
 #include "tabuleiro.h"
 #include "peca.h"
 
@@ -32,9 +30,11 @@
 #define LINHAS 8
 #define COLUNAS 8
 
-
-/* Tipo referência para o jogo */
-typedef JOGO_tpJogo * JOGO_tppJogo;
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 
 /***********************************************************************
 *
@@ -61,7 +61,7 @@ typedef struct JOGO_tagJogo
 } JOGO_tpJogo ;
 
 /* Tipo referência para um jogador */
-typedef JOGO_tpJogador * JOGO_tppJogador;
+typedef JOGO_tpJogador *JOGO_tppJogador;
 
 /***********************************************************************
 *
@@ -117,32 +117,6 @@ typedef struct
 
 /***********************************************************************
 *
-*  $FC Função: JOGO  -Inicializar jogo
-*
-*  $ED Descrição da função
-*      Destroi por completo uma lista. Destroi os elementos e dps a cabeça da lista
-*
-***********************************************************************/
-
-static JOGO_tppJogo JOGO_InicializarJogo (char *NomeJogador1, char *NomeJogador2);
-
-/***********************************************************************
-*
-*  $FC Função: JOGO  -Destruir jogo
-*
-*  $ED Descrição da função
-*      Deleta o jogo, limpado o espaço de memória alocado para ele 
-*      o tabuleiro, e os jogadores
-*
-*  $EP Parâmetros
-*     jogo - referência para o tipo jogo a ser deletado.
-*
-***********************************************************************/
-
-static void JOGO_DestruirJogo (JOGO_tppJogo jogo);
-
-/***********************************************************************
-*
 *  $FC Função: JOGO  -Criar jogador
 *
 *  $ED Descrição da função
@@ -168,7 +142,7 @@ static JOGO_tppJogador JOGO_CriarJogador (char *Nome, PECA_tpCor cor);
 *  $FC Função: JOGO  -Destruir jogador
 *
 *  $ED Descrição da função
-*      Deleta um jogador, limpado o espaço de memória alocado para ele 
+*      Deleta um jogador, limpado o espaço de memória alocado para ele
 *      e seu nome.
 *
 *  $EP Parâmetros
@@ -178,36 +152,7 @@ static JOGO_tppJogador JOGO_CriarJogador (char *Nome, PECA_tpCor cor);
 
 static void JOGO_DestruirJogador (JOGO_tppJogador jogador);
 
-
-/***********************************************************************
-*
-*  $FC Função: JOGO  -Preencher tabuleiro
-*
-*  $ED Descrição da função
-*      Carrega o tabuleiro de um arquivo e insere as peças no tabuleiro
-*
-*  $EP Parâmetros
-*     jogo - Ponteiro para o tipo jogo.
-*     arqTabuleiro - string contedo o path (diretorio/nome) do arquivo.
-*
-*  $FV Valor retornado
-*     CondRetArquivoInvalido - Caso o arquivo não seja aberto ou não exista.
-*     CondRetJogoNaoInicializado - O jogo ainda nao foi inicializado
-*     CondRetArquivoCorrompido - Dados invalidos
-*     CondRetOk - Tabuleiro foi preenchido com sucesso
-*
-***********************************************************************/
-
-static JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro );
-
-int main(void)
-{
-    printf("------JOGO DE DAMAS--------")
-
-}
-
-
-
+/* Código das funções exportadas pelo módulo */
 
 
 /* Definição de funções encapsuladas no módulo */
@@ -218,7 +163,8 @@ int main(void)
 *
 ***********************************************************************/
 
-static JOGO_tppJogo JOGO_InicializarJogo (char *NomeJogador1, char *NomeJogador2) {
+JOGO_tppJogo JOGO_CriarJogo (char *NomeJogador1, char *NomeJogador2)
+{
     JOGO_tppJogo jogo;
     JOGO_tppJogador jogador1, jogador2;
 
@@ -251,7 +197,8 @@ static JOGO_tppJogo JOGO_InicializarJogo (char *NomeJogador1, char *NomeJogador2
 *
 ***********************************************************************/
 
-static void JOGO_DestruirJogo (JOGO_tppJogo jogo) {
+void JOGO_DestruirJogo (JOGO_tppJogo jogo)
+{
     if (jogo != NULL)
     {
         TAB_DestruirTabuleiro(jogo->tabuleiro);
@@ -299,7 +246,8 @@ static JOGO_tppJogador JOGO_CriarJogador (char *Nome, PECA_tpCor cor)
 *
 ***********************************************************************/
 
-static void JOGO_DestruirJogador (JOGO_tppJogador jogador) {
+static void JOGO_DestruirJogador (JOGO_tppJogador jogador)
+{
     if (jogador != NULL)
     {
         free(jogador->nome);
@@ -315,7 +263,8 @@ static void JOGO_DestruirJogador (JOGO_tppJogador jogador) {
 *
 ***********************************************************************/
 
-static JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro ) {
+JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro )
+{
     int i, j;
     PECA_tpStatus status;
     PECA_tpCor cor;
@@ -354,8 +303,50 @@ static JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTa
             }
         }
     }
+
+    fclose(fp);
+
     return JOGO_CondRetOk;
 }
 
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Preencher tabuleiro
+*
+***********************************************************************/
+
+JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro )
+{
+    int i, j;
+    PECA_tpStatus status;
+    PECA_tpCor cor;
+    PECA_tppPeca peca;
+    TAB_tpPosicao pos;
+    TAB_tpCondRed tabCondRet;
+
+    if (fp == NULL)
+    {
+        return JOGO_CondRetArquivoInvalido;
+    }
+
+    if (jogo == NULL)
+    {
+        return JOGO_CondRetJogoNaoInicializado;
+    }
+
+    for (i = 0; i < LINHAS; i++)
+    {
+        for (j = 0; j < COLUNAS; j++)
+        {
+            pos.linha = i;
+            pos.coluna = j;
+            peca = (PECA_tppPeca) TAB_ObterPeca(jogo->tabuleiro, pos);
+            printf(" %d %d ", PECA_ObterStatus(peca), PECA_ObterCor(peca));
+        }
+        printf("\n");
+    }
+
+    return JOGO_CondRetOk;
+}
 
 /********** FIM DO MÓDULO DE IMPLEMENTAÇÃO: TAB  TABULEIRO DE DAMAS OU QUALQUER OUTRO JOGO **********/
