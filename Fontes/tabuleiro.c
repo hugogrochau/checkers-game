@@ -41,10 +41,10 @@ struct TAB_tagTabuleiro
     TAB_tpTamanho tam;
     
     LIS_tppLista coluna;
-    /* PONTEIRO PARA O COMEÇO DA LISTA DE LISTAS */ 
+    /* Ponteiro para o começo da lista de listas */ 
 };
 
-/***** PROTÓTIPOS DAS FUNÇÕES ENCAPULADAS NO MÓDULO *****/
+/***** Protótipos das funções encapuladas no módulo *****/
 
 /***********************************************************************
 *
@@ -100,7 +100,7 @@ static LIS_tppLista TAB_ObterCasa (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
 
 static void TAB_IrInicioTabuleiro (TAB_tppTabuleiro tab);
 
-/*****  CÓDIGO DAS FUNÇÕES EXPORTADAS PELO MÓDULO  *****/
+/*****  Código das funções exportadas pelo módulo  *****/
 
 
 /***********************************************************************
@@ -125,7 +125,7 @@ TAB_tppTabuleiro TAB_CriarTabuleiro (short int colunas, short int linhas, void (
 
     lstCol = LIS_CriarLista(TAB_DestruirLinha);
 
-    /* CRIA COLUNA DE REFERENCIA PARA AS LINHAS. SE A COLUNA FOR NULL, DESTROI O TABULEIRO E RETORNA NULL */
+    /* Cria coluna de referencia para as linhas. se a coluna for null, destroi o tabuleiro e retorna null */
 
     if (lstCol == NULL)
     {
@@ -133,8 +133,8 @@ TAB_tppTabuleiro TAB_CriarTabuleiro (short int colunas, short int linhas, void (
         return NULL;
     }
 
-    /* CRIA AS LINHAS E AS INSERE NA LISTA COLUNA. OS ELEMENTOS DAS LISTAS LINHAS SAO INICIALIZADOS COM NULL. SE OCORRER ALGUM PROBLEMA DE ALOCACAO,
-    DETROU TODA A MEMORIA ALOCADA ATÉ ENTAO E RETORNA NULL */
+    /* Cria as linhas e as insere na lista coluna. os elementos das listas linhas sao inicializados com null. se ocorrer algum problema de alocacao,
+    detrou toda a memoria alocada até entao e retorna null */
 
     for (i = 0; i < linhas ; i++)
     {
@@ -154,7 +154,7 @@ TAB_tppTabuleiro TAB_CriarTabuleiro (short int colunas, short int linhas, void (
         }
     }
 
-    /*ATUALIZA O TAMANHO DO TABULEIRO E SETA O PONTEIRO PARA A COLUNA DE REFERENCIA */
+    /* Atualiza o tamanho do tabuleiro e seta o ponteiro para a coluna de referência */
 
     tab->tam.colunas = colunas;
     tab->tam.linhas = linhas;
@@ -323,7 +323,7 @@ void * TAB_RemoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
     return pDado;
 }
 
-/* DEFINIÇÃO DE FUNÇÕES ENCAPSULADAS NO MODULO */
+/* Código das funções encapsuladas no módulo */
 
 
 /***********************************************************************
@@ -411,4 +411,4 @@ static void TAB_IrInicioTabuleiro (TAB_tppTabuleiro tab)
     IrInicioLista(tab->coluna);
 }
 
-/********** FIM DO MÓDULO DE IMPLEMENTAÇÃO: TAB  TABULEIRO DE DAMAS OU QUALQUER OUTRO JOGO **********/
+/********** Fim do módulo de implementação: TAB  tabuleiro de damas ou qualquer outro jogo **********/
