@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI MÛdulo de implementaÁ„o: JOGO  gerenciador do jogo de damas
+*  $MCI M√≥dulo de implementa√ß√£o: JOGO  gerenciador do jogo de damas
 *
 *  Arquivo gerado:              jogo.c
 *  Letras identificadoras:      JOGO
@@ -8,14 +8,17 @@
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: Gustavo Marques Martins (gmm), Hugo Pedrotti Grochau (hpg)
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor     Data        ObservaÁıes
-*     1       hpg/gmm   09/jun/2014 inÌcio desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor     Data        Observa√ß√µes
+*     1       hpg/gmm   09/jun/2014 in√≠cio desenvolvimento
+*     2       hpg/gmm   13/jun/2014 in√≠cio da l√≥gica de movimento
 *
 ***************************************************************************/
 
 
 #include <stdio.h>
+#include <windows.h>
+#include <string.h>
 #include "jogo.h"
 #include "tabuleiro.h"
 #include "peca.h"
@@ -30,18 +33,12 @@
 #define LINHAS 8
 #define COLUNAS 8
 
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_BLUE    "\x1b[34m"
-#define ANSI_COLOR_MAGENTA "\x1b[35m"
-#define ANSI_COLOR_CYAN    "\x1b[36m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
-
 /***********************************************************************
 *
 *  $TC Tipo de dados: JOGO jogo
 *
 *
-*  $ED DescriÁ„o do tipo
+*  $ED Descri√ß√£o do tipo
 *     Dados sobre o jogo de damas
 *
 ***********************************************************************/
@@ -58,9 +55,11 @@ typedef struct JOGO_tagJogo
     JOGO_tppJogador jogador2;
     /* Segundo jogador */
 
+    JOGO_tppJogador jogadarDaVez; 
+
 } JOGO_tpJogo ;
 
-/* Tipo referÍncia para um jogador */
+/* Tipo refer√™ncia para um jogador */
 typedef JOGO_tpJogador *JOGO_tppJogador;
 
 /***********************************************************************
@@ -68,7 +67,7 @@ typedef JOGO_tpJogador *JOGO_tppJogador;
 *  $TC Tipo de dados: JOGO jogador
 *
 *
-*  $ED DescriÁ„o do tipo
+*  $ED Descri√ß√£o do tipo
 *     Dados de um dos jogadores
 *
 ***********************************************************************/
@@ -82,56 +81,30 @@ typedef struct JOGO_tagJogador
     /* Cor do jogador */
 
     unsigned int jogadas ;
-    /* N˙mero de jogadas */
+    /* N√∫mero de jogadas */
 
 } JOGO_tpJogador
 
-/***********************************************************************
-*
-*  $TC Tipo de dados: JOGO condiÁıes de retorno
-*
-*
-*  $ED DescriÁ„o do tipo
-*     CondiÁıes de retorno das funÁıes do jogo
-*
-***********************************************************************/
 
-typedef struct
-{
-
-    JOGO_CondRetOk,
-    /* Concluiu corretamente */
-
-    JOGO_CondRetArquivoInvalido,
-    /* Ocorreu erro a ler o arquivo */
-
-    JOGO_CondRetArquivoCorrompido,
-    /* Ocorreu erro a interpretar o arquivo */
-
-    JOGO_CondRetJogoNaoInicializado
-    /* O jogo n„o foi inicializado */
-
-} JOGO_tpCondRet
-
-/***** ProtÛtipo das funÁıes encapsuladas no mÛdulo *****/
+/***** Prot√≥tipo das fun√ß√µes encapsuladas no m√≥dulo *****/
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: JOGO  -Criar jogador
+*  $FC Fun√ß√£o: JOGO  -Criar jogador
 *
-*  $ED DescriÁ„o da funÁ„o
+*  $ED Descri√ß√£o da fun√ß√£o
 *      Cria um jogador, dando um nome e uma cor a ele(a).
 *
-*  $EP Par‚metros
+*  $EP Par√¢metros
 *     Nome - String contendo o nome do jogador.
-*     cor - A cor das peÁas do jogador (pretas ou brancas).
+*     cor - A cor das pe√ßas do jogador (pretas ou brancas).
 *
 *  $FV Valor retornado
 *     Se executou corretamente retorna o ponteiro para o jogador.
 *
-*     Se ocorreu algum erro, por exemplo falta de memÛria ou dados errados,
-*     a funÁ„o retornar· NULL.
-*     N„o ser· dada mais informaÁ„o quanto ao problema ocorrido.
+*     Se ocorreu algum erro, por exemplo falta de mem√≥ria ou dados errados,
+*     a fun√ß√£o retornar√° NULL.
+*     N√£o ser√° dada mais informa√ß√£o quanto ao problema ocorrido.
 *
 ***********************************************************************/
 
@@ -139,31 +112,55 @@ static JOGO_tppJogador JOGO_CriarJogador (char *Nome, PECA_tpCor cor);
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: JOGO  -Destruir jogador
+*  $FC Fun√ß√£o: JOGO  -Destruir jogador
 *
-*  $ED DescriÁ„o da funÁ„o
-*      Deleta um jogador, limpado o espaÁo de memÛria alocado para ele
+*  $ED Descri√ß√£o da fun√ß√£o
+*      Deleta um jogador, limpado o espa√ßo de mem√≥ria alocado para ele
 *      e seu nome.
 *
-*  $EP Par‚metros
-*     jogador - referÍncia para o tipo jogador a ser deletado.
+*  $EP Par√¢metros
+*     jogador - refer√™ncia para o tipo jogador a ser deletado.
 *
 ***********************************************************************/
 
 static void JOGO_DestruirJogador (JOGO_tppJogador jogador);
 
-/* CÛdigo das funÁıes exportadas pelo mÛdulo */
-
-
-/* DefiniÁ„o de funÁıes encapsuladas no mÛdulo */
-
 /***********************************************************************
 *
-*  $FC FunÁ„o: JOGO  -Iniciar o jogo
+*  $FC Fun√ß√£o: JOGO  -Obter Cor Pe√ßa
+*
+*  $ED Descri√ß√£o da fun√ß√£o
+*      Calcula com que cor a pe√ßa ser√° imprimida dependendo do seu status
+*      e cor.
+*
+*  $EP Par√¢metros
+*     peca - a pe√ßa que est√° sendo impressa.
+*  
+*  $FV Valor retornado
+*     FOREGROUND_BLUE se a pe√ßa for azul
+*     FOREGROUND_RED se a pe√ßa for vermelha
+*     COR | FOREGROUND_INTENSITY se a pe√ßa for uma dama
+*     NULL se a pe√ßa tiver uma cor inv√°lida
 *
 ***********************************************************************/
 
-JOGO_tppJogo JOGO_CriarJogo (char *NomeJogador1, char *NomeJogador2)
+static WORD JOGO_ObterCorPeca(PECA_tppPeca peca);
+
+static int JOGO_MovimentoValido(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino);
+
+static int JOGO_PodeComer(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino)
+
+
+/* C√≥digo das fun√ß√µes exportadas pelo m√≥dulo */
+
+
+/***********************************************************************
+*
+*  $FC Fun√ß√£o: JOGO  -Criar jogo
+*
+***********************************************************************/
+
+JOGO_tppJogo JOGO_CriarJogo (char *nomeJogador1, char *nomeJogador2)
 {
     JOGO_tppJogo jogo;
     JOGO_tppJogador jogador1, jogador2;
@@ -173,8 +170,8 @@ JOGO_tppJogo JOGO_CriarJogo (char *NomeJogador1, char *NomeJogador2)
     {
         return NULL;
     }
-    jogo->jogador1 = JOGO_CriarJogador(NomeJogador1, PECA_CorBranca);
-    jogo->jogador2 = JOGO_CriarJogador(NomeJogador2, PECA_CorPreta);
+    jogo->jogador1 = JOGO_CriarJogador(nomeJogador1, PECA_CorBranca);
+    jogo->jogador2 = JOGO_CriarJogador(nomeJogador2, PECA_CorPreta);
     if (jogo->jogador1 == NULL || jogo->jogador2 == NULL)
     {
         JOGO_DestruirJogo(jogo);
@@ -193,7 +190,7 @@ JOGO_tppJogo JOGO_CriarJogo (char *NomeJogador1, char *NomeJogador2)
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: JOGO  -Destruir Jogo
+*  $FC Fun√ß√£o: JOGO  -Destruir Jogo
 *
 ***********************************************************************/
 
@@ -214,52 +211,7 @@ void JOGO_DestruirJogo (JOGO_tppJogo jogo)
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: JOGO  -Criar jogador
-*
-***********************************************************************/
-
-static JOGO_tppJogador JOGO_CriarJogador (char *Nome, PECA_tpCor cor)
-{
-    JOGO_tppJogador jog = (JOGO_tppJogador) malloc (sizeof(JOGO_tppJogador));
-    size_t strsize = 0;
-    if (jog == NULL)
-        return NULL;
-
-    strsize = strlen(Nome);
-    jog->nome = (char *) malloc (strsize);
-
-    if (jog->nome == NULL)
-    {
-        free(jog);
-        return NULL;
-    }
-
-    strcpy(jog->nome, Nome);
-    jog->cor = cor;
-    jog->jogadas = 0;
-    return jog;
-}
-
-/***********************************************************************
-*
-*  $FC FunÁ„o: JOGO  -Destruir Jogador
-*
-***********************************************************************/
-
-static void JOGO_DestruirJogador (JOGO_tppJogador jogador)
-{
-    if (jogador != NULL)
-    {
-        free(jogador->nome);
-        jogador->nome = NULL;
-        free(jogador);
-        jogador = NULL;
-    }
-}
-
-/***********************************************************************
-*
-*  $FC FunÁ„o: JOGO  -Preencher tabuleiro
+*  $FC Fun√ß√£o: JOGO  -Preencher tabuleiro
 *
 ***********************************************************************/
 
@@ -270,7 +222,7 @@ JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro
     PECA_tpCor cor;
     PECA_tppPeca peca;
     TAB_tpPosicao pos;
-    TAB_tpCondRed tabCondRet;
+    TAB_tpCondRet tabCondRet;
 
     if (fp == NULL)
     {
@@ -311,23 +263,21 @@ JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: JOGO  -Preencher tabuleiro
+*  $FC Fun√ß√£o: JOGO  -Imprimir tabuleiro
 *
 ***********************************************************************/
 
-JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro )
+JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo)
 {
     int i, j;
     PECA_tpStatus status;
     PECA_tpCor cor;
     PECA_tppPeca peca;
     TAB_tpPosicao pos;
-    TAB_tpCondRed tabCondRet;
-
-    if (fp == NULL)
-    {
-        return JOGO_CondRetArquivoInvalido;
-    }
+    TAB_tpCondRet tabCondRet;
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+    WORD saved_attributes;
 
     if (jogo == NULL)
     {
@@ -341,12 +291,269 @@ JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro 
             pos.linha = i;
             pos.coluna = j;
             peca = (PECA_tppPeca) TAB_ObterPeca(jogo->tabuleiro, pos);
-            printf(" %d %d ", PECA_ObterStatus(peca), PECA_ObterCor(peca));
+            SetConsoleTextAttribute(hConsole, JOGO_ObterCorPeca(peca));
+            printf(" √∏ ");
         }
         printf("\n");
     }
-
+    SetConsoleTextAttribute(hConsole, saved_attributes);
     return JOGO_CondRetOk;
 }
 
-/********** FIM DO M”DULO DE IMPLEMENTA«√O: TAB  TABULEIRO DE DAMAS OU QUALQUER OUTRO JOGO **********/
+/***********************************************************************
+*
+*  $FC Fun√ß√£o: JOGO  -Executar Jogada
+*
+***********************************************************************/
+
+JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo)
+{
+    char temp1, temp2;
+    TAB_tpPosicao origem, destino;
+    PECA_tppPeca = pecaMov;
+
+    if (jogo == NULL)
+    {
+        return JOGO_CondRetJogoNaoInicializado;
+    }
+
+    printf(" Escolha sua jogada (ex: 3a 5b): ");
+    scanf(" %hd%c %hd%c", &origem.linha, &temp1,
+                        &destino.linha,  &temp2);
+
+    /* convertendo as letras das colunas coordenadas */
+    tolower(temp1);
+    tolower(temp2);
+    temp1 -= 'a'; 
+    temp2 -= 'a';
+    origem.coluna = (short int) temp1;
+    destino.coluna = (short int) temp2;
+    
+    if (!JOGO_MovimentoValido(jogo, origem, destino))
+    {
+        return JOGO_CondRetJogadaInvalida;
+    }
+
+    switch (TAB_MoverPeca(jogo->tabuleiro, origem, destino))
+    {
+    case TAB_CondRetTabuleiroVazio:
+        return JOGO_CondRetJogoNaoInicializado;
+    case TAB_CondRetPosicaoInvalida:
+        return JOGO_CondRetJogadaInvalida;
+    }
+    
+    return JOGO_CondRetOk;
+}
+
+/* C√≥digo das fun√ß√µes encapsuladas no m√≥dulo */
+
+/***********************************************************************
+*
+*  $FC Fun√ß√£o: JOGO  -Criar jogador
+*
+***********************************************************************/
+
+static JOGO_tppJogador JOGO_CriarJogador (char *nome, PECA_tpCor cor)
+{
+    JOGO_tppJogador jogador = (JOGO_tppJogador) malloc (sizeof(JOGO_tppJogador));
+    size_t strsize = 0;
+    if (jogador == NULL)
+        return NULL;
+
+    strsize = strlen(nome);
+    jogador->nome = (char *) malloc (strsize);
+
+    if (jogador->nome == NULL)
+    {
+        free(jogador);
+        return NULL;
+    }
+
+    strcpy(jogador->nome, nome);
+    jogador->cor = cor;
+    jogador->jogadas = 0;
+    return jogador;
+}
+
+/***********************************************************************
+*
+*  $FC Fun√ß√£o: JOGO  -Destruir Jogador
+*
+***********************************************************************/
+
+static void JOGO_DestruirJogador (JOGO_tppJogador jogador)
+{
+    if (jogador != NULL)
+    {
+        free(jogador->nome);
+        jogador->nome = NULL;
+        free(jogador);
+        jogador = NULL;
+    }
+}
+
+/***********************************************************************
+*
+*  $FC Fun√ß√£o: JOGO  -Obter cor peca
+*
+***********************************************************************/
+
+WORD JOGO_ObterCorPeca(PECA_tppPeca peca) 
+{
+    WORD cor = NULL;
+    if (PECA_ObterCor(peca) == PECA_CorBranca)
+    {
+        cor = FOREGROUND_BLUE;
+    }
+    else if (PECA_ObterCor(peca) == PECA_CorPreta)
+    {
+        cor = FOREGROUND_RED;
+    }
+    if (PECA_ObterStatus(peca) == PECA_StatusDama)
+    {    
+        cor |= FOREGROUND_INTENSITY;
+    }
+    return cor;
+}
+
+/***********************************************************************
+*
+*  $FC Fun√ß√£o: JOGO  -For√ßado a comer
+*
+***********************************************************************/
+
+static int JOGO_MovimentoValido(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino)
+{
+    pecaMov = (PECA_tppPeca *) TAB_ObterPeca(jogo->tabuleiro, origem);
+
+    /* conferindo se a pe√ßa existe ou se j√° existe alguma pe√ßa no destino */
+    if (pecaMov == NULL || TAB_ObterPeca(jogo->tabuleiro, destino) != NULL))
+    {
+        return FALSE;
+    }
+
+    if (PECA_ObterCor(pecaMov) != jogadorDaVez->cor)
+    {
+        return FALSE;
+    }
+
+    if (PECA_ObterCor(pecaMov) == PECA_CorPreta)
+    {
+        if (PECA_ObterStatus(pecaMov) == PECA_StatusNormal)
+        {
+            if (destino.linha < origem.linha)
+            {
+                return FALSE;
+            }
+            if (JOGO_PodeComer(jogo, origem, destino))
+            {
+                return TRUE;
+            }
+        }
+    }
+    else if (PECA_ObterCor(pecaMov) == PECA_CorBranca)
+    {
+        if (PECA_ObterStatus(pecaMov) == PECA_StatusNormal)
+        {
+            if (destino.linha > origem.linha)
+            {
+                return FALSE;
+            }
+        }
+    }
+
+    return FALSE;
+
+}
+
+/***********************************************************************
+*
+*  $FC Fun√ß√£o: JOGO  -Pode comer
+*
+***********************************************************************/
+static int JOGO_PodeComer(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino)
+{
+    typedef enum {
+        NE = 1,
+        /* nordeste*/
+        SE = 2,
+        /* sudeste*/
+        SO = 3,
+        /* sudoeste*/
+        NO = 4
+        /* noroeste*/
+    } tpDirecao;
+
+    tpDirecao direcao;
+    int achouPeca = 0;
+
+    if (destino.linha > origem.linha) {
+        if (destino.coluna > origem.coluna)
+        {
+            direcao = SE;
+        } 
+        else
+        {
+            direco = SO;
+        }
+    }
+    else
+    {
+        if (destino.coluna > origem.coluna)
+        {
+            direcao = NE;
+        } 
+        else
+        {
+            direco = NO;
+        }
+    }
+
+    while (origem.linha != destino.linha && origem.coluna != destino.coluna)
+    {
+        switch (direcao)
+        {
+            case NE:
+                origem.linha--;
+                origem.coluna++;
+                break;
+            case SE:
+                origem.linha++;
+                origem.coluna++;
+                break;
+            case SO:
+                origem.linha++;
+                origem.coluna--;
+                break;
+            case NO:
+                origem.linha--;
+                origem.coluna--;
+                break;
+
+        }
+
+        if (TAB_ObterPeca(jogo->tabuleiro, origem) != NULL)
+        {
+            /* J√° tinha achado uma pe√ßa na √∫ltima itera√ß√£o */
+            if (achouPeca)
+            {
+                return FALSE;
+            }
+            achouPeca = true;
+        } 
+        else
+        {
+            if (achouPeca)
+            {
+                return TRUE;
+            }
+        }
+
+        /* Chegou no final do tabuleiro */
+        if (!TAB_ChecarPos(jogo->tabuleiro, origem))
+        {
+            return FALSE;
+        }
+    }
+}
+/********** Fim do m√≥dulo de implementa√ß√£o: JOGO  gerenciador do jogo de damas **********/

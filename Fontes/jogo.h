@@ -2,7 +2,7 @@
 #define JOGO_
 
 /***************************************************************************
-*  $MCI MÛdulo de definiÁ„o: JOGO  gerenciador do jogo de damas
+*  $MCI M√≥dulo de defini√ß√£o: JOGO  gerenciador do jogo de damas
 *
 *  Arquivo gerado:              jogo.c
 *  Letras identificadoras:      JOGO
@@ -11,12 +11,13 @@
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: Gustavo Marques Martins (gmm), Hugo Pedrotti Grochau (hpg)
 *
-*  $HA HistÛrico de evoluÁ„o:
-*     Vers„o  Autor     Data        ObservaÁıes
-*     1       hpg/gmm   09/jun/2014 inÌcio desenvolvimento
+*  $HA Hist√≥rico de evolu√ß√£o:
+*     Vers√£o  Autor     Data        Observa√ß√µes
+*     1       hpg/gmm   09/jun/2014 in√≠cio desenvolvimento
+*     2       hpg/gmm   13/jun/2014 in√≠cio da l√≥gica de movimento
 *
-*  $ED DescriÁ„o do mÛdulo
-*     Implementa a lÛgica e funcionamento geral do jogo de damas.
+*  $ED Descri√ß√£o do m√≥dulo
+*     Implementa a l√≥gica e funcionamento geral do jogo de damas.
 *
 ***************************************************************************/
 
@@ -26,32 +27,70 @@
 #define JOGO_EXT extern
 #endif
 
-/***** DeclaraÁıes exportadas pelo mÛdulo *****/
+/***** Declara√ß√µes exportadas pelo m√≥dulo *****/
 
-/* Tipo referÍncia para o jogo */
+/***********************************************************************
+*
+*  $TC Tipo de dados: JOGO condi√ß√µes de retorno
+*
+*
+*  $ED Descri√ß√£o do tipo
+*     Condi√ß√µes de retorno das fun√ß√µes do jogo
+*
+***********************************************************************/
+
+typedef struct
+{
+    JOGO_CondRetOk,
+    /* Concluiu corretamente */
+
+    JOGO_CondRetJogadaInvalida,
+    /* O jogador tentou fazer uma jogada invalida */
+
+    JOGO_CondRetArquivoInvalido,
+    /* Ocorreu erro a ler o arquivo */
+
+    JOGO_CondRetArquivoCorrompido,
+    /* Ocorreu erro a interpretar o arquivo */
+
+    JOGO_CondRetJogoNaoInicializado
+    /* O jogo n√£o foi inicializado */
+
+} JOGO_tpCondRet
+
+/* Tipo refer√™ncia para o jogo */
 typedef JOGO_tpJogo *JOGO_tppJogo;
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: JOGO  -Inicializar jogo
+*  $FC Fun√ß√£o: JOGO  -Criar jogo
 *
-*  $ED DescriÁ„o da funÁ„o
-*      Destroi por completo uma lista. Destroi os elementos e dps a cabeÁa da lista
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Cria uma nova inst√¢ncia de um jogo de damas, incializando todos
+*	  os dados necess√°rios com o estado de in√≠cio de jogo.
+*	
+*  $EP Par√¢metros
+*     nomeJogador1 - o nome do primeiro jogador.
+*	  nomeJogador2 - o nome do segundo jogador.
 *
+*  $FV Valor retornado
+*     Se executou corretamente retorna o ponteiro para o jogo.
+*	  Se ocorreu algum erro, a fun√ß√£o retornar√° NULL
+* 
 ***********************************************************************/
 
 JOGO_tppJogo JOGO_CriarJogo (char *NomeJogador1, char *NomeJogador2);
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: JOGO  -Destruir jogo
+*  $FC Fun√ß√£o: JOGO  -Destruir jogo
 *
-*  $ED DescriÁ„o da funÁ„o
-*      Deleta o jogo, limpado o espaÁo de memÛria alocado para ele
-*      o tabuleiro, e os jogadores
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Deleta o jogo, limpando o espa√ßo de mem√≥ria alocado para ele
+*     o tabuleiro, e os jogadores
 *
-*  $EP Par‚metros
-*     jogo - referÍncia para o tipo jogo a ser deletado.
+*  $EP Par√¢metros
+*     jogo - refer√™ncia para o tipo jogo a ser deletado.
 *
 ***********************************************************************/
 
@@ -59,18 +98,18 @@ void JOGO_DestruirJogo (JOGO_tppJogo jogo);
 
 /***********************************************************************
 *
-*  $FC FunÁ„o: JOGO  -Preencher tabuleiro
+*  $FC Fun√ß√£o: JOGO  -Preencher tabuleiro
 *
-*  $ED DescriÁ„o da funÁ„o
-*      Carrega o tabuleiro de um arquivo e insere as peÁas no tabuleiro
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Carrega o tabuleiro de um arquivo e insere as pe√ßas no tabuleiro
 *
-*  $EP Par‚metros
-*     jogo - Ponteiro para o tipo jogo.
+*  $EP Par√¢metros
+*     jogo - Ponteiro para o jogo a ser impresso.
 *     arqTabuleiro - string contedo o path (diretorio/nome) do arquivo.
 *
 *  $FV Valor retornado
-*     CondRetArquivoInvalido - Caso o arquivo n„o seja aberto ou n„o exista.
-*     CondRetJogoNaoInicializado - O jogo ainda nao foi inicializado
+*     CondRetArquivoInvalido - Caso o arquivo n√£o seja aberto ou n√£o exista.
+*     CondRetJogoNaoInicializado - O jogo ainda n√£o foi inicializado
 *     CondRetArquivoCorrompido - Dados invalidos
 *     CondRetOk - Tabuleiro foi preenchido com sucesso
 *
@@ -78,12 +117,28 @@ void JOGO_DestruirJogo (JOGO_tppJogo jogo);
 
 JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro );
 
+/***********************************************************************
+*
+*  $FC Fun√ß√£o: JOGO  -Imprimir tabuleiro
+*
+*  $ED Descri√ß√£o da fun√ß√£o
+*     Imprime uma representa√ß√£o visual do tabuleiro em um console do
+*     Windows
+*
+*  $EP Par√¢metros
+*     jogo - Ponteiro para o jogo a ser impresso.
+*
+*  $FV Valor retornado
+*     CondRetJogoNaoInicializado - O jogo ainda n√£o foi inicializado
+*     CondRetOk - Tabuleiro foi impresso com sucesso
+*
+***********************************************************************/
 
-JOGO_tpCondRet JOGO_SalvarTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro );
+JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo);
 
 #undef JOGO_EXT
 
-/********** Fim do mÛdulo de definiÁ„o: PECA  PeÁa de tabuleiro de damas **********/
+/********** Fim do m√≥dulo de defini√ß√£o: PECA  Pe√ßa de tabuleiro de damas **********/
 
 #else
 #endif

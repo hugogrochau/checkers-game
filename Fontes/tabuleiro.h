@@ -14,6 +14,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*     4       hpg	13/jun/2014 	Tornou ChecarPos publica
 *     3       gmm   19/abr/2014 	Mais implementação
 *     2       gmm   18/abr/2014 	Mais implementação
 *     1       gmm   16/abr/2014 	início desenvolvimento
@@ -235,7 +236,20 @@ void *TAB_ObterPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
 *
 ***********************************************************************/
 
-TAB_tpCondRet TAB_MoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao Original, TAB_tpPosicao Destino);
+TAB_tpCondRet TAB_MoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao original, TAB_tpPosicao destino);
+
+/***********************************************************************
+*
+*  $FC Função: TAB  -Checar posição
+*
+*  $ED Descrição da função
+*      Checa se a posição é invalida ou nao. Para ser invalida,
+*      POS < 0 ou POS >= tabuleiro.tamanho
+*      Se a posicao for valida retorna 1, se for invaliad retorna 0
+*
+***********************************************************************/
+
+int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
 
 #undef TAB_EXT
 
