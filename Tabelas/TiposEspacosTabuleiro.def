@@ -1,0 +1,27 @@
+#if ! defined( TIPOS_TABULEIRO_ )
+#define TIPOS_TABULEIRO_
+/***************************************************************************
+*
+*  $MCD Arquivo de definição: TiposEspacosTabuleiro.def
+*
+*  Projeto: INF 1301 / 1628 Jogo de Damas
+*  Gestor:  LES/DI/PUC-Rio
+*  Autores: Hugo Pedrotti Grochau (hpg)
+*
+*  $ED Descrição do arquivo
+*     Este arquivo declara os identificadores de tipos dos espaços de dados
+*	  utilizados pelo módulo tabuleiro. O módulo obedece o padrão estabelecido
+*     pelo módulo CNTESPAC. Ou seja, contém uma seqüência de declaradores
+*     a serem incluídos em um enum. Cada declarador corresponde a um dos
+*     tipos de espaço de dados.
+*
+***************************************************************************/
+
+      TAB_TipoEspacoCabeca , 
+      TAB_TipoEspacoColuna ,
+      TAB_TipoEspacoLinha ,
+      TAB_TipoEspacoPeca ,
+
+/********** Fim do arquivo de definição: TiposEspacosArvore.def  **********/
+
+#endif
