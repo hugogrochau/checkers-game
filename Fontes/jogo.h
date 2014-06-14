@@ -44,6 +44,9 @@ typedef struct
     JOGO_CondRetOk,
     /* Concluiu corretamente */
 
+	TAB_CondRetJogoAcabou,
+	/* O jogo terminou */
+
     JOGO_CondRetJogadaInvalida,
     /* O jogador tentou fazer uma jogada invalida */
 
