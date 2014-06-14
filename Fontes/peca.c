@@ -31,11 +31,9 @@
 
 typedef struct PECA_tagPeca
 {
-
-    PECA_tpCor cor ;
-    PECA_tpStatus status ;
-
-} PECA_tpPeca ;
+    PECA_tpCor cor;
+    PECA_tpStatus status;
+} PECA_tpPeca;
 
 
 /*****  Código das funções exportadas pelo módulo  *****/
@@ -48,18 +46,15 @@ typedef struct PECA_tagPeca
 
 PECA_tppPeca PECA_CriarPeca(PECA_tpCor cor)
 {
-    PECA_tppPeca pPeca = NULL ;
-    pPeca = (PECA_tppPeca) malloc(sizeof(PECA_tpPeca)) ;
-#ifdef _DEBUG
-    assert( pPeca != NULL ) ;
-#endif
+    PECA_tppPeca pPeca = NULL;
+    pPeca = (PECA_tppPeca) malloc(sizeof(PECA_tpPeca));
     if ( pPeca == NULL )
     {
         return NULL;
     }
-    pPeca->cor = cor ;
-    pPeca->status = PECA_StatusNormal ;
-    return pPeca ;
+    pPeca->cor = cor;
+    pPeca->status = PECA_StatusNormal;
+    return pPeca;
 }
 
 /***********************************************************************
@@ -70,14 +65,11 @@ PECA_tppPeca PECA_CriarPeca(PECA_tpCor cor)
 
 PECA_tpCor PECA_ObterCor(PECA_tppPeca pPeca)
 {
-#ifdef _DEBUG
-    assert( pPeca != NULL ) ;
-#endif
     if (pPeca == NULL)
     {
         return PECA_CorInvalida;
     }
-    return pPeca->cor ;
+    return pPeca->cor;
 }
 
 /***********************************************************************
@@ -88,14 +80,11 @@ PECA_tpCor PECA_ObterCor(PECA_tppPeca pPeca)
 
 PECA_tpStatus PECA_ObterStatus(PECA_tppPeca pPeca)
 {
-#ifdef _DEBUG
-    assert( pPeca != NULL ) ;
-#endif
     if (pPeca == NULL)
     {
         return PECA_StatusInvalido;
     }
-    return pPeca->status ;
+    return pPeca->status;
 }
 
 /***********************************************************************
@@ -108,14 +97,14 @@ PECA_tpCondRet PECA_VirarDama(PECA_tppPeca pPeca)
 {
     if (pPeca == NULL)
     {
-        return PECA_CondRetNaoExiste ;
+        return PECA_CondRetNaoExiste;
     }
     if (pPeca->status == PECA_StatusDama)
     {
-        return PECA_CondRetEhDama ;
+        return PECA_CondRetEhDama;
     }
-    pPeca->status = PECA_StatusDama ;
-    return PECA_CondRetOK ;
+    pPeca->status = PECA_StatusDama;
+    return PECA_CondRetOK;
 }
 
 /***********************************************************************

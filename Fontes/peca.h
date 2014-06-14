@@ -1,4 +1,4 @@
-#if ! defined( PECA_ )
+#if !defined( PECA_ )
 #define PECA_
 
 /***************************************************************************
@@ -47,12 +47,10 @@ typedef struct PECA_tagPeca *PECA_tppPeca;
 
 typedef enum
 {
-
     PECA_CorInvalida = -1,
     PECA_CorPreta = 0,
     PECA_CorBranca = 1
-
-} PECA_tpCor ;
+} PECA_tpCor;
 
 /***********************************************************************
 *
@@ -66,12 +64,10 @@ typedef enum
 
 typedef enum
 {
-
     PECA_StatusInvalido = -1,
     PECA_StatusNormal = 0,
     PECA_StatusDama = 1
-
-} PECA_tpStatus ;
+} PECA_tpStatus;
 
 /***********************************************************************
 *
@@ -85,7 +81,6 @@ typedef enum
 
 typedef enum
 {
-
     PECA_CondRetOK = 0,
     /* Concluiu corretamente */
 
@@ -93,10 +88,8 @@ typedef enum
     /* A peça já é uma dama */
 
     PECA_CondRetNaoExiste = 2
-    /* A peça ou foi deleta ou criada incorretamente */
-
-
-} PECA_tpCondRet ;
+    /* A peça ou foi deletada ou criada incorretamente */
+} PECA_tpCondRet;
 
 /***********************************************************************
 *
@@ -116,7 +109,7 @@ typedef enum
 *
 ***********************************************************************/
 
-PECA_tppPeca PECA_CriarPeca( PECA_tpCor cor ) ;
+PECA_tppPeca PECA_CriarPeca( PECA_tpCor cor );
 
 /***********************************************************************
 *
@@ -133,7 +126,7 @@ PECA_tppPeca PECA_CriarPeca( PECA_tpCor cor ) ;
 *
 ***********************************************************************/
 
-PECA_tpCor PECA_ObterCor( PECA_tppPeca pPeca ) ;
+PECA_tpCor PECA_ObterCor( PECA_tppPeca pPeca );
 
 /***********************************************************************
 *
@@ -150,7 +143,7 @@ PECA_tpCor PECA_ObterCor( PECA_tppPeca pPeca ) ;
 *
 ***********************************************************************/
 
-PECA_tpStatus PECA_ObterStatus( PECA_tppPeca pPeca ) ;
+PECA_tpStatus PECA_ObterStatus( PECA_tppPeca pPeca );
 
 /***********************************************************************
 *
@@ -163,13 +156,13 @@ PECA_tpStatus PECA_ObterStatus( PECA_tppPeca pPeca ) ;
 *     pPeca - O ponteiro para a peça que deve virar uma dama.
 *
 *  $FV Valor retornado
-*   PECA_CondRetOK se a peça virou uma dama 
+*   PECA_CondRetOK se a peça virou uma dama
 *   PECA_CondRetEhDama se a peça já era uma dama
 *   PECA_CondRetNaoExiste se a peça não existe
 *
 ***********************************************************************/
 
-PECA_tpCondRet PECA_VirarDama( PECA_tppPeca pPeca ) ;
+PECA_tpCondRet PECA_VirarDama( PECA_tppPeca pPeca );
 
 /***********************************************************************
 *
@@ -183,7 +176,7 @@ PECA_tpCondRet PECA_VirarDama( PECA_tppPeca pPeca ) ;
 *
 ***********************************************************************/
 
-void PECA_DestruirPeca( PECA_tppPeca pPeca ) ;
+void PECA_DestruirPeca( PECA_tppPeca pPeca );
 
 #undef PECA_EXT
 

@@ -30,13 +30,11 @@
 #undef tabuleiro_OWN
 
 #ifdef _DEBUG
-    #include "generico.h"
-    #include "cespdin.h"
-    #include "..\\tabelas\\TiposEspacosTabuleiro.def"
-    #include "conta.h"
+#include "generico.h"
+#include "cespdin.h"
+#include "..\\tabelas\\TiposEspacosTabuleiro.def"
+#include "conta.h"
 #endif
-
-
 
 #define TRUE  1
 #define FALSE 0
@@ -50,9 +48,9 @@
 struct TAB_tagTabuleiro
 {
     TAB_tpTamanho tam;
-    
+
     LIS_tppLista coluna;
-    /* Ponteiro para o começo da lista de listas */ 
+    /* Ponteiro para o começo da lista de listas */
 };
 
 /***** Protótipos das funções encapuladas no módulo *****/
@@ -63,7 +61,7 @@ struct TAB_tagTabuleiro
 *
 ***********************************************************************/
 
-static void TAB_DestruirLinha (void * lstLin);
+static void TAB_DestruirLinha (void *lstLin);
 
 /***********************************************************************
 *
@@ -81,7 +79,7 @@ static void TAB_DestruirLista (LIS_tppLista lst);
 *  $FC Função: TAB  -Obter casa
 *
 *  $ED Descrição da função
-*      Retorna uma lista apontando para a posição desejada 
+*      Retorna uma lista apontando para a posição desejada
 *
 ***********************************************************************/
 
@@ -92,7 +90,7 @@ static LIS_tppLista TAB_ObterCasa (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
 *  $FC Função: TAB  -Ir inicio tabuleiro
 *
 *  $ED Descrição da função
-*      Vai para o inicio do tabuleiro, resetando posição onde estava 
+*      Vai para o inicio do tabuleiro, resetando posição onde estava
 *
 ***********************************************************************/
 
@@ -116,16 +114,16 @@ TAB_tppTabuleiro TAB_CriarTabuleiro (short int colunas, short int linhas, void (
 
     tab = (TAB_tppTabuleiro) malloc(sizeof(struct TAB_tagTabuleiro));
 
-    if (tab == NULL) 
+    if (tab == NULL)
     {
         return NULL;
     }
 
     lstCol = LIS_CriarLista(TAB_DestruirLinha);
 
-    #ifdef _DEBUG
-        CED_DefinirTipoEspaco(lstCol, TAB_TipoEspacoColuna);
-    #endif
+#ifdef _DEBUG
+    CED_DefinirTipoEspaco(lstCol, TAB_TipoEspacoColuna);
+#endif
 
     /* Cria coluna de referencia para as linhas. se a coluna for null, destroi o tabuleiro e retorna null */
 
@@ -140,10 +138,10 @@ TAB_tppTabuleiro TAB_CriarTabuleiro (short int colunas, short int linhas, void (
 
     for (i = 0; i < linhas ; i++)
     {
-        lstLin = LIS_CriarLista(DestruirPeca);  /* PASSAR A FUNÇÃO DE DESTRUIR A PECA AQUI */
-        #ifdef _DEBUG
-            CED_DefinirTipoEspaco(lstLin, TAB_TipoEspacoLinha);
-        #endif
+        lstLin = LIS_CriarLista(DestruirPeca);
+#ifdef _DEBUG
+        CED_DefinirTipoEspaco(lstLin, TAB_TipoEspacoLinha);
+#endif
         for (j = 0; j < colunas; j++)
         {
             if (LIS_InserirElementoAntes(lstLin, NULL) != LIS_CondRetOK)
@@ -165,9 +163,9 @@ TAB_tppTabuleiro TAB_CriarTabuleiro (short int colunas, short int linhas, void (
     tab->tam.linhas = linhas;
     tab->coluna = lstCol;
 
-    #ifdef _DEBUG
-        CED_DefinirTipoEspaco(tab, TAB_TipoEspacoCabeca);
-    #endif
+#ifdef _DEBUG
+    CED_DefinirTipoEspaco(tab, TAB_TipoEspacoCabeca);
+#endif
 
     return tab;
 }
@@ -180,7 +178,7 @@ TAB_tppTabuleiro TAB_CriarTabuleiro (short int colunas, short int linhas, void (
 
 void TAB_DestruirTabuleiro (TAB_tppTabuleiro tab)
 {
-    if (tab == NULL) 
+    if (tab == NULL)
     {
         return;
     }
@@ -205,10 +203,10 @@ TAB_tpTamanho TAB_ObterTamanho (TAB_tppTabuleiro tab)
 *
 ***********************************************************************/
 
-TAB_tpCondRet TAB_IncluirPeca (TAB_tppTabuleiro tab, void * pPeca, TAB_tpPosicao pos)
+TAB_tpCondRet TAB_IncluirPeca (TAB_tppTabuleiro tab, void *pPeca, TAB_tpPosicao pos)
 {
     LIS_tppLista lst;
-    if (tab == NULL) 
+    if (tab == NULL)
     {
         return TAB_CondRetTabuleiroVazio;
     }
@@ -235,12 +233,12 @@ TAB_tpCondRet TAB_MoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao origem, TAB_tpP
     LIS_tppLista lst;
     void *pDado;
 
-    if (tab == NULL) 
+    if (tab == NULL)
     {
         return TAB_CondRetTabuleiroVazio;
     }
 
-    if (!TAB_ChecarPos(tab, origem) || !TAB_ChecarPos(tab, destino)) 
+    if (!TAB_ChecarPos(tab, origem) || !TAB_ChecarPos(tab, destino))
     {
         return TAB_CondRetPosicaoInvalida;
     }
@@ -248,10 +246,10 @@ TAB_tpCondRet TAB_MoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao origem, TAB_tpP
     lst = TAB_ObterCasa(tab, origem);
     pDado = LIS_ObterValor(lst);
     if (pDado == NULL)
-	{
-		TAB_IrInicioTabuleiro(tab);
+    {
+        TAB_IrInicioTabuleiro(tab);
         return TAB_CondRetOk;
-	}
+    }
     LIS_SobrescreverValorCorrente(lst, NULL);
     TAB_IrInicioTabuleiro(tab);
     lst = TAB_ObterCasa(tab, destino);
@@ -266,13 +264,13 @@ TAB_tpCondRet TAB_MoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao origem, TAB_tpP
 *
 ***********************************************************************/
 
-void * TAB_ObterPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
+void *TAB_ObterPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 {
     LIS_tppLista lst;
     void *pDado;
-	if (tab == NULL)
+    if (tab == NULL)
     {
-		return NULL;
+        return NULL;
     }
     if (!TAB_ChecarPos(tab, pos))
     {
@@ -313,7 +311,7 @@ TAB_tpCondRet TAB_DestruirPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 *
 ***********************************************************************/
 
-void * TAB_RemoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
+void *TAB_RemoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 {
     void *pDado;
     LIS_tppLista lst;
@@ -322,8 +320,8 @@ void * TAB_RemoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
         return NULL;
     }
     if (!TAB_ChecarPos(tab, pos))
-    { 
-            return NULL;
+    {
+        return NULL;
     }
 
     lst = TAB_ObterCasa(tab, pos);
@@ -342,7 +340,7 @@ void * TAB_RemoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 {
     if (((tab->tam.colunas <= pos.coluna) || (pos.coluna < 0)) ||
-        ((tab->tam.linhas <= pos.linha) || (pos.linha < 0)))
+            ((tab->tam.linhas <= pos.linha) || (pos.linha < 0)))
     {
         return FALSE;
     }
@@ -357,181 +355,181 @@ int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 *  Função: TAB &Verificar Tabuleiro
 *
 ***********************************************************************/
-    TAB_tbCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab)
+TAB_tbCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab)
+{
+    if (tab == NULL)
     {
-        if (tab == NULL)
-        {
-            TST_NotificarFalha( "Tentou verificar tabuleiro inexistente." );
-            return TAB_CondRetErroEstrutura;
-        }
-
-        if (TAB_VerificarCabeca(tab) != TAB_CondRetOk)
-        {
-            TAB_IrInicioTabuleiro(tab);
-            return TAB_CondRetErroEstrutura;
-        }
-        TAB_IrInicioTabuleiro(tab);
-        CED_MarcarEspacoAtivo(tab);
-        
-        return TAB_CondRetOk;
+        TST_NotificarFalha( "Tentou verificar tabuleiro inexistente." );
+        return TAB_CondRetErroEstrutura;
     }
+
+    if (TAB_VerificarCabeca(tab) != TAB_CondRetOk)
+    {
+        TAB_IrInicioTabuleiro(tab);
+        return TAB_CondRetErroEstrutura;
+    }
+    TAB_IrInicioTabuleiro(tab);
+    CED_MarcarEspacoAtivo(tab);
+
+    return TAB_CondRetOk;
+}
 
 /***********************************************************************
 *
 *  Função: TAB &Verificar Cabeça
 *
 ***********************************************************************/
-    TAB_tbCondRet TAB_VerificarCabeca(TAB_tppTabuleiro tab)
+TAB_tbCondRet TAB_VerificarCabeca(TAB_tppTabuleiro tab)
+{
+    if (tab == NULL)
     {
-        if (tab == NULL)
-        {
-            TST_NotificarFalha( "Tentou verificar tabuleiro inexistente." );
-            return TAB_CondRetErroEstrutura;
-        }
-
-        if (!CED_VerificarEspaco( tab, NULL ))
-        {
-            TST_NotificarFalha( "Controle do espaço acusou erro." );
-            return TAB_CondRetErroEstrutura;
-        }
-
-        if (TST_CompararInt(TAB_TipoEspacoCabeca,
-            CED_ObterTipoEspaco(tab),
-            "Tipo do espaço de dados não é um tabuleiro.") != TST_CondRetOk )
-        {
-            return TAB_CondRetErroEstrutura;
-        }
-
-        return TAB_VerificarColuna(tab);
+        TST_NotificarFalha( "Tentou verificar tabuleiro inexistente." );
+        return TAB_CondRetErroEstrutura;
     }
+
+    if (!CED_VerificarEspaco( tab, NULL ))
+    {
+        TST_NotificarFalha( "Controle do espaço acusou erro." );
+        return TAB_CondRetErroEstrutura;
+    }
+
+    if (TST_CompararInt(TAB_TipoEspacoCabeca,
+                        CED_ObterTipoEspaco(tab),
+                        "Tipo do espaço de dados não é um tabuleiro.") != TST_CondRetOk )
+    {
+        return TAB_CondRetErroEstrutura;
+    }
+
+    return TAB_VerificarColuna(tab);
+}
 
 /***********************************************************************
 *
 *  Função: TAB &Verificar Coluna
 *
 ***********************************************************************/
-    TAB_tbCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
+TAB_tbCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
+{
+    LIS_tppLista coluna = tab->coluna;
+    LIS_tppLista linha;
+    TAB_tbCondRet condRetLinha;
+    if (coluna == NULL)
     {
-        LIS_tppLista coluna = tab->coluna;
-        LIS_tppLista linha;
-        TAB_tbCondRet condRetLinha;
-        if (coluna == NULL)
-        {
-            TST_NotificarFalha( "Tabuleiro tem coluna NULL." );
-            return TAB_CondRetErroEstrutura;
-        }
-
-        if (!CED_VerificarEspaco( coluna, NULL ))
-        {
-            TST_NotificarFalha( "Controle do espaço acusou erro." );
-            return TAB_CondRetErroEstrutura;
-        }
-
-        if (TST_CompararInt(TAB_TipoEspacoColuna,
-            CED_ObterTipoEspaco(coluna),
-            "Tipo do espaço de dados não é uma coluna.") != TST_CondRetOk )
-        {
-            return TAB_CondRetErroEstrutura;
-        }
-        while (LIS_AvancarElementoCorrente(coluna, 1) != CondRetFimLista)
-        {
-            linha = (LIS_tppLista) LIS_ObterValor(coluna);
-            if ((condRetLinha = TAB_VerificarLinha(linha)) != TAB_CondRetOk)
-            {
-                return TAB_CondRetErroEstrutura;
-            }
-        }
-
-        CED_MarcarEspacoAtivo(coluna);
-
-        return TAB_CondRetOk;
+        TST_NotificarFalha( "Tabuleiro tem coluna NULL." );
+        return TAB_CondRetErroEstrutura;
     }
+
+    if (!CED_VerificarEspaco( coluna, NULL ))
+    {
+        TST_NotificarFalha( "Controle do espaço acusou erro." );
+        return TAB_CondRetErroEstrutura;
+    }
+
+    if (TST_CompararInt(TAB_TipoEspacoColuna,
+                        CED_ObterTipoEspaco(coluna),
+                        "Tipo do espaço de dados não é uma coluna.") != TST_CondRetOk )
+    {
+        return TAB_CondRetErroEstrutura;
+    }
+    while (LIS_AvancarElementoCorrente(coluna, 1) != CondRetFimLista)
+    {
+        linha = (LIS_tppLista) LIS_ObterValor(coluna);
+        if ((condRetLinha = TAB_VerificarLinha(linha)) != TAB_CondRetOk)
+        {
+            return TAB_CondRetErroEstrutura;
+        }
+    }
+
+    CED_MarcarEspacoAtivo(coluna);
+
+    return TAB_CondRetOk;
+}
 
 /***********************************************************************
 *
 *  Função: TAB &Verificar Linha
 *
 ***********************************************************************/
-    TAB_tbCondRet TAB_VerificarLinha(LIS_tppLista linha)
+TAB_tbCondRet TAB_VerificarLinha(LIS_tppLista linha)
+{
+    if (linha == NULL)
     {
-        if (linha == NULL)
-        {
-            TST_NotificarFalha( "Coluna tem linha NULL." );
-            return TAB_CondRetErroEstrutura;
-        }
-
-        if (!CED_VerificarEspaco( linha, NULL ))
-        {
-            TST_NotificarFalha( "Controle do espaço acusou erro." );
-            return TAB_CondRetErroEstrutura;
-        }
-
-        if (TST_CompararInt(TAB_TipoEspacoLinha,
-            CED_ObterTipoEspaco(linha),
-            "Tipo do espaço de dados não é uma linha.") != TST_CondRetOk )
-        {
-            return TAB_CondRetErroEstrutura;
-        }
-
-        while (LIS_AvancarElementoCorrente(linha, 1) != CondRetFimLista)
-        {
-            linha = (LIS_tppLista) LIS_ObterValor(coluna);
-            if ((condRetLinha = TAB_VerificarLinha(linha)) != TAB_CondRetOk)
-            {
-                IrInicioLista(linha);
-                return TAB_CondRetErroEstrutura;
-            }
-        }
-        IrInicioLista(linha);
-
-        /* TODO: Verificar Peças */
-
-        CED_MarcarEspacoAtivo(linha);
-
-        return TAB_CondRetOk;
+        TST_NotificarFalha( "Coluna tem linha NULL." );
+        return TAB_CondRetErroEstrutura;
     }
-    
+
+    if (!CED_VerificarEspaco( linha, NULL ))
+    {
+        TST_NotificarFalha( "Controle do espaço acusou erro." );
+        return TAB_CondRetErroEstrutura;
+    }
+
+    if (TST_CompararInt(TAB_TipoEspacoLinha,
+                        CED_ObterTipoEspaco(linha),
+                        "Tipo do espaço de dados não é uma linha.") != TST_CondRetOk )
+    {
+        return TAB_CondRetErroEstrutura;
+    }
+
+    while (LIS_AvancarElementoCorrente(linha, 1) != CondRetFimLista)
+    {
+        linha = (LIS_tppLista) LIS_ObterValor(coluna);
+        if ((condRetLinha = TAB_VerificarLinha(linha)) != TAB_CondRetOk)
+        {
+            IrInicioLista(linha);
+            return TAB_CondRetErroEstrutura;
+        }
+    }
+    IrInicioLista(linha);
+
+    /* TODO: Verificar Peças */
+
+    CED_MarcarEspacoAtivo(linha);
+
+    return TAB_CondRetOk;
+}
+
 /***********************************************************************
 *
 *  Função: TAB &Verificar Peca
 *
 ***********************************************************************/
- 
-    TAB_tbCondRet TAB_VerificarPeca(PECA_tppPeca peca)
+
+TAB_tbCondRet TAB_VerificarPeca(PECA_tppPeca peca)
+{
+    if (peca == NULL)
     {
-        if (peca == NULL)
-        {
-            return TAB_CondRetOK;
-        }
-
-        if (!CED_VerificarEspaco( peca, NULL ))
-        {
-            TST_NotificarFalha("Controle do espaço acusou erro.");
-            return TAB_CondRetErroEstrutura;
-        }
-
-        if (TST_CompararInt(TAB_TipoEspacoPeca,
-            CED_ObterTipoEspaco(peca),
-            "Tipo do espaço de dados não é uma peça.") != TST_CondRetOk )
-        {
-            return TAB_CondRetErroEstrutura;
-        }
-
-        if (PECA_ObterCor(peca) != PECA_CorPreta || PECA_ObterCor(peca) != PECA_CorBranca)
-        {
-            TST_NotificarFalha("Peça tem cor invalida.");
-            return TAB_CondRetErroEstrutura;
-        }
-
-        if (PECA_ObterStatus(peca) != PECA_StatusNormal || PECA_ObterStatus(peca) != PECA_StatusDama)
-        {
-            TST_NotificarFalha("Peça tem status invalido.");
-            return TAB_CondRetErroEstrutura;
-        }
-
-        CED_MarcarEspacoAtivo(peca);
-        return TAB_CondRetOk;
+        return TAB_CondRetOK;
     }
+
+    if (!CED_VerificarEspaco( peca, NULL ))
+    {
+        TST_NotificarFalha("Controle do espaço acusou erro.");
+        return TAB_CondRetErroEstrutura;
+    }
+
+    if (TST_CompararInt(TAB_TipoEspacoPeca,
+                        CED_ObterTipoEspaco(peca),
+                        "Tipo do espaço de dados não é uma peça.") != TST_CondRetOk )
+    {
+        return TAB_CondRetErroEstrutura;
+    }
+
+    if (PECA_ObterCor(peca) != PECA_CorPreta || PECA_ObterCor(peca) != PECA_CorBranca)
+    {
+        TST_NotificarFalha("Peça tem cor invalida.");
+        return TAB_CondRetErroEstrutura;
+    }
+
+    if (PECA_ObterStatus(peca) != PECA_StatusNormal || PECA_ObterStatus(peca) != PECA_StatusDama)
+    {
+        TST_NotificarFalha("Peça tem status invalido.");
+        return TAB_CondRetErroEstrutura;
+    }
+
+    CED_MarcarEspacoAtivo(peca);
+    return TAB_CondRetOk;
+}
 
 #endif
 
@@ -544,7 +542,7 @@ int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 *
 ***********************************************************************/
 
-static void TAB_DestruirLinha (void * lstLin)
+static void TAB_DestruirLinha (void *lstLin)
 {
     LIS_tppLista lst = (LIS_tppLista) lstLin;
     if (lst == NULL)

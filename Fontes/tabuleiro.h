@@ -1,4 +1,4 @@
-#if ! defined( TAB_ )
+#if !defined( TAB_ )
 #define TAB_
 
 /***************************************************************************
@@ -14,10 +14,10 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*     4       hpg	13/jun/2014 	Tornou ChecarPos publica
-*     3       gmm   19/abr/2014 	Mais implementação
-*     2       gmm   18/abr/2014 	Mais implementação
-*     1       gmm   16/abr/2014 	início desenvolvimento
+*     4       hpg   13/jun/2014     Tornou ChecarPos publica
+*     3       gmm   19/abr/2014     Mais implementação
+*     2       gmm   18/abr/2014     Mais implementação
+*     1       gmm   16/abr/2014     início desenvolvimento
 *
 *  $ED Descrição do módulo
 *     Implementa um tabuleiro.
@@ -35,7 +35,7 @@
 
 /* Tipo referência para um tabuleiro */
 
-typedef struct TAB_tagTabuleiro * TAB_tppTabuleiro;
+typedef struct TAB_tagTabuleiro *TAB_tppTabuleiro;
 
 /* Tipo tamanho de um tabuleiro */
 
@@ -43,7 +43,6 @@ typedef struct TAB_tagTamanho
 {
     unsigned short int colunas;
     unsigned short int linhas;
-
 } TAB_tpTamanho;
 
 /* Tipo posicao de um tabuleiro */
@@ -52,7 +51,6 @@ typedef struct TAB_tagPosicao
 {
     short int coluna;
     short int linha;
-
 } TAB_tpPosicao;
 
 /***********************************************************************
@@ -71,7 +69,6 @@ typedef enum
     TAB_CondRetTabuleiroVazio = 1,
     TAB_CondRetPosicaoInvalida = 2,
     TAB_CondRetEstrutura = 3
-
 } TAB_tpCondRet;
 
 /***********************************************************************
@@ -98,7 +95,7 @@ typedef enum
 *
 ***********************************************************************/
 
-TAB_tppTabuleiro TAB_CriarTabuleiro (short int colunas, short int linhas, void (* DestruirPeca) (void * pDado));
+TAB_tppTabuleiro TAB_CriarTabuleiro (short int colunas, short int linhas, void (* DestruirPeca) (void *pDado));
 
 /***********************************************************************
 *
@@ -154,7 +151,7 @@ TAB_tpTamanho TAB_ObterTamanho (TAB_tppTabuleiro tab) ;
 *
 ***********************************************************************/
 
-TAB_tpCondRet TAB_IncluirPeca (TAB_tppTabuleiro tab, void  * pPeca, TAB_tpPosicao pos);
+TAB_tpCondRet TAB_IncluirPeca (TAB_tppTabuleiro tab, void   *pPeca, TAB_tpPosicao pos);
 
 /***********************************************************************
 *
@@ -254,7 +251,7 @@ int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
 
 #ifdef _DEBUG
 
-	TAB_tpCondRet TAB_VerificarTabuleiro( TAB_tppTabuleiro tab );
+TAB_tpCondRet TAB_VerificarTabuleiro( TAB_tppTabuleiro tab );
 
 #endif
 

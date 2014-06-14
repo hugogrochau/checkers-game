@@ -1,4 +1,4 @@
-#if ! defined( JOGO_ )
+#if !defined( JOGO_ )
 #define JOGO_
 
 /***************************************************************************
@@ -44,8 +44,8 @@ typedef struct
     JOGO_CondRetOk,
     /* Concluiu corretamente */
 
-	TAB_CondRetJogoAcabou,
-	/* O jogo terminou */
+    TAB_CondRetJogoAcabou,
+    /* O jogo terminou */
 
     JOGO_CondRetJogadaInvalida,
     /* O jogador tentou fazer uma jogada invalida */
@@ -58,8 +58,7 @@ typedef struct
 
     JOGO_CondRetJogoNaoInicializado
     /* O jogo não foi inicializado */
-
-} JOGO_tpCondRet
+} JOGO_tpCondRet;
 
 /* Tipo referência para o jogo */
 typedef JOGO_tpJogo *JOGO_tppJogo;
@@ -70,16 +69,16 @@ typedef JOGO_tpJogo *JOGO_tppJogo;
 *
 *  $ED Descrição da função
 *     Cria uma nova instância de um jogo de damas, incializando todos
-*	  os dados necessários com o estado de início de jogo.
-*	
+*     os dados necessários com o estado de início de jogo.
+*
 *  $EP Parâmetros
 *     nomeJogador1 - o nome do primeiro jogador.
-*	  nomeJogador2 - o nome do segundo jogador.
+*     nomeJogador2 - o nome do segundo jogador.
 *
 *  $FV Valor retornado
 *     Se executou corretamente retorna o ponteiro para o jogo.
-*	  Se ocorreu algum erro, a função retornará NULL
-* 
+*     Se ocorreu algum erro, a função retornará NULL
+*
 ***********************************************************************/
 
 JOGO_tppJogo JOGO_CriarJogo (char *NomeJogador1, char *NomeJogador2);
@@ -118,7 +117,7 @@ void JOGO_DestruirJogo (JOGO_tppJogo jogo);
 *
 ***********************************************************************/
 
-JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro );
+JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro);
 
 /***********************************************************************
 *
