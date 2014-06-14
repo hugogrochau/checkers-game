@@ -41,8 +41,8 @@ typedef struct TAB_tagTabuleiro * TAB_tppTabuleiro;
 
 typedef struct TAB_tagTamanho
 {
-    short int colunas;
-    short int linhas;
+    unsigned short int colunas;
+    unsigned short int linhas;
 
 } TAB_tpTamanho;
 
@@ -69,7 +69,8 @@ typedef enum
 {
     TAB_CondRetOk = 0,
     TAB_CondRetTabuleiroVazio = 1,
-    TAB_CondRetPosicaoInvalida = 2
+    TAB_CondRetPosicaoInvalida = 2,
+    TAB_CondRetEstrutura = 3
 
 } TAB_tpCondRet;
 
@@ -250,6 +251,12 @@ TAB_tpCondRet TAB_MoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao original, TAB_t
 ***********************************************************************/
 
 int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
+
+#ifdef _DEBUG
+
+	TAB_tpCondRet TAB_VerificarTabuleiro( TAB_tppTabuleiro tab );
+
+#endif
 
 #undef TAB_EXT
 

@@ -29,6 +29,12 @@
 #include "lista.h"
 #undef LISTA_OWN
 
+#ifdef _DEBUG
+    #include "generico.h"
+    #include "cespdin.h"
+#endif
+
+
 /***********************************************************************
 *
 *  $TC Tipo de dados: LIS Elemento da lista
@@ -591,6 +597,11 @@ tpElemLista *CriarElemento( LIS_tppLista pLista ,
     tpElemLista *pElem ;
 
     pElem = ( tpElemLista *) malloc( sizeof( tpElemLista )) ;
+
+    #ifdef _DEBUG
+        CED_DefinirTipoEspaco(pElem, TAB_TipoEspacoPeca);
+    #endif
+    
     if ( pElem == NULL )
     {
         return NULL ;
