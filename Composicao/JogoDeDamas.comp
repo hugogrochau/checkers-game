@@ -11,10 +11,10 @@ h			=  ..\Fontes
 
 [Modulos]
 Princip
+Jogo
+Tabuleiro
 Lista
 Peca
-Tabuleiro
-Jogo
 
 [BuildInicio]
 /OUT:..\Produto\JogoDeDamas.exe
