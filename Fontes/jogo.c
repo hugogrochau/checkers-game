@@ -155,6 +155,41 @@ static void JOGO_DestruirJogador (JOGO_tppJogador jogador);
 
 static WORD JOGO_ObterCorPeca(PECA_tppPeca peca);
 
+
+static JOGO_tpDirecao JOGO_ObterDirecao (TAB_tpPosicao origem, TAB_tpPosicao destino)
+{
+    JOGO_tpDirecao direcao;
+    if (destino.linha > origem.linha)
+    {
+        if (destino.coluna > origem.coluna)
+        {
+            direcao = SE;
+        }
+        else
+        {
+            direcao = SO;
+        }
+    }
+    else
+    {
+        if (destino.coluna > origem.coluna)
+        {
+            direcao = NE;
+        }
+        else
+        {
+            direcao = NO;
+        }
+    }
+    return direcao;
+}
+
+static int JOGO_ValidaDiagonal(TAB_tpPosicao origem, TAB_tpPosicao destino);
+
+static int JOGO_ObterDistanciaDiagonal(TAB_tpPosicao origem, TAB_tpPosicao destino);
+
+static int JOGO_ObterQuantidadePecasNoCaminho(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino);
+
 static int JOGO_MovimentoValido(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino);
 
 static int JOGO_PodeComer(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino)
