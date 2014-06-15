@@ -184,6 +184,8 @@ static JOGO_tpDirecao JOGO_ObterDirecao (TAB_tpPosicao origem, TAB_tpPosicao des
     return direcao;
 }
 
+static JOGO_tpDirecao JOGO_ObterDirecao (TAB_tpPosicao origem, TAB_tpPosicao destino);
+
 static int JOGO_ValidaDiagonal(TAB_tpPosicao origem, TAB_tpPosicao destino);
 
 static int JOGO_ObterDistanciaDiagonal(TAB_tpPosicao origem, TAB_tpPosicao destino);
