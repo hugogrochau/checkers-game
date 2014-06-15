@@ -1,21 +1,30 @@
 #include <jogo.h>
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
 
-#define TAM_MAX_NOME 256
 #define TRUE 1
 #define FALSE 0
 
 int main(int n, char **args)
 {
     JOGO_tppJogo jogo = NULL;
-    char nomeJogador1[TAM_MAX_NOME], nomeJogador2[TAM_MAX_NOME];
+    char nomeJogador1[LINE_MAX], nomeJogador2[LINE_MAX];
     char opcao;
 
     printf("~*~JOGO DE DAMAS~*~\n");
 
-    ReceberNome(nomeJogador1, 1);
-    ReceberNome(nomeJogador2, 2);
+    do
+    {
+        printf("\nJogador2, digite seu nome: \n");
+    }
+    while(fgets(nomeJogador1, sizeof(nomeBuffer), stdin) == NULL);
+
+    do
+    {
+        printf("\nJogador2, digite seu nome: \n");
+    }
+    while(fgets(nomeJogador2, sizeof(nomeBuffer), stdin) == NULL);
 
     jogo = JOGO_CriarJogo(nomeJogador1, nomeJogador2);
     while (jogo == NULL)
@@ -76,27 +85,5 @@ int Jogada(JOGO_tppJogo jogo)
         case TAB_CondRetEmpate:
             prinf("O jogo terminou num empate!");
             return FALSE;
-    }
-}
-
-void ReceberNome(char *nomeBuffer, int jogador)
-{
-    size_t tam = 0;
-    while(!ValidaNome(nomeBuffer, tam))
-    {
-        if (strlen(nomeBuffer) > 0)
-        {
-            printf("Nome inválido, ");
-        }
-        printf("\nJogador%d, digite seu nome: ", jogador);
-        tam = scanf("%s", nomeBuffer);
-    }
-}
-
-int ValidaNome(char *nome, size_t tam)
-{
-    if (tam > TAM_MAX_NOME)
-    {
-        return FALSE;
     }
 }
