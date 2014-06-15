@@ -10,6 +10,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data         Observações
+*     2       hpg      14/jun/2014  Deturpação
 *     1       gmm, lr  21/abr/2014  Implementação e documentação
 *
 ***************************************************************************/
@@ -36,6 +37,12 @@ static const char OBTER_PECA_CMD                 [ ] = "=obterpeca"          ;
 static const char DESTRUIR_PECA_CMD              [ ] = "=destruirpeca"       ;
 static const char REMOVER_PECA_CMD               [ ] = "=removerpeca"        ;
 static const char RESETAR_TABULEIRO_CMD          [ ] = "=resetartabuleiro"   ;
+
+static const char VERIFICAR_TABULEIRO_CMD        [ ] = "=verificartabuleiro" ;
+static const char VERIFICAR_COLUNA_CMD           [ ] = "=verificarcoluna"    ;
+static const char VERIFICAR_LINHA_CMD            [ ] = "=verificarlinha"     ;
+static const char VERIFICAR_PECA_CMD             [ ] = "=verificarpeca"      ;
+static const char DETURPAR_CMD                   [ ] = "=deturpar"           ;
 
 #define TRUE  1
 #define FALSE 0
@@ -64,11 +71,11 @@ static int Comparacao( void *a, void *b ) ;
 *     Comandos disponíveis:
 *
 *     =resetartabuleiro
-*     =criartabuleiro               inxTab   tamColuna   tamLinha   ValEsp 
+*     =criartabuleiro               inxTab   tamColuna   tamLinha   ValEsp
 *     =destruirtabuleiro            inxTab
-*     =obtertamanho                 inxTab   tamColuna   tamLinha 
-*     =incluirpeca                  inxTab   Coluna      Linha      cor          condEsp 
-*     =moverpeca                    inxTab   Coluna      Linha      ColunaDest   LinhaDest   condEsp 
+*     =obtertamanho                 inxTab   tamColuna   tamLinha
+*     =incluirpeca                  inxTab   Coluna      Linha      cor          condEsp
+*     =moverpeca                    inxTab   Coluna      Linha      ColunaDest   LinhaDest   condEsp
 *
 ***********************************************************************/
 
@@ -82,15 +89,15 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
               tamLinha  = -1 ,
               Coluna    = -1 ,
               Linha     = -1 ,
-			  ColunaDest = -1,
-			  LinhaDest  = -1;
+              ColunaDest = -1,
+              LinhaDest  = -1;
 
     PECA_tpCor cor;
 
     TAB_tpTamanho tam;
     TAB_tpPosicao pos,
-		          posOrigem,
-				  posDestino;
+                  posOrigem,
+                  posDestino;
     TAB_tpCondRet condEsp;
     TAB_tpCondRet tabCondRet;
 
@@ -209,12 +216,12 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
                                 "Condicao de retorno errada ao incluir peca no tabuleiro." ) ;
 
     } /* fim ativa: Testar Incluir Peca*/
-	  /* Testar Mover Peça*/
+    /* Testar Mover Peça*/
     else if ( strcmp( ComandoTeste , MOVER_PECA_CMD ) == 0 )
     {
 
         numLidos = LER_LerParametros( "iiiiii" ,
-                                      &inxTab , &Coluna, &Linha, &ColunaDest ,&LinhaDest, &condEsp ) ;
+                                      &inxTab , &Coluna, &Linha, &ColunaDest , &LinhaDest, &condEsp ) ;
 
         if ( ( numLidos != 6 )
                 || ( ! ValidarInxTabuleiro( inxTab )) )
@@ -225,8 +232,8 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
 
         posOrigem.coluna = Coluna;
         posOrigem.linha = Linha;
-		posDestino.coluna = ColunaDest;
-		posDestino.linha = LinhaDest;
+        posDestino.coluna = ColunaDest;
+        posDestino.linha = LinhaDest;
         tabCondRet = TAB_MoverPeca( vtTab[ inxTab ] , posOrigem , posDestino) ;
 
 
@@ -234,7 +241,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
                                 "Condicao de retorno errada ao mover a peca no tabuleiro." ) ;
 
     } /* fim ativa: Testar Mover Peca*/
-	/* Testar Obter Peca */
+    /* Testar Obter Peca */
     else if ( strcmp( ComandoTeste , OBTER_PECA_CMD ) == 0 )
     {
 
@@ -247,7 +254,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
             return TST_CondRetParm ;
         }
 
-		pos.coluna = Coluna;
+        pos.coluna = Coluna;
         pos.linha = Linha;
         pDado = (PECA_tppPeca) TAB_ObterPeca( vtTab[ inxTab ] , pos) ;
 
@@ -257,14 +264,15 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
                                              "Peça não devia existir");
         }
 
-        if ( pDado == NULL) {
+        if ( pDado == NULL)
+        {
             return TST_CompararPonteiroNulo( 1, pDado,
                                              "Peça deveria existir");
         }
-		return TST_CondRetOK;
+        return TST_CondRetOK;
 
     } /* fim ativa: Testar Obter Peca*/
-	/* Testar Destruir Peca */
+    /* Testar Destruir Peca */
     else if ( strcmp( ComandoTeste , DESTRUIR_PECA_CMD ) == 0 )
     {
 
@@ -285,7 +293,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
                                 "Condicao de retorno errada ao excluir peca do tabuleiro." ) ;
 
     } /* fim ativa: Testar Destruir Peca*/
-	/* Testar Remover Peca */
+    /* Testar Remover Peca */
     else if ( strcmp( ComandoTeste , REMOVER_PECA_CMD ) == 0 )
     {
 
@@ -298,7 +306,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
             return TST_CondRetParm ;
         }
 
-		pos.coluna = Coluna;
+        pos.coluna = Coluna;
         pos.linha = Linha;
         pDado = (PECA_tppPeca) TAB_RemoverPeca( vtTab[ inxTab ] , pos) ;
 
@@ -307,13 +315,20 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
             return TST_CompararPonteiroNulo( 0, pDado, "Peça não devia existir");
         }
 
-        if ( pDado == NULL ) {
+        if ( pDado == NULL )
+        {
             return TST_CompararPonteiroNulo( 1, pDado, "Peça deveria existir");
         }
-		return TST_CondRetOK;
+        return TST_CondRetOK;
 
     } /* fim ativa: Testar Remover Peca*/
-  return TST_CondRetNaoConhec ;
+    /* Testar Verificar Tabuleiro */
+    else if ( strcmp( ComandoTeste, VERIFICAR_TABULEIRO_CMD ) == 0 )
+    {
+
+    }
+
+    return TST_CondRetNaoConhec ;
 
 } /* Fim função: TTAB &Testar tabuleiro */
 

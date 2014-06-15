@@ -10,8 +10,9 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor     Data        Observações
-*     1       hpg/gmm   09/jun/2014 início desenvolvimento
+*     3       lr        14/jun/2014 Documentação
 *     2       hpg/gmm   13/jun/2014 início da lógica de movimento
+*     1       hpg/gmm   09/jun/2014 início desenvolvimento
 *
 ***************************************************************************/
 
@@ -91,7 +92,7 @@ typedef enum
     SO = 3,
     /* sudoeste*/
     NO = 4
-         /* noroeste*/
+    /* noroeste*/
 } JOGO_tpDirecao;
 
 
@@ -155,44 +156,124 @@ static void JOGO_DestruirJogador (JOGO_tppJogador jogador);
 
 static WORD JOGO_ObterCorPeca(PECA_tppPeca peca);
 
-
-static JOGO_tpDirecao JOGO_ObterDirecao (TAB_tpPosicao origem, TAB_tpPosicao destino)
-{
-    JOGO_tpDirecao direcao;
-    if (destino.linha > origem.linha)
-    {
-        if (destino.coluna > origem.coluna)
-        {
-            direcao = SE;
-        }
-        else
-        {
-            direcao = SO;
-        }
-    }
-    else
-    {
-        if (destino.coluna > origem.coluna)
-        {
-            direcao = NE;
-        }
-        else
-        {
-            direcao = NO;
-        }
-    }
-    return direcao;
-}
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Obter Direcao
+*
+*  $ED Descrição da função
+*      Obtém a direção que a peça irá mover (sudoeste, sudeste, noroeste ou nordeste)
+*
+*  $EP Parâmetros
+*     origem- posição de origem da peça
+*     destino- posição de destino da peça
+*
+*  $FV Valor retornado
+*     Retorna a direção a qual a peça irá mover ( NO, NE, SE, SO )
+*
+***********************************************************************/
 
 static JOGO_tpDirecao JOGO_ObterDirecao (TAB_tpPosicao origem, TAB_tpPosicao destino);
 
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Valida Diagonal
+*
+*  $ED Descrição da função
+*      Valida se a diagonal na qual a peça irá mover é válida
+*
+*  $EP Parâmetros
+*     origem - posição de origem da peça
+*     destino - posição de destino da peça
+*
+*  $FV Valor retornado
+*     TRUE se a diagonal for válida
+*     FALSE se a diagonal não for válida
+*
+***********************************************************************/
+
 static int JOGO_ValidaDiagonal(TAB_tpPosicao origem, TAB_tpPosicao destino);
+
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Obter Distancia Diagonal
+*
+*  $ED Descrição da função
+*     Calcula o tamanho da distância da diagonal
+*
+*  $EP Parâmetros
+*     origem - posição de origem da peça
+*     destino - posição de destino da peça
+*
+*  $FV Valor retornado
+*     Retorna a distância da diagonal entre a origem e o destino
+*
+***********************************************************************/
 
 static int JOGO_ObterDistanciaDiagonal(TAB_tpPosicao origem, TAB_tpPosicao destino);
 
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Obter Quantidade Pecas No Caminho
+*
+*  $ED Descrição da função
+*      Calcula a quantidade de peças que a peça movida tem pelo caminho
+*      até seu destino
+*
+*  $EP Parâmetros
+*     jogo - referência para o jogo em que irá se calcular o número de
+*            peças pelo caminho
+*     origem - posição de origem da peça
+*     destino - posição de destino da peça
+*
+*  $FV Valor retornado
+*     Retorna um inteiro referente ao número de peças pelo caminho da
+*     peça movimentada até seu destino
+*
+***********************************************************************/
+
 static int JOGO_ObterQuantidadePecasNoCaminho(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino);
 
+ /***********************************************************************
+*
+*  $FC Função: JOGO  -Movimento Válido
+*
+*  $ED Descrição da função
+*      Valida se o movimento que a peça irá se realizar é válido
+*
+*  $EP Parâmetros
+*     jogo - referência para o jogo em que iremos validar o movimento
+             realizado
+*     origem - posição de origem da peça
+*     destino- posição de destino da peça
+*
+*  $FV Valor retornado
+*     TRUE se o movimento for válido
+*     FALSE se o movimento não for válido
+*
+***********************************************************************/
+
 static int JOGO_MovimentoValido(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino);
+
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Pode Comer
+*
+*  $ED Descrição da função
+*      Verifica se no movimento realizado, a peça movimentada pode comer
+*      alguma outra peça
+*
+*  $EP Parâmetros
+*     jogo - referência para o jogo em que iremos se o movimento feito
+*            pela peça irá resultar em uma captura de alguma outra peça
+*            do adversário
+*     origem - posição de origem da peça
+*     destino - posição de destino da peça
+*
+*  $FV Valor retornado
+*     TRUE se o jogador puder comer a peça do adversário
+*     FALSE se o jogador não puder comer a peça do adversário
+*
+***********************************************************************/
 
 static int JOGO_PodeComer(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino)
 
@@ -499,6 +580,12 @@ static JOGO_tpDirecao JOGO_ObterDirecao (TAB_tpPosicao origem, TAB_tpPosicao des
     return direcao;
 }
 
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Valida Diagonal
+*
+***********************************************************************/
+
 static int JOGO_ValidaDiagonal(TAB_tpPosicao origem, TAB_tpPosicao destino)
 {
     if (abs(destino.linha - origem.linha) == abs(destino.linha - origem.linha))
@@ -508,15 +595,27 @@ static int JOGO_ValidaDiagonal(TAB_tpPosicao origem, TAB_tpPosicao destino)
     return FALSE;
 }
 
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Obter Distancia Diagonal
+*
+***********************************************************************/
+
 static int JOGO_ObterDistanciaDiagonal(TAB_tpPosicao origem, TAB_tpPosicao destino)
 {
     return abs(origem.linha - destino.linha);
 }
 
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Obter Quantidade Pecas No Caminho
+*
+***********************************************************************/
+
 static int JOGO_ObterQuantidadePecasNoCaminho(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino)
 {
     int qtd = 0;
-    JOGO_tpDirecao direcao = JOGOO_ObterDirecao(origem, destino);
+    JOGO_tpDirecao direcao = JOGO_ObterDirecao(origem, destino);
     while (origem.linha != destino.linha && origem.coluna != destino.coluna)
     {
         switch (direcao)
@@ -545,6 +644,12 @@ static int JOGO_ObterQuantidadePecasNoCaminho(JOGO_tppJogo jogo, TAB_tpPosicao o
     }
     return qtd;
 }
+
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Movimento Valido
+*
+***********************************************************************/
 
 static int JOGO_MovimentoValido(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino)
 {

@@ -70,7 +70,7 @@ typedef enum
     TAB_CondRetOk = 0,
     TAB_CondRetTabuleiroVazio = 1,
     TAB_CondRetPosicaoInvalida = 2,
-    TAB_CondRetEstrutura = 3
+    TAB_CondRetErroEstrutura = 3
 } TAB_tpCondRet;
 
 /***********************************************************************

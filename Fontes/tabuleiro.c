@@ -10,9 +10,9 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor     Data        Observações
-*     8       hpg       14/jun/2014  Implementação de contagem
-*     7       hpg       14/jun/2014  Implementação de deturpação
-*     6       hpg       13/jun/2014  Tornou a estrutura auto-verificável
+*     8       hpg       14/jun/2014  Contagem
+*     7       hpg       14/jun/2014  Deturpação
+*     6       hpg       13/jun/2014  Auto-verificação
 *     5       hpg,gmm   13/jun/2014  Tornou ChecarPos publica
 *     4       hpg,gmm   30/abr/2014  Comentários
 *     3       gmm       19/abr/2014  Mais implementação
@@ -503,6 +503,7 @@ TAB_tbCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
 *  Função: TAB &Verificar Linha
 *
 ***********************************************************************/
+
 TAB_tbCondRet TAB_VerificarLinha(LIS_tppLista linha)
 {
 
@@ -707,14 +708,14 @@ void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModosDeturpacao modoDeturpar)
 
     case DeturpaEspacoLinha:
         memcpy((char *) linha,
-           LIXO(TAM_ELEM_LIS),
-           TAM_ELEM_LIS);
+               LIXO(TAM_ELEM_LIS),
+               TAM_ELEM_LIS);
         break;
 
     case DeturpaEspacoPeca:
         memcpy((char *) peca,
-        LIXO(MIN_TAM_PECA),
-        MIN_TAM_PECA);
+               LIXO(MIN_TAM_PECA),
+               MIN_TAM_PECA);
         break;
 
     /* ponteiro nulo */
