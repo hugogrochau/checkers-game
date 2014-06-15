@@ -7,7 +7,6 @@
 == Declarar os tabuleiros usados
 =declararparm    inxTab0        int   0
 =declararparm    inxTab1        int   1
-=declararparm    inxTab2        int   2
 
 == Declarar condições de retorno
 =declararparm OK int 0
