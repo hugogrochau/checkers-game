@@ -1,0 +1,47 @@
+// Script:    TesteContador-Tab.script
+// Autor:     Gustavo Martins
+// Data:      15/jun/2014
+// Propósito: Arquivo de script para controle de cobertura
+//
+
+== Declarar os tabuleiros usados
+=declararparm    inxTab0        int   0
+
+== Declarar condições de retorno
+=declararparm OK int 0
+=declararparm TabuleiroVazio int 1
+=declararparm PosicaoInvalida int 2
+=declararparm ErroEstrutura int 3
+
+== Iniciar contagem
+=inicializarcontadores  ""
+=lercontadores          "..\\scripts\\Tabuleiro"
+=iniciarcontagem
+
+== Criar Tabuleiro
+=criartabuleiro   inxTab0   8  8  pNaoNull
+
+== Incluir uma peca
+=incluirpeca inxTab0 0 0 branco OK
+
+== Mover a peca
+=moverpeca inxTab0 0 0 7 7 OK
+
+== Verificar se ela foi movida
+=obterpeca inxTab0 7 7 pNaoNull
+=obterpeca inxTab0 0 0 pNull
+
+== Verificar contadores do tabuleiro
+=verificartabuleiro inxTab0
+
+== Destruir Tabuleiro
+=destruirtabuleiro inxTab0
+
+== Terminar controlar contadores
+=pararcontagem
+=verificarcontagens    0
+
+== Terminar contagem
+=terminarcontadores
+
+// fim
