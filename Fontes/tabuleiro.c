@@ -112,7 +112,7 @@ static void TAB_IrInicioTabuleiro (TAB_tppTabuleiro tab);
 *
 ***********************************************************************/
 
-TAB_tppTabuleiro TAB_CriarTabuleiro (short int colunas, short int linhas, void (*DestruirPeca) (void *pDado))
+TAB_tppTabuleiro TAB_CriarTabuleiro (unsigned short int colunas, unsigned short int linhas, void (*DestruirPeca) (void *pDado))
 {
     TAB_tppTabuleiro tab = NULL;
     int i, j;
