@@ -24,3 +24,7 @@ Data        Horas Trabalhadas   Tipo de Tarefa                                  
 30/04/2014  2                   Modelar                                             Fiz o modelo da arquitetura e as assertivas estruturais
 
 09/06/2014  4                   Codificar, projetar, especificar                    Planejei e parcialmente implementei os módulos de Jogo e IO
+
+13/06/2014  6                   Codificar                                           Comecei a instrumentação do módulo tabuleiro
+
+14/06/2014  8                   Codificar                                           Finalizei a instrumentação do módulo tabuleiro
