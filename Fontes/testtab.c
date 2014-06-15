@@ -70,12 +70,22 @@ static int Comparacao( void *a, void *b ) ;
 *
 *     Comandos disponíveis:
 *
-*     =resetartabuleiro
 *     =criartabuleiro               inxTab   tamColuna   tamLinha   valEsp
 *     =destruirtabuleiro            inxTab
 *     =obtertamanho                 inxTab   tamColuna   tamLinha
 *     =incluirpeca                  inxTab   Coluna      Linha      cor          condEsp
 *     =moverpeca                    inxTab   Coluna      Linha      ColunaDest   LinhaDest   condEsp
+*     =obterpeca                    inxTab   Coluna      Linha      valEsp
+*     =destruirpeca                 inxTab   Coluna      Linha      condEsp
+*     =removerpeca                  inxTab   Coluna      Linha      valEsp
+*     =resetartabuleiro             
+*
+*
+*     Comandos da versao DEBUG
+*
+*     =verificartabuleiro           inxTab
+*     =deturpar                     inxTab   valEsp 
+*     =verificarmemoria             
 *
 ***********************************************************************/
 
