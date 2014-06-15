@@ -10,7 +10,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data         Observações
-*     2       hpg      14/jun/2014  Deturpação
+*     2       hpg      14/jun/2014  Deturpação e instrumentação
 *     1       gmm, lr  21/abr/2014  Implementação e documentação
 *
 ***************************************************************************/
@@ -38,11 +38,11 @@ static const char DESTRUIR_PECA_CMD              [ ] = "=destruirpeca"       ;
 static const char REMOVER_PECA_CMD               [ ] = "=removerpeca"        ;
 static const char RESETAR_TABULEIRO_CMD          [ ] = "=resetartabuleiro"   ;
 
+#ifdef _DEBUG
 static const char VERIFICAR_TABULEIRO_CMD        [ ] = "=verificartabuleiro" ;
-static const char VERIFICAR_COLUNA_CMD           [ ] = "=verificarcoluna"    ;
-static const char VERIFICAR_LINHA_CMD            [ ] = "=verificarlinha"     ;
-static const char VERIFICAR_PECA_CMD             [ ] = "=verificarpeca"      ;
 static const char DETURPAR_CMD                   [ ] = "=deturpar"           ;
+static const char VERIFICAR_MEMORIA_CMD          [ ] = "=verificarmemoria"   ;
+#endif
 
 #define TRUE  1
 #define FALSE 0
@@ -71,7 +71,7 @@ static int Comparacao( void *a, void *b ) ;
 *     Comandos disponíveis:
 *
 *     =resetartabuleiro
-*     =criartabuleiro               inxTab   tamColuna   tamLinha   ValEsp
+*     =criartabuleiro               inxTab   tamColuna   tamLinha   valEsp
 *     =destruirtabuleiro            inxTab
 *     =obtertamanho                 inxTab   tamColuna   tamLinha
 *     =incluirpeca                  inxTab   Coluna      Linha      cor          condEsp
@@ -102,7 +102,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
     TAB_tpCondRet tabCondRet;
 
     PECA_tppPeca pDado ;
-    int ValEsp = -1 ;
+    int valEsp = -1 ;
 
     int i ;
 
@@ -126,7 +126,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
     {
 
         numLidos = LER_LerParametros( "iiii" ,
-                                      &inxTab, &tamColuna, &tamLinha, &ValEsp ) ;
+                                      &inxTab, &tamColuna, &tamLinha, &valEsp ) ;
 
         if ( ( numLidos != 4 )
                 || ( ! ValidarInxTabuleiro( inxTab )))
@@ -246,7 +246,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
     {
 
         numLidos = LER_LerParametros( "iiii" ,
-                                      &inxTab , &Coluna, &Linha, &ValEsp ) ;
+                                      &inxTab , &Coluna, &Linha, &valEsp ) ;
 
         if ( ( numLidos != 4  )
                 || ( ! ValidarInxTabuleiro( inxTab )) )
@@ -258,7 +258,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
         pos.linha = Linha;
         pDado = (PECA_tppPeca) TAB_ObterPeca( vtTab[ inxTab ] , pos) ;
 
-        if ( ValEsp == 0 )
+        if ( valEsp == 0 )
         {
             return TST_CompararPonteiroNulo( 0, pDado,
                                              "Peça não devia existir");
@@ -298,7 +298,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
     {
 
         numLidos = LER_LerParametros( "iiii" ,
-                                      &inxTab , &Coluna, &Linha, &ValEsp ) ;
+                                      &inxTab , &Coluna, &Linha, &valEsp ) ;
 
         if ( ( numLidos != 4  )
                 || ( ! ValidarInxTabuleiro( inxTab )) )
@@ -310,7 +310,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
         pos.linha = Linha;
         pDado = (PECA_tppPeca) TAB_RemoverPeca( vtTab[ inxTab ] , pos) ;
 
-        if ( ValEsp == 0 )
+        if ( valEsp == 0 )
         {
             return TST_CompararPonteiroNulo( 0, pDado, "Peça não devia existir");
         }
@@ -322,11 +322,48 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
         return TST_CondRetOK;
 
     } /* fim ativa: Testar Remover Peca*/
-    /* Testar Verificar Tabuleiro */
+
+    /* Início instrumentação */
+    #ifdef _DEBUG
+    /* Testar verificador de tabuleiro */
     else if ( strcmp( ComandoTeste, VERIFICAR_TABULEIRO_CMD ) == 0 )
     {
+        numLidos = LER_LerParametros( "i",
+                                      &inxTab ) ;
+        if ( ( numLidos != 1 )
+            || !VerificarInx( inxTab ))
+        {
+            return TST_CondRetParm;
+        }
 
-    }
+        return TST_CompararInt( condEsp ,
+                                TAB_VerificarTabuleiro( vtTab[ inxTab ] ) ,
+                                "Retorno incorreto ao verificar tabuleiro") ;
+    } /* fim ativa: Testar verificador de tabuleiro */
+    /* Deturpar um tabuleiro */
+    else if ( strcmp( ComandoTeste, DETURPAR_CMD ) == 0 )
+    {
+        numLidos = LER_LerParametros( "ii" ,
+                                       &inxTab , &valEsp ) ;
+        if ( ( numLidos != 2 )
+             || !VerificarInx ( inxTab ))
+        {
+            return TST_CondRetParm;
+        }
+
+        TAB_Deturpar( vtTab [ inxTab ] , valEsp ) ;
+
+        return TST_CondRetOk ;
+    } /* fim ativa: Deturpar um tabuleiro */
+    /* Verificar vazamento de memória */
+    else if ( strcmp( ComandoTeste, VERIFICAR_MEMORIA_CMD ) == 0 )
+    {
+        CED_ExibirTodosEspacos( CED_ExibirTodos ) ;
+
+        return TST_CondRetOk ;
+    } /* fim ativa: Verificar vazamento de memória */
+    #endif
+    /* Fim instrumentação */
 
     return TST_CondRetNaoConhec ;
 
