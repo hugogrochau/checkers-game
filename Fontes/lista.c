@@ -598,10 +598,6 @@ tpElemLista *CriarElemento( LIS_tppLista pLista ,
 
     pElem = ( tpElemLista *) malloc( sizeof( tpElemLista )) ;
 
-    #ifdef _DEBUG
-        CED_DefinirTipoEspaco(pElem, TAB_TipoEspacoPeca);
-    #endif
-    
     if ( pElem == NULL )
     {
         return NULL ;

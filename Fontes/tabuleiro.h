@@ -251,7 +251,68 @@ int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
 
 #ifdef _DEBUG
 
-TAB_tpCondRet TAB_VerificarTabuleiro( TAB_tppTabuleiro tab );
+/* Declarações dos simbolos de instrumentação */
+
+TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab);
+
+TAB_tbCondRet TAB_VerificarCabeca(TAB_tppTabuleiro tab);
+
+TAB_tbCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab);
+
+TAB_tbCondRet TAB_VerificarLinha(LIS_tppLista linha);
+
+TAB_tbCondRet TAB_VerificarPeca(PECA_tppPeca peca);
+
+typedef enum
+{
+    DeturpaTipoCabeca = 1,
+    /* Modifica o tipo da cabeça */
+
+    DeturpaTipoColuna = 2,
+    /* Modifica o tipo da coluna */
+
+    DeturpaTipoLinha = 3,
+    /* Modifica o tipo da linha */
+
+    DeturpaTipoPeca = 4,
+    /* Modifica o tipo da peça */
+
+    DeturparEspacoCabeca = 5,
+    /* Deturpa espaço da cabeca */
+
+    DeturpaEspacoColuna = 6,
+    /* Deturpa espaço da coluna */
+
+    DeturpaEspacoLinha = 7,
+    /* Deturpa espaço da linha */
+
+    DeturpaEspacoPeca = 8,
+    /* Deturpa espaço da peca */
+
+    DeturpaPtColunaNulo = 9,
+    /* Anula ponteiro para coluna */
+
+    DeturpaPtLinhaNulo = 10,
+    /* Anula ponteiro para linha */
+
+    DeturpaCabecaLixo = 11,
+    /* Faz cabeça apontar para lixo */
+
+    DeturpaColunaLixo = 12,
+    /* Faz coluna apontar para lixo */
+
+    DeturpaLinhaLixo = 13,
+    /* Faz a linha apontar para lixo */
+
+    DeturpaPecaLixo = 14,
+    /* Faz a peça apontar para lixo */
+
+    DeturpaPecaStatus = 15,
+    /* Coloca um status invalido para alguma peça */
+
+    DeturpaPecaCor = 16,
+    /* Coloca uma cor invalida para alguma peça */
+} TAB_tpModosDeturpacao;
 
 #endif
 

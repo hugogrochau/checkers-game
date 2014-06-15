@@ -10,7 +10,8 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor     Data        Observações
-*     6       hpg,gmm   13/jun/2014  Tornou a estrutura auto-verificável
+*     7       hpg       14/jun/2014  Implementação de deturpação
+*     6       hpg       13/jun/2014  Tornou a estrutura auto-verificável
 *     5       hpg,gmm   13/jun/2014  Tornou ChecarPos publica
 *     4       hpg,gmm   30/abr/2014  Comentários
 *     3       gmm       19/abr/2014  Mais implementação
@@ -34,6 +35,11 @@
 #include "cespdin.h"
 #include "..\\tabelas\\TiposEspacosTabuleiro.def"
 #include "conta.h"
+#define TAM_ELEM_LIS 12
+#define MIN_TAM_PECA 2
+static char EspacoLixo[ 256 ] =
+    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" ;
+
 #endif
 
 #define TRUE  1
@@ -216,6 +222,10 @@ TAB_tpCondRet TAB_IncluirPeca (TAB_tppTabuleiro tab, void *pPeca, TAB_tpPosicao 
         return TAB_CondRetPosicaoInvalida;
     }
 
+#ifdef _DEBUG
+    CED_DefinirTipoEspaco(pPeca, TAB_TipoEspacoPeca);
+#endif
+
     lst = TAB_ObterCasa(tab, pos);
     LIS_SobrescreverValorCorrente(lst, pPeca);
     TAB_IrInicioTabuleiro(tab);
@@ -349,6 +359,7 @@ int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 
 
 #ifdef _DEBUG
+/* Código das funções de instrumentação */
 
 /***********************************************************************
 *
@@ -452,6 +463,7 @@ TAB_tbCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
 ***********************************************************************/
 TAB_tbCondRet TAB_VerificarLinha(LIS_tppLista linha)
 {
+    PECA_tppPeca peca;
     if (linha == NULL)
     {
         TST_NotificarFalha( "Coluna tem linha NULL." );
@@ -473,8 +485,8 @@ TAB_tbCondRet TAB_VerificarLinha(LIS_tppLista linha)
 
     while (LIS_AvancarElementoCorrente(linha, 1) != CondRetFimLista)
     {
-        linha = (LIS_tppLista) LIS_ObterValor(coluna);
-        if ((condRetLinha = TAB_VerificarLinha(linha)) != TAB_CondRetOk)
+        peca = (PECA_tppPeca) LIS_ObterValor(peca);
+        if ((condRetLinha = TAB_VerificarPeca(peca)) != TAB_CondRetOk)
         {
             IrInicioLista(linha);
             return TAB_CondRetErroEstrutura;
@@ -528,7 +540,109 @@ TAB_tbCondRet TAB_VerificarPeca(PECA_tppPeca peca)
     }
 
     CED_MarcarEspacoAtivo(peca);
+
     return TAB_CondRetOk;
+}
+
+/***********************************************************************
+*
+*  Função: TAB &Deturpar tabuleiro
+*
+***********************************************************************/
+
+void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModosDeturpacao modoDeturpar)
+{
+    LIS_tppLista coluna = tab->coluna;
+    LIS_tppLista linha = (LIS_tppLista) LIS_ObterValor(coluna);
+    PECA_tppPeca peca = NULL;
+    if (tab == NULL || coluna == NULL || linha == NULL)
+    {
+        return;
+    }
+
+    while (peca == NULL && LIS_AvancarElementoCorrente(linha, 1) != CondRetFimLista)
+    {
+         peca = (PECA_tppPeca) LIS_ObterValor(linha);
+    }
+    IrInicioLista(linha);
+    if (peca == NULL) /* não existe uma peça na primeira linha */
+    {
+        return;
+    }
+    switch (modoDeturpar)
+    {
+    /* tipos */
+    case DeturpaTipoCabeca:
+        CED_DefinirTipoEspaco(tab, CED_ID_TIPO_VALOR_NULO);
+        break;
+
+    case DeturpaTipoColuna:
+        CED_DefinirTipoEspaco(coluna, CED_ID_TIPO_VALOR_NULO);
+        break;
+
+    case DeturpaTipoLinha:
+        CED_DefinirTipoEspaco(linha, CED_ID_TIPO_VALOR_NULO);
+        break;
+
+    case DeturpaTipoPeca:
+        CED_DefinirTipoEspaco(peca, CED_ID_TIPO_VALOR_NULO);
+        break;
+
+    /* espaços */
+    case DeturparEspacoCabeca:
+        memcpy((char *) tab,
+               LIXO(sizeof(TAB_tagTabuleiro)),
+               sizeof(TAB_tagTabuleiro));
+        break;
+
+    case DeturpaEspacoColuna:
+        memcpy((char *) coluna,
+               LIXO(TAM_ELEM_LIS),
+               TAM_ELEM_LIS);
+        break;
+
+    case DeturpaEspacoLinha:
+        memcpy((char *) linha,
+           LIXO(TAM_ELEM_LIS),
+           TAM_ELEM_LIS);
+        break;
+
+    case DeturpaEspacoPeca:
+        memcpy((char *) peca,
+        LIXO(MIN_TAM_PECA),
+        MIN_TAM_PECA);
+        break;
+
+    /* ponteiro nulo */
+    case DeturpaPtColunaNulo:
+        tab->coluna = NULL;
+        break;
+
+    case DeturpaPtLinhaNulo:
+        LIS_SobrescreverValorCorrente(coluna, NULL);
+        break;
+
+    /* ponteiro para lixo */
+    case DeturpaColunaLixo:
+        tab->coluna = (LIS_tppLista) EspacoLixo;
+        break;
+
+    case DeturpaLinhaLixo:
+        LIS_SobrescreverValorCorrente(coluna, EspacoLixo);
+        break;
+
+    case DeturpaPecaLixo:
+        LIS_SobrescreverValorCorrente(linha, EspacoLixo);
+        break;
+
+    case DeturpaPecaStatus:
+        peca->status = -1;
+        break;
+
+    case DeturpaPecaCor:
+        peca->cor = -1;
+        break;
+    }
 }
 
 #endif
