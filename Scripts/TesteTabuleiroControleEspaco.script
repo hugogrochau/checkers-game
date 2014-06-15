@@ -1,0 +1,65 @@
+// Script:    TesteControleEspaco-Tab.script
+// Autor:     Gustavo Martins
+// Data:      14/jun/2014
+// Propósito: Arquivo de script para controle de espaço dinâmico
+//
+
+== Declarar os tabuleiros usados
+=declararparm    inxTab0        int   0
+=declararparm    inxTab1        int   1
+
+== Declarar condições de retorno
+=declararparm OK int 0
+=declararparm TabuleiroVazio int 1
+=declararparm PosicaoInvalida int 2
+=declararparm ErroEstrutura int 3
+
+=declararparm pNull int 0
+=declararparm pNaoNull int 1
+
+== Declarar criterios de exibicao
+=declararparm  CriterioExibir  int   1
+
+== Iniciar contagem
+=inicializarcontadores  ""
+=lercontadores          "..\\scripts\\Tabuleiro"
+=iniciarcontagem
+
+== Criar Tabuleiro
+=criartabuleiro   inxTab0   8  8  pNaoNull
+
+== Verificar espaços alocados
+=verificartodosespacos       0
+=obternumeroespacosalocados  73
+
+== Incluir uma peca
+=incluirpeca inxTab0 0 0 branco OK
+
+== Mover a peca
+=moverpeca inxTab0 0 0 7 7 OK
+=moverpeca inxTab1 1 1 8 7 OK
+
+== Verificar se ela foi movida
+=obterpeca inxTab0 7 7 pNaoNull
+=obterpeca inxTab0 0 0 pNull
+
+== Controlar vazamento de memória
+=exibirtodosespacos            CriterioExibir
+=verificartodosespacos         CriterioExibir
+=obternumeroespacosalocados    74                 // tabuleiro + peca
+
+== Destruir Tabuleiro
+=destruirtabuleiro inxTab0
+
+== Controlar vazamento de memória
+=obternumeroespacosalocados  0
+=verificartodosespacos       CriterioExibir
+
+== Terminar controlar contadores
+=pararcontagem
+=verificarcontagens    0
+
+== Terminar contagem
+=terminarcontadores
+
+// fim
