@@ -39,30 +39,36 @@
 *
 ***********************************************************************/
 
-typedef struct
+typedef enum
 {
-    JOGO_CondRetOk,
+    JOGO_CondRetOk = 1,
     /* Concluiu corretamente */
 
-    TAB_CondRetJogador1Ganhou,
+    JOGO_CondRetJogador1Ganhou = 2,
     /* O jogo terminou e o jogador 1 venceu */
 
-    TAB_CondRetJogador2Ganhou,
+    JOGO_CondRetJogador2Ganhou = 3,
     /* O jogo terminou e o jogador 2 venceu */
 
-    TAB_CondRetEmpate,
+    JOGO_CondRetEmpate = 4,
     /* O jogo terminou num empate */
 
-    JOGO_CondRetJogadaInvalida,
+    JOGO_CondRetJogadaInvalida = 5,
     /* O jogador tentou fazer uma jogada inválida */
 
-    JOGO_CondRetArquivoInvalido,
+    JOGO_CondRetJogadaValida = 6,
+    /* O jogador fez uma jogada válida */
+
+    JOGO_CondRetComeuPeca = 7,
+    /* O jogador fez uma jogada que comeu a peça do adversário  */
+
+    JOGO_CondRetArquivoInvalido = 8,
     /* Ocorreu erro a ler o arquivo */
 
-    JOGO_CondRetArquivoCorrompido,
+    JOGO_CondRetArquivoCorrompido = 9,
     /* Ocorreu erro a interpretar o arquivo */
 
-    JOGO_CondRetJogoNaoInicializado
+    JOGO_CondRetJogoNaoInicializado = 10
     /* O jogo não foi inicializado */
 } JOGO_tpCondRet;
 

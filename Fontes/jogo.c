@@ -10,9 +10,10 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor     Data        Observações
+*     4       hpg       15/jun/2014 Termina desenvolvimento
 *     3       lr        14/jun/2014 Documentação
-*     2       hpg/gmm   13/jun/2014 início da lógica de movimento
-*     1       hpg/gmm   09/jun/2014 início desenvolvimento
+*     2       hpg/gmm   13/jun/2014 Início da lógica de movimento
+*     1       hpg/gmm   09/jun/2014 Início desenvolvimento
 *
 ***************************************************************************/
 
@@ -30,9 +31,10 @@
 
 #define TRUE  1
 #define FALSE 0
-#define PATH_TAB_INICIAL "Objetos/TabuleiroInicial.tab"
+#define PATH_TAB_INICIAL "TabuleiroInicial.tab"
 #define LINHAS 8
 #define COLUNAS 8
+#define NUM_PECAS_INI 12;
 
 /***********************************************************************
 *
@@ -55,7 +57,7 @@ typedef struct JOGO_tagJogo
     JOGO_tppJogador jogador2;
     /* Segundo jogador */
 
-    JOGO_tppJogador jogadarDaVez;
+    JOGO_tppJogador jogadorDaVez;
 } JOGO_tpJogo;
 
 /* Tipo referência para um jogador */
@@ -81,18 +83,16 @@ typedef struct JOGO_tagJogador
 
     unsigned int jogadas;
     /* Número de jogadas */
+
+    unsigned int numPecas;
+    /* Número de peças restantes */
 } JOGO_tpJogador;
 
-typedef enum
+typedef struct
 {
-    NE = 1,
-    /* nordeste*/
-    SE = 2,
-    /* sudeste*/
-    SO = 3,
-    /* sudoeste*/
-    NO = 4
-    /* noroeste*/
+    short int x;
+
+    short int y;
 } JOGO_tpDirecao;
 
 
@@ -161,14 +161,19 @@ static WORD JOGO_ObterCorPeca(PECA_tppPeca peca);
 *  $FC Função: JOGO  -Obter Direcao
 *
 *  $ED Descrição da função
-*      Obtém a direção que a peça irá mover (sudoeste, sudeste, noroeste ou nordeste)
+*     Obtém a direção que a peça irá mover
 *
 *  $EP Parâmetros
 *     origem- posição de origem da peça
 *     destino- posição de destino da peça
 *
 *  $FV Valor retornado
-*     Retorna a direção a qual a peça irá mover ( NO, NE, SE, SO )
+*     Retorna a direção a qual a peça irá mover
+*     (nordeste, sudeste, sudoeste ou noroeste)
+*     NE = { 1, 1}
+*     SE = { 1,-1}
+*     SO = {-1,-1}
+*     NO = {-1, 1}
 *
 ***********************************************************************/
 
@@ -233,26 +238,29 @@ static int JOGO_ObterDistanciaDiagonal(TAB_tpPosicao origem, TAB_tpPosicao desti
 
 static int JOGO_ObterQuantidadePecasNoCaminho(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino);
 
- /***********************************************************************
+/***********************************************************************
 *
-*  $FC Função: JOGO  -Movimento Válido
+*  $FC Função: JOGO  -Tentar Jogada
 *
 *  $ED Descrição da função
-*      Valida se o movimento que a peça irá se realizar é válido
+*      Decide o que vai acontecer para uma certa jogada
 *
 *  $EP Parâmetros
-*     jogo - referência para o jogo em que iremos validar o movimento
-             realizado
+*     jogo - referência para o jogo em que iremos avaliar a jogada
+            realizada
 *     origem - posição de origem da peça
 *     destino- posição de destino da peça
 *
 *  $FV Valor retornado
-*     TRUE se o movimento for válido
-*     FALSE se o movimento não for válido
+*     JOGO_CondRetJogadaInvalida - Se a jogada for inválida
+*     JOGO_CondRetComeuPeca - Se a jogada for válida e uma peça foi
+*                             comida
+*     JOGO_CondRetJogadaInvalida - Se jogada for válida e nenhuma peça
+*                                  foi comida
 *
 ***********************************************************************/
 
-static int JOGO_MovimentoValido(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino);
+static JOGO_tpCondRet JOGO_TentarJogada(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino);
 
 /***********************************************************************
 *
@@ -275,7 +283,25 @@ static int JOGO_MovimentoValido(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPo
 *
 ***********************************************************************/
 
-static int JOGO_PodeComer(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino)
+static int JOGO_PodeComer(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino);
+
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Avançar Posição
+*
+*  $ED Descrição da função
+*     Avança a posição na diagonal especificada pela direção
+*
+*  $EP Parâmetros
+*     direcao - a direção na qual a posição será avançada
+*     posicao - a posição que sera avançada
+*
+*  $FV Valor retornado
+*     A nova posição avançada
+*
+***********************************************************************/
+
+static JOGO_tpPosicao JOGO_AvancarPosicao(JOGO_tpPosicao posicao, JOGO_tpDirecao direcao);
 
 
 /* Código das funções exportadas pelo módulo */
@@ -299,11 +325,14 @@ JOGO_tppJogo JOGO_CriarJogo (char *nomeJogador1, char *nomeJogador2)
     }
     jogo->jogador1 = JOGO_CriarJogador(nomeJogador1, PECA_CorBranca);
     jogo->jogador2 = JOGO_CriarJogador(nomeJogador2, PECA_CorPreta);
+
     if (jogo->jogador1 == NULL || jogo->jogador2 == NULL)
     {
         JOGO_DestruirJogo(jogo);
         return NULL;
     }
+
+    jogo->jogadorDaVez = jogador1;
 
     jogo->tab = TAB_CriarTabuleiro(COLUNAS, LINHAS, PECA_DestruirPeca);
     if (jogo->tab == NULL)
@@ -450,6 +479,8 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
     char temp1, temp2;
     TAB_tpPosicao origem, destino;
     PECA_tppPeca = pecaMov;
+    JOGO_tpCondRet condRetJogada;
+    JOGO_tpDirecao direcao;
 
     if (jogo == NULL)
     {
@@ -459,9 +490,11 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
     origem.coluna = (short int) temp1;
     destino.coluna = (short int) temp2;
 
-    if (!JOGO_MovimentoValido(jogo, origem, destino))
+    condRetJogada = JOGO_TentarJogada(jogo, origem, destino);
+
+    if (condRetJogada == JOGO_CondRetJogadaInvalida)
     {
-        return JOGO_CondRetJogadaInvalida;
+        return condRetJogada;
     }
 
     switch (TAB_MoverPeca(jogo->tab, origem, destino))
@@ -471,6 +504,36 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
     case TAB_CondRetPosicaoInvalida:
         return JOGO_CondRetJogadaInvalida;
     }
+
+    if (condRetJogada == JOGO_CondRetComeuPeca)
+    {
+        direcao = JOGO_ObterDirecao(origem, destino);
+        /* move destino para a peça que foi comida */
+        destino = JOGO_AvancarPosicao(destino, direcao);
+        TAB_DestruirPeca(jogo->tab, destino);
+        if (jogo->jogador1 == jogo->jogadorDaVez)
+        {
+            jogo->jogador2->numPecas--;
+        }
+        else
+        {
+            jogo->jogador1->numPecas--;
+        }
+    }
+    else
+    {
+        /* se nenhuma peça for comida, é a vez do outro jogador */
+        if (jogo->jogador1 == jogo->jogadorDaVez)
+        {
+            jogo->jogadorDaVez = jogo->jogador2;
+        }
+        else
+        {
+            jogo->jogadorDaVez = jogo->jogador1;
+        }
+    }
+
+    jogo->jogadorDaVez->jogadas++;
 
     return JOGO_CondRetOk;
 }
@@ -485,23 +548,16 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
 
 static JOGO_tppJogador JOGO_CriarJogador (char *nome, PECA_tpCor cor)
 {
-    JOGO_tppJogador jogador = (JOGO_tppJogador) malloc (sizeof(JOGO_tppJogador));
-    size_t strsize = 0;
+    JOGO_tppJogador jogador = (JOGO_tppJogador) malloc (sizeof(JOGO_tpJogador));
     if (jogador == NULL)
-        return NULL;
-
-    strsize = strlen(nome);
-    jogador->nome = (char *) malloc (strsize);
-
-    if (jogador->nome == NULL)
     {
-        free(jogador);
         return NULL;
     }
 
-    strcpy(jogador->nome, nome);
+    jogador->nome = nome;
     jogador->cor = cor;
     jogador->jogadas = 0;
+    jogador->numPecas = NUM_PECAS_INI;
     return jogador;
 }
 
@@ -554,29 +610,11 @@ static WORD JOGO_ObterCorPeca(PECA_tppPeca peca)
 
 static JOGO_tpDirecao JOGO_ObterDirecao (TAB_tpPosicao origem, TAB_tpPosicao destino)
 {
-    JOGO_tpDirecao direcao;
-    if (destino.linha > origem.linha)
-    {
-        if (destino.coluna > origem.coluna)
-        {
-            direcao = SE;
-        }
-        else
-        {
-            direcao = SO;
-        }
-    }
-    else
-    {
-        if (destino.coluna > origem.coluna)
-        {
-            direcao = NE;
-        }
-        else
-        {
-            direcao = NO;
-        }
-    }
+    JOGO_tpDirecao direcao = {0, 0};
+
+    direcao.x = (origem.coluna - destino.coluna) / abs(origem.coluna - destino.coluna); /* +1 ou -1 */
+    direcao.y = (origem.linha - destino.linha) / abs(origem.linha - destino.linha);
+
     return direcao;
 }
 
@@ -618,26 +656,8 @@ static int JOGO_ObterQuantidadePecasNoCaminho(JOGO_tppJogo jogo, TAB_tpPosicao o
     JOGO_tpDirecao direcao = JOGO_ObterDirecao(origem, destino);
     while (origem.linha != destino.linha && origem.coluna != destino.coluna)
     {
-        switch (direcao)
-        {
-        case NE:
-            origem.linha--;
-            origem.coluna++;
-            break;
-        case SE:
-            origem.linha++;
-            origem.coluna++;
-            break;
-        case SO:
-            origem.linha++;
-            origem.coluna--;
-            break;
-        case NO:
-            origem.linha--;
-            origem.coluna--;
-            break;
-        }
-        if (TAB_ObterPeca(jogo->tab, origem) != NULL)
+        origem = JOGO_AvancarPosicao(origem, direcao)
+                 if (TAB_ObterPeca(jogo->tab, origem) != NULL)
         {
             qtd++;
         }
@@ -647,11 +667,24 @@ static int JOGO_ObterQuantidadePecasNoCaminho(JOGO_tppJogo jogo, TAB_tpPosicao o
 
 /***********************************************************************
 *
+*  $FC Função: JOGO  -Avancar Posicao
+*
+***********************************************************************/
+
+static JOGO_tpPosicao JOGO_AvancarPosicao(JOGO_tpPosicao posicao, JOGO_tpDirecao direcao)
+{
+    posicao.linha += direcao.x;
+    posicao.coluna += direcao.y;
+    return posicao;
+}
+
+/***********************************************************************
+*
 *  $FC Função: JOGO  -Movimento Valido
 *
 ***********************************************************************/
 
-static int JOGO_MovimentoValido(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino)
+static JOGO_tpCondRet JOGO_TentarJogada(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao destino)
 {
     PECA_tppPeca pecaMov = (PECA_tppPeca) TAB_ObterPeca(jogo->tab, origem);
     JOGO_tpDirecao direcao;
@@ -662,25 +695,25 @@ static int JOGO_MovimentoValido(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPo
     /* conferindo se a peça existe ou se já existe alguma peça no destino */
     if (pecaMov == NULL || TAB_ObterPeca(jogo->tab, destino) != NULL))
     {
-        return FALSE;
+        return JOGO_CondRetJogadaInvalida;
     }
 
     /* Checa se o jogador esta movendo uma peca que nao lhe pertence */
     if (PECA_ObterCor(pecaMov) != jogadorDaVez->cor)
     {
-        return FALSE;
+        return JOGO_CondRetJogadaInvalida;
     }
 
     /* Checa se a peca nao esta se movendo na diagonal */
     if (JOGO_ValidaDiagonal(origem, destino))
     {
-        return FALSE;
+        return JOGO_CondRetJogadaInvalida;
     }
 
     /* destino fora do tabuleiro */
     if (!TAB_ChecarPos(jogo->tab, destino)
     {
-        return FALSE;
+        return JOGO_CondRetJogadaInvalida;
     }
 
     direcao = JOGO_ObterDirecao(origem, destino);
@@ -691,37 +724,37 @@ static int JOGO_MovimentoValido(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPo
         distancia = JOGO_ObterDistanciaDiagonal(origem, destino);
         if (distancia > 2)
         {
-            return FALSE;
+            return JOGO_CondRetJogadaInvalida;
         }
         if (PECA_ObterCor(pecaMov) == PECA_CorPreta)
         {
             if ((direcao == NE) || (direcao == NO))
             {
-                return FALSE;
+                return JOGO_CondRetJogadaInvalida;
             }
         }
         else if (PECA_ObterCor(pecaMov) == PECA_CorBranca)
         {
             if ((direcao == SE) || (direcao == SO))
             {
-                return FALSE;
+                return JOGO_CondRetJogadaInvalida;
             }
         }
         else
         {
-            return FALSE;
+            return JOGO_CondRetJogadaInvalida;
         }
 
         if (distancia == 1)
         {
-            return TRUE;
+            return JOGO_CondRetJogadaValida;
         }
 
         if (JOGO_PodeComer(jogo, origem, destino))
         {
-            return TRUE;
+            return JOGO_CondRetComeuPeca;
         }
-        return FALSE;
+        return JOGO_CondRetJogadaInvalida;
     }
     else
     {
@@ -729,21 +762,21 @@ static int JOGO_MovimentoValido(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPo
         qtd = JOGO_ObterQuantidadePecasNoCaminho(jogo, origem, destino);
         if (qtd > 1)
         {
-            return FALSE;
+            return JOGO_CondRetJogadaInvalida;
         }
         else if (qtd == 0)
         {
-            return TRUE;
+            return JOGO_CondRetJogadaValida;
         }
         else
         {
             if (JOGO_PodeComer(jogo, origem, destino))
             {
-                return TRUE;
+                return JOGO_CondRetComeuPeca;
             }
         }
     }
-    return FALSE;
+    return JOGO_CondRetJogadaInvalida;
 }
 
 /***********************************************************************

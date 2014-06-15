@@ -50,7 +50,7 @@ int main(int n, char **args)
 
 int Jogada(JOGO_tppJogo jogo)
 {
-    printf(" Escolha sua jogada (ex: 3a 5b): ");
+    printf("%s, escolha seu movimento (ex: 3a 5b): ", jogo->jogadorDaVez->nome);
     scanf(" %hd%c %hd%c", &linhaOrigem, &colunaOrigem,
                           &linhaDestino, &colunaDestino);
 
