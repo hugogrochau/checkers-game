@@ -41,7 +41,9 @@ int main(int n, char **args)
         jogo = JOGO_CriarJogo(nomeJogador1, nomeJogador2);
     }
 
-    printf("Jogo vai começar, digite 0q 0q a qualquer momento para sair do programa\n");
+    printf("Jogo vai começar.\n"
+           "Digite 0q 0q a qualquer momento para sair do programa\n"
+           "Digite 0d 0d a qualquer momento para desistir\n");
 
     while(ContinuarJogo(jogo));
 
@@ -57,6 +59,12 @@ int ContinuarJogo(JOGO_tppJogo jogo)
     if (colunaOrigem == 'q' && colunaDestino == 'q')
     {
         printf("Obrigado por jogar");
+        return FALSE;
+    }
+
+    if (colunaOrigem == 'd' && colunaDestino == 'd')
+    {
+        printf("%s venceu!", ObterJogadorNaoDaVez(jogo)->nome);
         return FALSE;
     }
 
