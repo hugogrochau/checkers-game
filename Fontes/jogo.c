@@ -252,10 +252,10 @@ static int JOGO_ObterQuantidadePecasNoCaminho(JOGO_tppJogo jogo, TAB_tpPosicao o
 *     destino- posição de destino da peça
 *
 *  $FV Valor retornado
-*     JOGO_CondRetJogadaInvalida - Se a jogada for inválida
-*     JOGO_CondRetComeuPeca - Se a jogada for válida e uma peça foi
+*     CondRetJogadaInvalida - Se a jogada for inválida
+*     CondRetComeuPeca - Se a jogada for válida e uma peça foi
 *                             comida
-*     JOGO_CondRetJogadaInvalida - Se jogada for válida e nenhuma peça
+*     CondRetJogadaInvalida - Se jogada for válida e nenhuma peça
 *                                  foi comida
 *
 ***********************************************************************/
@@ -323,6 +323,7 @@ JOGO_tppJogo JOGO_CriarJogo (char *nomeJogador1, char *nomeJogador2)
     {
         return NULL;
     }
+
     jogo->jogador1 = JOGO_CriarJogador(nomeJogador1, PECA_CorBranca);
     jogo->jogador2 = JOGO_CriarJogador(nomeJogador2, PECA_CorPreta);
 
@@ -511,29 +512,30 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
         /* move destino para a peça que foi comida */
         destino = JOGO_AvancarPosicao(destino, direcao);
         TAB_DestruirPeca(jogo->tab, destino);
-        if (jogo->jogador1 == jogo->jogadorDaVez)
-        {
-            jogo->jogador2->numPecas--;
-        }
-        else
-        {
-            jogo->jogador1->numPecas--;
-        }
+        ObterJogadorNaoDaVez(jogo)->numPecas--;
     }
     else
     {
         /* se nenhuma peça for comida, é a vez do outro jogador */
-        if (jogo->jogador1 == jogo->jogadorDaVez)
-        {
-            jogo->jogadorDaVez = jogo->jogador2;
-        }
-        else
-        {
-            jogo->jogadorDaVez = jogo->jogador1;
-        }
+        jogo->jogadorDaVez = ObterJogadorNaoDaVez(jogo);
     }
 
     jogo->jogadorDaVez->jogadas++;
+
+    if (jogo->jogador1->numPecas == 0)
+    {
+        return TAB_CondRetJogador1Ganhou;
+    }
+
+    if (jogo->jogador2->numPecas == 0)
+    {
+        return TAB_CondRetJogador2Ganhou;
+    }
+
+    if (jogo->jogador1->numPecas == jogo->jogador2->numPecas == 1)
+    {
+        return TAB_CondRetEmpate;
+    }
 
     return JOGO_CondRetOk;
 }
@@ -842,6 +844,15 @@ static int JOGO_PodeComer(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao 
             return FALSE;
         }
     }
+}
+
+static JOGO_tppJogador ObterJogadorNaoDaVez(JOGO_tppJogo jogo)
+{
+    if (jogo->jogador1 == jogo->jogadorDaVez)
+    {
+        return jogo->jogador2;
+    }
+    return jogo->jogador1;
 }
 
 /********** Fim do módulo de implementação: JOGO  gerenciador do jogo de damas **********/

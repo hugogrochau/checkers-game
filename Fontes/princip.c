@@ -43,12 +43,12 @@ int main(int n, char **args)
 
     printf("Jogo vai começar, digite 0q 0q a qualquer momento para sair do programa\n");
 
-    while(Jogada(jogo));
+    while(ContinuarJogo(jogo));
 
     return 0;
 }
 
-int Jogada(JOGO_tppJogo jogo)
+int ContinuarJogo(JOGO_tppJogo jogo)
 {
     printf("%s, escolha seu movimento (ex: 3a 5b): ", jogo->jogadorDaVez->nome);
     scanf(" %hd%c %hd%c", &linhaOrigem, &colunaOrigem,
@@ -74,8 +74,8 @@ int Jogada(JOGO_tppJogo jogo)
             printf("Esse movimento não é valido, tente novamente");
             return TRUE;
         case TAB_CondRetTabuleiroVazio:
-            printf("Ocorreu algum erro a criar o jogo, comece novamente");
-            return FALSE;
+            printf("Ocorreu algum erro grave com jogo, comece novamente");
+            exit(1);
         case TAB_CondRetJogador1Ganhou:
             printf("%s venceu!", jogo->jogador1->nome);
             return FALSE;
@@ -86,4 +86,5 @@ int Jogada(JOGO_tppJogo jogo)
             prinf("O jogo terminou num empate!");
             return FALSE;
     }
+    return TRUE;
 }

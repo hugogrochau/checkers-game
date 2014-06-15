@@ -150,6 +150,34 @@ JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro
 
 JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo);
 
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Executar Jogada
+*
+*  $ED Descrição da função
+*     Executa a jogada dada uma direção
+*
+*  $EP Parâmetros
+*     jogo - Ponteiro para o jogo sendo jogado.
+*     linhaOrigem - linha da peça que vai ser movida.
+*     colunaOrigem - coluna da peça que vai ser movida.
+*     linhaDestino - linha para onde a peça vai ser movida.
+*     colunaDestino - coluna para onde a peça vai ser movida.
+*
+*  $FV Valor retornado
+*     CondRetPosicaoInvalida - Uma das posições é inválida
+*     CondRetTabuleiroVazio - O tabuleiro não existe
+*     CondRetJogador1Ganhou - O jogador 1 ganhou
+*     CondRetJogador2Ganhou - O jogador 2 ganhou
+*     CondRetEmpate - Houve um empate
+*     CondRetOk - A jogada foi executada sem problemas
+*
+***********************************************************************/
+
+JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
+                                   short int linhaOrigem, short int colunaOrigem,
+                                   short int linhaDestino, short int colunaDestino);
+
 #undef JOGO_EXT
 
 /********** Fim do módulo de definição: JOGO  gerenciador do jogo de damas **********/
