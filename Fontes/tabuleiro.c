@@ -374,29 +374,7 @@ TAB_tbCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab)
         return TAB_CondRetErroEstrutura;
     }
 
-    if (TAB_VerificarCabeca(tab) != TAB_CondRetOk)
-    {
-        TAB_IrInicioTabuleiro(tab);
-        return TAB_CondRetErroEstrutura;
-    }
-    TAB_IrInicioTabuleiro(tab);
     CED_MarcarEspacoAtivo(tab);
-
-    return TAB_CondRetOk;
-}
-
-/***********************************************************************
-*
-*  Função: TAB &Verificar Cabeça
-*
-***********************************************************************/
-TAB_tbCondRet TAB_VerificarCabeca(TAB_tppTabuleiro tab)
-{
-    if (tab == NULL)
-    {
-        TST_NotificarFalha( "Tentou verificar tabuleiro inexistente." );
-        return TAB_CondRetErroEstrutura;
-    }
 
     if (!CED_VerificarEspaco( tab, NULL ))
     {
@@ -411,7 +389,15 @@ TAB_tbCondRet TAB_VerificarCabeca(TAB_tppTabuleiro tab)
         return TAB_CondRetErroEstrutura;
     }
 
-    return TAB_VerificarColuna(tab);
+    if (TAB_VerificarColuna(tab) != TAB_CondRetOk)
+    {
+        TAB_IrInicioTabuleiro(tab);
+        return TAB_CondRetErroEstrutura;
+    }
+
+    TAB_IrInicioTabuleiro(tab);
+
+    return CondRetOk;
 }
 
 /***********************************************************************
@@ -572,7 +558,7 @@ void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModosDeturpacao modoDeturpar)
     switch (modoDeturpar)
     {
     /* tipos */
-    case DeturpaTipoCabeca:
+    case DeturpaTipoTabuleiro:
         CED_DefinirTipoEspaco(tab, CED_ID_TIPO_VALOR_NULO);
         break;
 
@@ -589,7 +575,7 @@ void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModosDeturpacao modoDeturpar)
         break;
 
     /* espaços */
-    case DeturparEspacoCabeca:
+    case DeturparEspacoTabuleiro:
         memcpy((char *) tab,
                LIXO(sizeof(TAB_tagTabuleiro)),
                sizeof(TAB_tagTabuleiro));

@@ -13,11 +13,13 @@
 *  Autores: Gustavo Marques Martins (gmm)
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       hpg   13/jun/2014     Tornou ChecarPos publica
-*     3       gmm   19/abr/2014     Mais implementação
-*     2       gmm   18/abr/2014     Mais implementação
-*     1       gmm   16/abr/2014     início desenvolvimento
+*     Versão  Autor    Data         Observações
+*     6       hpg      14/jun/2014  Implementação de deturpação
+*     5       hpg      13/jun/2014  Tornou a estrutura auto-verificável
+*     4       hpg      13/jun/2014  Tornou ChecarPos publica
+*     3       gmm      19/abr/2014  Mais implementação
+*     2       gmm      18/abr/2014  Mais implementação
+*     1       gmm      16/abr/2014  início desenvolvimento
 *
 *  $ED Descrição do módulo
 *     Implementa um tabuleiro.
@@ -255,8 +257,6 @@ int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
 
 TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab);
 
-TAB_tbCondRet TAB_VerificarCabeca(TAB_tppTabuleiro tab);
-
 TAB_tbCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab);
 
 TAB_tbCondRet TAB_VerificarLinha(LIS_tppLista linha);
@@ -265,8 +265,8 @@ TAB_tbCondRet TAB_VerificarPeca(PECA_tppPeca peca);
 
 typedef enum
 {
-    DeturpaTipoCabeca = 1,
-    /* Modifica o tipo da cabeça */
+    DeturpaTipoTabuleiro = 1,
+    /* Modifica o tipo do tabuleiro */
 
     DeturpaTipoColuna = 2,
     /* Modifica o tipo da coluna */
@@ -277,8 +277,9 @@ typedef enum
     DeturpaTipoPeca = 4,
     /* Modifica o tipo da peça */
 
-    DeturparEspacoCabeca = 5,
-    /* Deturpa espaço da cabeca */
+
+    DeturparEspacoTabuleiro = 5,
+    /* Deturpa espaço do tabuleiro */
 
     DeturpaEspacoColuna = 6,
     /* Deturpa espaço da coluna */
@@ -289,28 +290,28 @@ typedef enum
     DeturpaEspacoPeca = 8,
     /* Deturpa espaço da peca */
 
+
     DeturpaPtColunaNulo = 9,
     /* Anula ponteiro para coluna */
 
     DeturpaPtLinhaNulo = 10,
     /* Anula ponteiro para linha */
 
-    DeturpaCabecaLixo = 11,
-    /* Faz cabeça apontar para lixo */
 
-    DeturpaColunaLixo = 12,
+    DeturpaColunaLixo = 11,
     /* Faz coluna apontar para lixo */
 
-    DeturpaLinhaLixo = 13,
+    DeturpaLinhaLixo = 12,
     /* Faz a linha apontar para lixo */
 
-    DeturpaPecaLixo = 14,
+    DeturpaPecaLixo = 13,
     /* Faz a peça apontar para lixo */
 
-    DeturpaPecaStatus = 15,
+
+    DeturpaPecaStatus = 14,
     /* Coloca um status invalido para alguma peça */
 
-    DeturpaPecaCor = 16,
+    DeturpaPecaCor = 15,
     /* Coloca uma cor invalida para alguma peça */
 } TAB_tpModosDeturpacao;
 
