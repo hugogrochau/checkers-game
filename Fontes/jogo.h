@@ -44,11 +44,17 @@ typedef struct
     JOGO_CondRetOk,
     /* Concluiu corretamente */
 
-    TAB_CondRetJogoAcabou,
-    /* O jogo terminou */
+    TAB_CondRetJogador1Ganhou,
+    /* O jogo terminou e o jogador 1 venceu */
+
+    TAB_CondRetJogador2Ganhou,
+    /* O jogo terminou e o jogador 2 venceu */
+
+    TAB_CondRetEmpate,
+    /* O jogo terminou num empate */
 
     JOGO_CondRetJogadaInvalida,
-    /* O jogador tentou fazer uma jogada invalida */
+    /* O jogador tentou fazer uma jogada inválida */
 
     JOGO_CondRetArquivoInvalido,
     /* Ocorreu erro a ler o arquivo */
@@ -140,7 +146,7 @@ JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo);
 
 #undef JOGO_EXT
 
-/********** Fim do módulo de definição: PECA  Peça de tabuleiro de damas **********/
+/********** Fim do módulo de definição: JOGO  gerenciador do jogo de damas **********/
 
 #else
 #endif
