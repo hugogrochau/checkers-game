@@ -1,0 +1,55 @@
+////////////////////////////////////////////////
+//
+// Declaração de contadores para o
+// módulo Tabuleiro
+//
+///////////////////////////////////////////////
+
+Verificar tabuleiro
+Tabuleiro nulo
+Tabuleiro não nulo
+Espaço tabuleiro inválido
+Espaço tabuleiro válido
+Tipo tabuleiro inválido
+Tipo tabuleiro válido
+Coluna inválida
+Coluna válida
+Acaba verificar tabuleiro
+Verificar coluna
+Coluna nula
+Coluna não nula
+Espaço coluna inválido
+Espaço coluna válido
+Tipo coluna inválido
+Tipo coluna válido
+Avança coluna
+Linha inválida
+Linha válida
+Linhas válidas
+Acaba verificar coluna
+Verificar linha
+Linha nula
+Linha não nula
+Espaço linha inválido
+Espaço linha válido
+Tipo linha inválido
+Tipo linha válido
+Avança linha
+Peça inválida
+Peça válida
+Peças válidas
+Acaba verificar linha
+Verificar peça
+Peça nula
+Peça não nula
+Espaço peça inválido
+Espaço peça válido
+Tipo peça inválido
+Tipo peça válido
+Cor peça inválida
+Cor peça válida
+Status peça inválida
+Status peça válida
+Acaba verificar peça
+
+XPTO nome adicionado para fins de teste\=-2

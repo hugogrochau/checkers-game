@@ -10,6 +10,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor     Data        Observações
+*     8       hpg       14/jun/2014  Implementação de contagem
 *     7       hpg       14/jun/2014  Implementação de deturpação
 *     6       hpg       13/jun/2014  Tornou a estrutura auto-verificável
 *     5       hpg,gmm   13/jun/2014  Tornou ChecarPos publica
@@ -368,34 +369,56 @@ int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 ***********************************************************************/
 TAB_tbCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab)
 {
+    CNT_CONTAR("Verificar tabuleiro");
+
     if (tab == NULL)
     {
+
+        CNT_CONTAR("Tabuleiro nulo");
+
         TST_NotificarFalha( "Tentou verificar tabuleiro inexistente." );
         return TAB_CondRetErroEstrutura;
     }
+
+    CNT_CONTAR("Tabuleiro não nulo");
 
     CED_MarcarEspacoAtivo(tab);
 
     if (!CED_VerificarEspaco( tab, NULL ))
     {
+
+        CNT_CONTAR("Espaço tabuleiro inválido");
+
         TST_NotificarFalha( "Controle do espaço acusou erro." );
         return TAB_CondRetErroEstrutura;
     }
+
+    CNT_CONTAR("Espaço tabuleiro válido");
 
     if (TST_CompararInt(TAB_TipoEspacoCabeca,
                         CED_ObterTipoEspaco(tab),
                         "Tipo do espaço de dados não é um tabuleiro.") != TST_CondRetOk )
     {
+
+        CNT_CONTAR("Tipo tabuleiro inválido");
+
         return TAB_CondRetErroEstrutura;
     }
 
+    CNT_CONTAR("Tipo tabuleiro válido");
+
     if (TAB_VerificarColuna(tab) != TAB_CondRetOk)
     {
+        CNT_CONTAR("Coluna inválida");
         TAB_IrInicioTabuleiro(tab);
         return TAB_CondRetErroEstrutura;
     }
 
+    CNT_CONTAR("Coluna válida");
+
     TAB_IrInicioTabuleiro(tab);
+
+    CNT_CONTAR("Acaba verificar tabuleiro");
 
     return CondRetOk;
 }
@@ -410,34 +433,67 @@ TAB_tbCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
     LIS_tppLista coluna = tab->coluna;
     LIS_tppLista linha;
     TAB_tbCondRet condRetLinha;
+
+    CNT_CONTAR("Verificar coluna");
+
     if (coluna == NULL)
     {
+
+        CNT_CONTAR("Coluna nula");
+
         TST_NotificarFalha( "Tabuleiro tem coluna NULL." );
         return TAB_CondRetErroEstrutura;
     }
 
+    CNT_CONTAR("Coluna não nula");
+
     if (!CED_VerificarEspaco( coluna, NULL ))
     {
+
+        CNT_CONTAR("Espaço coluna inválido");
+
         TST_NotificarFalha( "Controle do espaço acusou erro." );
         return TAB_CondRetErroEstrutura;
     }
+
+    CNT_CONTAR("Espaço coluna válido");
 
     if (TST_CompararInt(TAB_TipoEspacoColuna,
                         CED_ObterTipoEspaco(coluna),
                         "Tipo do espaço de dados não é uma coluna.") != TST_CondRetOk )
     {
+
+        CNT_CONTAR("Tipo coluna inválido");
+
         return TAB_CondRetErroEstrutura;
     }
+
+    CNT_CONTAR("Tipo coluna válido");
+
     while (LIS_AvancarElementoCorrente(coluna, 1) != CondRetFimLista)
     {
+
+        CNT_CONTAR("Avança coluna");
+
         linha = (LIS_tppLista) LIS_ObterValor(coluna);
         if ((condRetLinha = TAB_VerificarLinha(linha)) != TAB_CondRetOk)
         {
+
+            CNT_CONTAR("Linha inválida");
+
             return TAB_CondRetErroEstrutura;
         }
+
+        CNT_CONTAR("Linha válida");
+
     }
 
+    CNT_CONTAR("Linhas válidas");
+
+
     CED_MarcarEspacoAtivo(coluna);
+
+    CNT_CONTAR("Acaba verificar coluna");
 
     return TAB_CondRetOk;
 }
@@ -449,40 +505,72 @@ TAB_tbCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
 ***********************************************************************/
 TAB_tbCondRet TAB_VerificarLinha(LIS_tppLista linha)
 {
+
+    CNT_CONTAR("Verificar linha");
+
     PECA_tppPeca peca;
     if (linha == NULL)
     {
+
+        CNT_CONTAR("Linha nula");
+
         TST_NotificarFalha( "Coluna tem linha NULL." );
         return TAB_CondRetErroEstrutura;
     }
 
+    CNT_CONTAR("Linha não nula");
+
     if (!CED_VerificarEspaco( linha, NULL ))
     {
+
+        CNT_CONTAR("Espaço linha inválido");
+
         TST_NotificarFalha( "Controle do espaço acusou erro." );
         return TAB_CondRetErroEstrutura;
     }
+
+    CNT_CONTAR("Espaço linha válido");
 
     if (TST_CompararInt(TAB_TipoEspacoLinha,
                         CED_ObterTipoEspaco(linha),
                         "Tipo do espaço de dados não é uma linha.") != TST_CondRetOk )
     {
+
+        CNT_CONTAR("Tipo linha inválido");
+
         return TAB_CondRetErroEstrutura;
     }
 
+    CNT_CONTAR("Tipo linha válido");
+
     while (LIS_AvancarElementoCorrente(linha, 1) != CondRetFimLista)
     {
+
+        CNT_CONTAR("Avança linha");
+
         peca = (PECA_tppPeca) LIS_ObterValor(peca);
         if ((condRetLinha = TAB_VerificarPeca(peca)) != TAB_CondRetOk)
         {
+
+            CNT_CONTAR("Peça inválida");
+
             IrInicioLista(linha);
             return TAB_CondRetErroEstrutura;
         }
+
+        CNT_CONTAR("Peça válida");
+
     }
+
+    CNT_CONTAR("Peças válidas");
+
     IrInicioLista(linha);
 
     /* TODO: Verificar Peças */
 
     CED_MarcarEspacoAtivo(linha);
+
+    CNT_CONTAR("Acaba verificar linha");
 
     return TAB_CondRetOk;
 }
@@ -495,37 +583,67 @@ TAB_tbCondRet TAB_VerificarLinha(LIS_tppLista linha)
 
 TAB_tbCondRet TAB_VerificarPeca(PECA_tppPeca peca)
 {
+
+    CNT_CONTAR("Verificar peça");
+
     if (peca == NULL)
     {
+
+        CNT_CONTAR("Peça nula");
+
         return TAB_CondRetOK;
     }
 
+    CNT_CONTAR("Peça não nula");
+
     if (!CED_VerificarEspaco( peca, NULL ))
     {
+
+        CNT_CONTAR("Espaço peça inválido");
+
         TST_NotificarFalha("Controle do espaço acusou erro.");
         return TAB_CondRetErroEstrutura;
     }
+
+    CNT_CONTAR("Espaço peça válido");
 
     if (TST_CompararInt(TAB_TipoEspacoPeca,
                         CED_ObterTipoEspaco(peca),
                         "Tipo do espaço de dados não é uma peça.") != TST_CondRetOk )
     {
+
+        CNT_CONTAR("Tipo peça inválido");
+
         return TAB_CondRetErroEstrutura;
     }
 
+    CNT_CONTAR("Tipo peça válido");
+
     if (PECA_ObterCor(peca) != PECA_CorPreta || PECA_ObterCor(peca) != PECA_CorBranca)
     {
+
+        CNT_CONTAR("Cor peça inválida");
+
         TST_NotificarFalha("Peça tem cor invalida.");
         return TAB_CondRetErroEstrutura;
     }
 
+    CNT_CONTAR("Cor peça válida");
+
     if (PECA_ObterStatus(peca) != PECA_StatusNormal || PECA_ObterStatus(peca) != PECA_StatusDama)
     {
+
+        CNT_CONTAR("Status peça inválida");
+
         TST_NotificarFalha("Peça tem status invalido.");
         return TAB_CondRetErroEstrutura;
     }
 
+    CNT_CONTAR("Status peça válida");
+
     CED_MarcarEspacoAtivo(peca);
+
+    CNT_CONTAR("Acaba verificar peça");
 
     return TAB_CondRetOk;
 }
