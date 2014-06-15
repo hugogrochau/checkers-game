@@ -26,3 +26,11 @@
 																										  
 01/05/2014        6                     Modelagem da arquitetura, Modelo físico                           Modelei a arquitetura, fiz o modelo físico e fiz o exemplo
                                         Exemplo modelo físico                                             do modelo fisico utilizando a ferramenta da Embarcadero Delphi XE5
+										
+										
+13/05/2014        4                     Codificar modulo jogo                                             Fiz parte da implementação do modulo jogo
+
+14/05/2014        1                     Codificar scripts                                                 Codifiquei script de contagem
+
+15/04/2014        1                     Codificar scripts                                                  Codifiquei script de controle de espaço
+										
