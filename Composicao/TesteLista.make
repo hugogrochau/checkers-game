@@ -59,6 +59,7 @@ limpa :
 ### Dependências de módulos objeto a compilar
 
 $(Fobj)\Lista.obj :  {$(Pc)}\Lista.c \
+    {$(Ph)}TST_Espc.h           {$(Ph)}cespdin.h            {$(Ph)}generico.h           \
     {$(Ph)}lista.h             
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 

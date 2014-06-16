@@ -1,7 +1,7 @@
 ##################################################
 ###
-### Diretivas de MAKE para o construto: TesteTabuleiro
-### Gerado a partir de: TesteTabuleiro.comp
+### Diretivas de MAKE para o construto: JogoDeDamas
+### Gerado a partir de: JogoDeDamas.comp
 ###
 ### ----- Arquivo gerado, NÃO EDITE!!! -----
 ###
@@ -9,7 +9,7 @@
 
 ### Nomes globais
 
-NOME            = TesteTabuleiro
+NOME            = JogoDeDamas
 
 
 ### Nomes de paths
@@ -47,8 +47,8 @@ INCLUDE = $(INCLUDE);$(PDEFAULT)
 ### Regras de geração
 
 all : limpa \
-   $(Fobj)\Lista.obj   $(Fobj)\Peca.obj   $(Fobj)\Tabuleiro.obj \
-   $(Fobj)\TestTab.obj \
+   $(Fobj)\Princip.obj   $(Fobj)\Jogo.obj   $(Fobj)\Tabuleiro.obj \
+   $(Fobj)\Lista.obj   $(Fobj)\Peca.obj \
    Construto
 
 ### Limpar arquivos
@@ -59,6 +59,20 @@ limpa :
 
 ### Dependências de módulos objeto a compilar
 
+$(Fobj)\Princip.obj :  {$(Pc)}\Princip.c \
+    {$(Ph)}jogo.h               {$(Ph)}peca.h               {$(Ph)}tabuleiro.h         
+   cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
+
+$(Fobj)\Jogo.obj :  {$(Pc)}\Jogo.c \
+    {$(Ph)}jogo.h               {$(Ph)}peca.h               {$(Ph)}tabuleiro.h         
+   cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
+
+$(Fobj)\Tabuleiro.obj :  {$(Pc)}\Tabuleiro.c \
+    ..\\tabelas\\TiposEspacosTabuleiro.def {$(Ph)}TST_Espc.h           {$(Ph)}cespdin.h            \
+    {$(Ph)}conta.h              {$(Ph)}generico.h           {$(Ph)}lista.h              \
+    {$(Ph)}tabuleiro.h         
+   cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
+
 $(Fobj)\Lista.obj :  {$(Pc)}\Lista.c \
     {$(Ph)}TST_Espc.h           {$(Ph)}cespdin.h            {$(Ph)}generico.h           \
     {$(Ph)}lista.h             
@@ -68,29 +82,18 @@ $(Fobj)\Peca.obj :  {$(Pc)}\Peca.c \
     {$(Ph)}peca.h              
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
-$(Fobj)\Tabuleiro.obj :  {$(Pc)}\Tabuleiro.c \
-    ..\\tabelas\\TiposEspacosTabuleiro.def {$(Ph)}TST_Espc.h           {$(Ph)}cespdin.h            \
-    {$(Ph)}conta.h              {$(Ph)}generico.h           {$(Ph)}lista.h              \
-    {$(Ph)}tabuleiro.h         
-   cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
-
-$(Fobj)\TestTab.obj :  {$(Pc)}\TestTab.c \
-    {$(Ph)}TST_Espc.h           {$(Ph)}generico.h           {$(Ph)}lerparm.h            \
-    {$(Ph)}peca.h               {$(Ph)}tabuleiro.h          {$(Ph)}tst_espc.h          
-   cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
-
 
 ### Terminação
 
 Construto : \
-   $(Fobj)\Lista.obj   $(Fobj)\Peca.obj   $(Fobj)\Tabuleiro.obj \
-   $(Fobj)\TestTab.obj
+   $(Fobj)\Princip.obj   $(Fobj)\Jogo.obj   $(Fobj)\Tabuleiro.obj \
+   $(Fobj)\Lista.obj   $(Fobj)\Peca.obj
     cd $(Fobj)
     LINK $(L) @$(NOME).build >> $(Ferr)\$(NOME).err
 
 ##################################################
 ###
-### Fim de diretivas MAKE para o construto: TesteTabuleiro
+### Fim de diretivas MAKE para o construto: JogoDeDamas
 ###
 ##################################################
 

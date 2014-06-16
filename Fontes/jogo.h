@@ -1,6 +1,9 @@
 #if !defined( JOGO_ )
 #define JOGO_
 
+#include "tabuleiro.h"
+#include "peca.h"
+
 /***************************************************************************
 *  $MCI Módulo de definição: JOGO  gerenciador do jogo de damas
 *
@@ -72,8 +75,63 @@ typedef enum
     /* O jogo não foi inicializado */
 } JOGO_tpCondRet;
 
+/***********************************************************************
+*
+*  $TC Tipo de dados: JOGO jogador
+*
+*
+*  $ED Descrição do tipo
+*     Dados de um dos jogadores
+*
+***********************************************************************/
+
+typedef struct JOGO_tagJogador
+{
+    char *nome;
+    /* Nome do jogador */
+
+    PECA_tpCor cor;
+    /* Cor do jogador */
+
+    unsigned int jogadas;
+    /* Número de jogadas */
+
+    unsigned int numPecas;
+    /* Número de peças restantes */
+
+    unsigned int numDamas;
+    /* Número de damas */
+} JOGO_tpJogador;
+
+/* Tipo referência para um jogador */
+typedef JOGO_tpJogador *JOGO_tppJogador;
+
+/***********************************************************************
+*
+*  $TC Tipo de dados: JOGO jogo
+*
+*
+*  $ED Descrição do tipo
+*     Dados sobre o jogo de damas
+*
+***********************************************************************/
+
+typedef struct JOGO_tagJogo
+{
+    TAB_tppTabuleiro tab;
+    /* Tabuleiro do jogo */
+
+    JOGO_tppJogador jogador1;
+    /* Primeiro jogador */
+
+    JOGO_tppJogador jogador2;
+    /* Segundo jogador */
+
+    JOGO_tppJogador jogadorDaVez;
+} JOGO_tpJogo;
+
 /* Tipo referência para o jogo */
-typedef JOGO_tpJogo *JOGO_tppJogo;
+typedef struct JOGO_tagJogo * JOGO_tppJogo;
 
 /***********************************************************************
 *
@@ -129,7 +187,7 @@ void JOGO_DestruirJogo (JOGO_tppJogo jogo);
 *
 ***********************************************************************/
 
-JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp arqTabuleiro);
+JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp);
 
 /***********************************************************************
 *
@@ -174,11 +232,9 @@ JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo);
 *
 ***********************************************************************/
 
-JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
-                                   short int linhaOrigem, short int colunaOrigem,
-                                   short int linhaDestino, short int colunaDestino);
+JOGO_tpCondRet JOGO_ExecutarJogada (JOGO_tppJogo jogo, short int linhaOrigem, short int colunaOrigem, short int linhaDestino, short int colunaDestino);
 
-JOGO_tppJogador ObterJogadorNaoDaVez(JOGO_tppJogo jogo);
+JOGO_tppJogador JOGO_ObterJogadorNaoDaVez (JOGO_tppJogo jogo);
 
 #undef JOGO_EXT
 
