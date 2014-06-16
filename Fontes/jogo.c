@@ -86,6 +86,9 @@ typedef struct JOGO_tagJogador
 
     unsigned int numPecas;
     /* Número de peças restantes */
+
+    unsigned int numDamas;
+    /* Número de damas */
 } JOGO_tpJogador;
 
 typedef struct
@@ -478,8 +481,8 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
                                    short int linhaDestino, short int colunaDestino)
 {
     char temp1, temp2;
-    TAB_tpPosicao origem, destino;
-    PECA_tppPeca = pecaMov;
+    TAB_tpPosicao origem, destino, posComida;
+    PECA_tppPeca pecaComida;
     JOGO_tpCondRet condRetJogada;
     JOGO_tpDirecao direcao;
 
@@ -510,9 +513,17 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
     {
         direcao = JOGO_ObterDirecao(origem, destino);
         /* move destino para a peça que foi comida */
-        destino = JOGO_AvancarPosicao(destino, direcao);
-        TAB_DestruirPeca(jogo->tab, destino);
+        posComida = JOGO_AvancarPosicao(destino, direcao);
+        pecaComida = (PECA_tppPeca) TAB_RemoverPeca(jogo->tab, posComida);
+
         ObterJogadorNaoDaVez(jogo)->numPecas--;
+
+        if (PECA_ObterStatus(pecaComida) == PECA_StatusDama)
+        {
+            ObterJogadorNaoDaVez(jogo)->numDamas--;
+        }
+
+        PECA_DestruirPeca(pecaComida);
     }
     else
     {
@@ -532,12 +543,41 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
         return TAB_CondRetJogador2Ganhou;
     }
 
-    if (jogo->jogador1->numPecas == jogo->jogador2->numPecas == 1)
+    if (jogo->jogadorDaVez->cor == PECA_CorBranca && destino->linha == 0)
     {
-        return TAB_CondRetEmpate;
+        PECA_VirarDama((PECA_tppPeca) TAB_ObterPeca(jogo->tab, destino));
+        jogo->jogadorDaVez->numDamas++;
+        else if (jogo->jogadorDaVez->cor == PECA_CorPreta && destino->linha == LINHAS - 1)
+            PECA_VirarDama((PECA_tppPeca) TAB_ObterPeca(jogo->tab, destino));
+        jogo->jogadorDaVez->numDamas++;
+    }
+
+    if (jogo->jogador1->numPecas <= 2 && jogo->jogador2->numPecas <= 2)
+    {
+        if ((jogo->jogador1->numDamas <= 2 && jogo->jogador2->numDamas <= 2) ||
+                (jogo->jogador1->numDamas <= 2 && jogo->jogodor2->numDamas == 1 && jogo->jogodor2->numPecas == 2) ||
+                (jogo->jogador1->numDamas == 1 && jogo->jogodor1->numPecas == 2 && jogo->jogador2->numDamas <= 2))
+        {
+            return TAB_CondRetEmpate;
+        }
     }
 
     return JOGO_CondRetOk;
+}
+
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Obter Jogador Não Da Vez
+*
+***********************************************************************/
+
+JOGO_tppJogador ObterJogadorNaoDaVez(JOGO_tppJogo jogo)
+{
+    if (jogo->jogador1 == jogo->jogadorDaVez)
+    {
+        return jogo->jogador2;
+    }
+    return jogo->jogador1;
 }
 
 /* Código das funções encapsuladas no módulo */
@@ -614,8 +654,8 @@ static JOGO_tpDirecao JOGO_ObterDirecao (TAB_tpPosicao origem, TAB_tpPosicao des
 {
     JOGO_tpDirecao direcao = {0, 0};
 
-    direcao.x = (origem.coluna - destino.coluna) / abs(origem.coluna - destino.coluna); /* +1 ou -1 */
-    direcao.y = (origem.linha - destino.linha) / abs(origem.linha - destino.linha);
+    direcao.x = (destino.coluna - origem.coluna) / abs(destino.coluna - origem.coluna); /* +1 ou -1 */
+    direcao.y = (destino.linha - origem.linha) / abs(destino.linha - origem.linha);
 
     return direcao;
 }
@@ -658,8 +698,8 @@ static int JOGO_ObterQuantidadePecasNoCaminho(JOGO_tppJogo jogo, TAB_tpPosicao o
     JOGO_tpDirecao direcao = JOGO_ObterDirecao(origem, destino);
     while (origem.linha != destino.linha && origem.coluna != destino.coluna)
     {
-        origem = JOGO_AvancarPosicao(origem, direcao)
-                 if (TAB_ObterPeca(jogo->tab, origem) != NULL)
+        origem = JOGO_AvancarPosicao(origem, direcao);
+        if (TAB_ObterPeca(jogo->tab, origem) != NULL)
         {
             qtd++;
         }
@@ -730,14 +770,14 @@ static JOGO_tpCondRet JOGO_TentarJogada(TAB_tppJogo jogo, TAB_tpPosicao origem, 
         }
         if (PECA_ObterCor(pecaMov) == PECA_CorPreta)
         {
-            if ((direcao == NE) || (direcao == NO))
+            if (direcao.y < 0)
             {
                 return JOGO_CondRetJogadaInvalida;
             }
         }
         else if (PECA_ObterCor(pecaMov) == PECA_CorBranca)
         {
-            if ((direcao == SE) || (direcao == SO))
+            if (direcao.y > 0)
             {
                 return JOGO_CondRetJogadaInvalida;
             }
@@ -796,25 +836,7 @@ static int JOGO_PodeComer(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao 
 
     while (origem.linha != destino.linha && origem.coluna != destino.coluna)
     {
-        switch (direcao)
-        {
-        case NE:
-            origem.linha--;
-            origem.coluna++;
-            break;
-        case SE:
-            origem.linha++;
-            origem.coluna++;
-            break;
-        case SO:
-            origem.linha++;
-            origem.coluna--;
-            break;
-        case NO:
-            origem.linha--;
-            origem.coluna--;
-            break;
-        }
+        origem = JOGO_AvancarPosicao(origem, direcao);
 
         if (TAB_ObterPeca(jogo->tab, origem) != NULL)
         {
@@ -844,15 +866,6 @@ static int JOGO_PodeComer(TAB_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao 
             return FALSE;
         }
     }
-}
-
-static JOGO_tppJogador ObterJogadorNaoDaVez(JOGO_tppJogo jogo)
-{
-    if (jogo->jogador1 == jogo->jogadorDaVez)
-    {
-        return jogo->jogador2;
-    }
-    return jogo->jogador1;
 }
 
 /********** Fim do módulo de implementação: JOGO  gerenciador do jogo de damas **********/

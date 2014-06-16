@@ -178,6 +178,8 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
                                    short int linhaOrigem, short int colunaOrigem,
                                    short int linhaDestino, short int colunaDestino);
 
+JOGO_tppJogador ObterJogadorNaoDaVez(JOGO_tppJogo jogo);
+
 #undef JOGO_EXT
 
 /********** Fim do módulo de definição: JOGO  gerenciador do jogo de damas **********/
