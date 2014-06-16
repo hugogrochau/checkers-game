@@ -390,9 +390,10 @@ JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo)
     {
         return JOGO_CondRetJogoNaoInicializado;
     }
-
+    printf("  1  2  3  4  5  6  7  8\n");
     for (i = 0; i < LINHAS; i++)
     {
+        printf("%c", 'a' + i);
         for (j = 0; j < COLUNAS; j++)
         {
             pos.linha = i;
@@ -401,7 +402,8 @@ JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo)
             if (peca != NULL)
             {
                 SetConsoleTextAttribute(hConsole, JOGO_ObterCorPeca(peca));
-                printf(" ø ");
+                printf(" O ");
+                SetConsoleTextAttribute(hConsole, saved_attributes);
             }
             else
             {
@@ -410,7 +412,6 @@ JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo)
         }
         printf("\n");
     }
-    SetConsoleTextAttribute(hConsole, saved_attributes);
     return JOGO_CondRetOk;
 }
 
@@ -425,9 +426,9 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
                                    short int linhaDestino, short int colunaDestino)
 {
     TAB_tpPosicao origem, destino, posComida;
-    PECA_tppPeca pecaComida;
+    PECA_tppPeca pecaMovimentada, pecaComida;
     JOGO_tpCondRet condRetJogada;
-    JOGO_tpDirecao direcao;
+    JOGO_tpDirecao direcaoInversa;
 
     if (jogo == NULL)
     {
@@ -445,7 +446,7 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
     {
         return condRetJogada;
     }
-
+ 
     switch (TAB_MoverPeca(jogo->tab, origem, destino))
     {
     case TAB_CondRetTabuleiroVazio:
@@ -454,11 +455,24 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
         return JOGO_CondRetJogadaInvalida;
     }
 
+    pecaMovimentada = (PECA_tppPeca) TAB_ObterPeca(jogo->tab, destino);
     if (condRetJogada == JOGO_CondRetComeuPeca)
     {
-        direcao = JOGO_ObterDirecao(origem, destino);
+        printf("origem.coluna %d\norigem.linha%d\ndestino.coluna %d\ndestino.linha %d\n",
+                origem.coluna,    origem.linha,   destino.coluna,    destino.linha);
+        direcaoInversa = JOGO_ObterDirecao(destino, origem);
+        printf("direcaoInversa.x %d\ndirecaoInversa.y %d\n",
+                direcaoInversa.x,    direcaoInversa.y);
         /* move destino para a peça que foi comida */
-        posComida = JOGO_AvancarPosicao(destino, direcao);
+        posComida = JOGO_AvancarPosicao(destino, direcaoInversa);
+        if (PECA_ObterStatus(pecaMovimentada) == PECA_StatusDama)
+        {
+            while(TAB_ObterPeca(jogo->tab, posComida) == NULL)
+            {
+                posComida = JOGO_AvancarPosicao(posComida, direcaoInversa);
+            }
+        }
+        printf("posComida.linha = %d\nposComida.coluna = %d\n", posComida.linha, posComida.coluna);
         pecaComida = (PECA_tppPeca) TAB_RemoverPeca(jogo->tab, posComida);
 
         JOGO_ObterJogadorNaoDaVez(jogo)->numPecas--;
@@ -490,12 +504,12 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
 
     if (jogo->jogadorDaVez->cor == PECA_CorBranca && destino.linha == 0)
     {
-        PECA_VirarDama((PECA_tppPeca) TAB_ObterPeca(jogo->tab, destino));
+        PECA_VirarDama(pecaMovimentada);
         jogo->jogadorDaVez->numDamas++;
     }
     else if (jogo->jogadorDaVez->cor == PECA_CorPreta && destino.linha == LINHAS - 1)
     {
-        PECA_VirarDama((PECA_tppPeca) TAB_ObterPeca(jogo->tab, destino));
+        PECA_VirarDama(pecaMovimentada);
         jogo->jogadorDaVez->numDamas++;
     }
 
@@ -509,7 +523,7 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
         }
     }
 
-    return JOGO_CondRetOk;
+    return JOGO_CondRetJogadaValida;
 }
 
 /***********************************************************************
@@ -598,12 +612,26 @@ static WORD JOGO_ObterCorPeca(PECA_tppPeca peca)
 ***********************************************************************/
 
 static JOGO_tpDirecao JOGO_ObterDirecao (TAB_tpPosicao origem, TAB_tpPosicao destino)
-{
+{   
     JOGO_tpDirecao direcao = {0, 0};
 
-    direcao.x =  (destino.coluna - origem.coluna) / (short int) abs(destino.coluna - origem.coluna); /* +1 ou -1 */
-    direcao.y =  (destino.linha - origem.linha) / (short int) abs(destino.linha - origem.linha);
+    if (destino.coluna > origem.coluna)
+    {
+        direcao.x = 1;
+    }
+    else
+    {
+        direcao.x = -1;
+    }
 
+    if (destino.linha > origem.linha)
+    {
+        direcao.y = 1;
+    }
+    else
+    {
+        direcao.y = -1;
+    }
     return direcao;
 }
 
@@ -615,7 +643,7 @@ static JOGO_tpDirecao JOGO_ObterDirecao (TAB_tpPosicao origem, TAB_tpPosicao des
 
 static int JOGO_ValidaDiagonal(TAB_tpPosicao origem, TAB_tpPosicao destino)
 {
-    if (abs(destino.linha - origem.linha) == abs(destino.linha - origem.linha))
+    if (abs(destino.linha - origem.linha) == abs(destino.coluna - origem.coluna))
     {
         return TRUE;
     }
@@ -662,8 +690,8 @@ static int JOGO_ObterQuantidadePecasNoCaminho(JOGO_tppJogo jogo, TAB_tpPosicao o
 
 static TAB_tpPosicao JOGO_AvancarPosicao(TAB_tpPosicao posicao, JOGO_tpDirecao direcao)
 {
-    posicao.linha += direcao.x;
-    posicao.coluna += direcao.y;
+    posicao.linha += direcao.y;
+    posicao.coluna += direcao.x;
     return posicao;
 }
 
@@ -683,24 +711,31 @@ static JOGO_tpCondRet JOGO_TentarJogada(JOGO_tppJogo jogo, TAB_tpPosicao origem,
     /* conferindo se a peça existe ou se já existe alguma peça no destino */
     if (pecaMov == NULL || TAB_ObterPeca(jogo->tab, destino) != NULL)
     {
+        printf("%p\n", pecaMov);
+        printf("%p\n", TAB_ObterPeca(jogo->tab, destino));
+        printf("destino.linha : %d\ndestino.coluna : %d\n",destino.linha,destino.coluna);
+        printf("Carinha feliz : :)\n");
         return JOGO_CondRetJogadaInvalida;
     }
 
     /* Checa se o jogador esta movendo uma peca que nao lhe pertence */
     if (PECA_ObterCor(pecaMov) != jogo->jogadorDaVez->cor)
     {
+        printf(":)\n");
         return JOGO_CondRetJogadaInvalida;
     }
 
     /* Checa se a peca nao esta se movendo na diagonal */
-    if (JOGO_ValidaDiagonal(origem, destino))
+    if (!JOGO_ValidaDiagonal(origem, destino))
     {
+        printf("3\n");
         return JOGO_CondRetJogadaInvalida;
     }
 
     /* destino fora do tabuleiro */
     if (!TAB_ChecarPos(jogo->tab, destino))
     {
+        printf("4\n");
         return JOGO_CondRetJogadaInvalida;
     }
 
@@ -709,39 +744,49 @@ static JOGO_tpCondRet JOGO_TentarJogada(JOGO_tppJogo jogo, TAB_tpPosicao origem,
     if (PECA_ObterStatus(pecaMov) == PECA_StatusNormal)
     {
         /* normal */
+        printf("PECA NORMAL\n");
         distancia = JOGO_ObterDistanciaDiagonal(origem, destino);
         if (distancia > 2)
         {
+            printf("DISTANCIA > 2\n");
             return JOGO_CondRetJogadaInvalida;
         }
         if (PECA_ObterCor(pecaMov) == PECA_CorPreta)
         {
+            printf("COR PRETA\n");
             if (direcao.y < 0)
             {
+                printf("DIRECAO.y < 0\n");
                 return JOGO_CondRetJogadaInvalida;
             }
         }
         else if (PECA_ObterCor(pecaMov) == PECA_CorBranca)
         {
+            printf("PECA BRANCA\n");
             if (direcao.y > 0)
             {
+                printf("direcao.y > 0\ndirecao.y %d\ndirecao.x%d\n", direcao.y, direcao.x);
                 return JOGO_CondRetJogadaInvalida;
             }
         }
         else
         {
+            printf("FUDEU GERAL\n");
             return JOGO_CondRetJogadaInvalida;
         }
 
         if (distancia == 1)
         {
+            printf("distancia = 1\n");
             return JOGO_CondRetJogadaValida;
         }
 
         if (JOGO_PodeComer(jogo, origem, destino))
         {
+            printf("PODE COMER\n");
             return JOGO_CondRetComeuPeca;
         }
+        printf("Provavelmente, nao pode comer\n");
         return JOGO_CondRetJogadaInvalida;
     }
     else
@@ -779,29 +824,35 @@ static int JOGO_PodeComer(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao
     int achouPeca = 0;
 
     direcao = JOGO_ObterDirecao(origem, destino);
-
     while (origem.linha != destino.linha && origem.coluna != destino.coluna)
     {
         origem = JOGO_AvancarPosicao(origem, direcao);
+        printf("1) Avancou Posicao\n");
 
         if (TAB_ObterPeca(jogo->tab, origem) != NULL)
         {
+            printf("2) ObtevePeca\n");
             /* Já tinha achado uma peça na última iteração */
             if (achouPeca)
             {
+                printf("3) Achou peca\n");
                 return FALSE;
             }
-            if (jogo->jogadorDaVez->cor ==
-                    PECA_ObterCor((PECA_tppPeca) TAB_ObterPeca(jogo->tab, origem)))
+            if (jogo->jogadorDaVez->cor == 
+                PECA_ObterCor((PECA_tppPeca) TAB_ObterPeca(jogo->tab, origem)))
             {
+                printf("4) Peca eh da mesma cor\n");
                 return FALSE;
             }
+            printf("5) Deu certo\n");
             achouPeca = TRUE;
         }
         else
         {
+            printf("6) Entramos no 'Else' \n");
             if (achouPeca)
             {
+                printf("6.1) Deu certo!\n");
                 return TRUE;
             }
         }
@@ -809,9 +860,12 @@ static int JOGO_PodeComer(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao
         /* Chegou no final do tabuleiro */
         if (!TAB_ChecarPos(jogo->tab, origem))
         {
+            printf("7) Posicao no tabuleiro eh invalida\n");
+            printf("7.1) Origem.linha = %d\nOrigem.coluna = %d\n",origem.linha,origem.coluna);
             return FALSE;
         }
     }
+    printf("8) Nao executou nadazn\n");
     return FALSE;
 }
 
