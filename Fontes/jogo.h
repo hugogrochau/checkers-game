@@ -71,8 +71,12 @@ typedef enum
     JOGO_CondRetArquivoCorrompido = 9,
     /* Ocorreu erro a interpretar o arquivo */
 
-    JOGO_CondRetJogoNaoInicializado = 10
+    JOGO_CondRetJogoNaoInicializado = 10,
     /* O jogo não foi inicializado */
+
+    JOGO_CondRetJogaOutraVez = 11,
+    /* O jogador deve jogar mais uma vez */
+
 } JOGO_tpCondRet;
 
 /***********************************************************************

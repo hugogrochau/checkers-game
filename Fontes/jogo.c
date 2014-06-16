@@ -251,7 +251,7 @@ static int JOGO_PodeComer(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao
 
 static TAB_tpPosicao JOGO_AvancarPosicao (TAB_tpPosicao posicao, JOGO_tpDirecao direcao);
 
-
+static int JOGO_PodeComerEmVolta (JOGO_tppJogo jogo, TAB_tpPosicao origem, JOGO_tpDirecao direcao);
 /* Código das funções exportadas pelo módulo */
 
 
@@ -354,10 +354,26 @@ JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp)
                 if (status == PECA_StatusDama)
                 {
                     PECA_VirarDama(peca);
+                    if (jogo->jogador1->cor == cor)
+                    {
+                        jogo->jogador1->numDamas++;
+                    }
+                    else
+                    {
+                        jogo->jogador2->numDamas++;
+                    }
                 }
                 if (TAB_IncluirPeca(jogo->tab, peca, pos) == TAB_CondRetPosicaoInvalida)
                 {
                     return JOGO_CondRetArquivoCorrompido;
+                }
+                if (jogo->jogador1->cor == cor)
+                {
+                    jogo->jogador1->numPecas++;
+                }
+                else
+                {
+                    jogo->jogador2->numPecas++;
                 }
             }
         }
@@ -484,22 +500,17 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
 
         PECA_DestruirPeca(pecaComida);
     }
-    else
-    {
-        /* se nenhuma peça for comida, é a vez do outro jogador */
-        jogo->jogadorDaVez = JOGO_ObterJogadorNaoDaVez(jogo);
-    }
 
     jogo->jogadorDaVez->jogadas++;
 
     if (jogo->jogador1->numPecas == 0)
     {
-        return JOGO_CondRetJogador1Ganhou;
+        return JOGO_CondRetJogador2Ganhou;
     }
 
     if (jogo->jogador2->numPecas == 0)
     {
-        return JOGO_CondRetJogador2Ganhou;
+        return JOGO_CondRetJogador1Ganhou;
     }
 
     if (jogo->jogadorDaVez->cor == PECA_CorBranca && destino.linha == 0)
@@ -522,6 +533,8 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
             return JOGO_CondRetEmpate;
         }
     }
+
+    jogo->jogadorDaVez = JOGO_ObterJogadorNaoDaVez(jogo);
 
     return JOGO_CondRetJogadaValida;
 }
@@ -559,8 +572,9 @@ static JOGO_tppJogador JOGO_CriarJogador (char *nome, PECA_tpCor cor)
 
     jogador->nome = nome;
     jogador->cor = cor;
+    jogador->numPecas = 0;
+    jogador->numDamas = 0;
     jogador->jogadas = 0;
-    jogador->numPecas = NUM_PECAS_INI;
     return jogador;
 }
 
@@ -826,6 +840,7 @@ static int JOGO_PodeComer(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao
     direcao = JOGO_ObterDirecao(origem, destino);
     while (origem.linha != destino.linha && origem.coluna != destino.coluna)
     {
+        printf("Entrou no loop\n");
         origem = JOGO_AvancarPosicao(origem, direcao);
         printf("1) Avancou Posicao\n");
 
@@ -864,6 +879,7 @@ static int JOGO_PodeComer(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao
             printf("7.1) Origem.linha = %d\nOrigem.coluna = %d\n",origem.linha,origem.coluna);
             return FALSE;
         }
+        printf("ta no loop ainda\n");
     }
     printf("8) Nao executou nadazn\n");
     return FALSE;

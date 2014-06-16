@@ -51,21 +51,21 @@ int main(void)
            "Digite 0d 0d a qualquer momento para desistir\n\n\n");
     while(ContinuarJogo(jogo));
     printf("Aperte qualquer tecla para sair :\n");
-    scanf("%c",&opcao);
+    getch();
     return 0;
 }
 
 int ContinuarJogo(JOGO_tppJogo jogo)
 {
-
     char linhaOrigem, linhaDestino, opcao;
     short int colunaOrigem, colunaDestino;
     JOGO_tpCondRet condRetJogada;
 
     JOGO_ImprimirTabuleiro(jogo);
+
     printf("%s, escolha seu movimento (ex: 3a 5b): ", jogo->jogadorDaVez->nome);
     scanf(" %hd%c %hd%c", &colunaOrigem, &linhaOrigem,
-                        &colunaDestino, &linhaDestino);
+                          &colunaDestino, &linhaDestino);
     //system("cls");
     if (linhaOrigem == 'q' && linhaDestino == 'q')
     {
@@ -90,11 +90,12 @@ int ContinuarJogo(JOGO_tppJogo jogo)
 
     /* convertendo as letras das colunas para coordenadas */
     linhaOrigem = (char) tolower(linhaOrigem);
-    linhaDestino = (char) tolower(linhaDestino);
     linhaOrigem -= 'a';
-    linhaDestino -= 'a';
     colunaOrigem -= 1;
+    linhaDestino = (char) tolower(linhaDestino);
+    linhaDestino -= 'a';
     colunaDestino -= 1;
+
     printf("destino.linha = %d\ndestino.coluna = %d\n",linhaDestino,colunaDestino);
     printf("origem.linha = %d\norigem.coluna = %d\n",linhaOrigem,colunaOrigem);
     condRetJogada = JOGO_ExecutarJogada(jogo,
@@ -103,10 +104,9 @@ int ContinuarJogo(JOGO_tppJogo jogo)
     switch (condRetJogada)
     {
         case JOGO_CondRetJogadaInvalida:
-            printf("Esse movimento nao e valido, tente novamente\n");
+            printf("Jogada inválida, tente novamente\n");
             return TRUE;
         case JOGO_CondRetJogadaValida:
-            printf("Passou por aqui\n");
             return TRUE;
         case JOGO_CondRetJogoNaoInicializado:
             printf("Ocorreu algum erro grave com jogo, comece novamente\n");
@@ -120,10 +120,7 @@ int ContinuarJogo(JOGO_tppJogo jogo)
         case JOGO_CondRetEmpate:
             printf("O jogo terminou num empate!\n");
             return FALSE;
-        default : printf("Nao executou nada\n");        
     }
-    printf("Aperte qualquer tecla para sair :\n");
-    scanf("%c",&opcao);
     printf("Ocorreu algum erro grave com jogo, comece novamente\n");
     return FALSE;
 }
