@@ -60,22 +60,24 @@ limpa :
 ### Dependências de módulos objeto a compilar
 
 $(Fobj)\Princip.obj :  {$(Pc)}\Princip.c \
-    {$(Ph)}jogo.h               {$(Ph)}peca.h               {$(Ph)}tabuleiro.h         
-   cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
-
-$(Fobj)\Jogo.obj :  {$(Pc)}\Jogo.c \
-    {$(Ph)}jogo.h               {$(Ph)}peca.h               {$(Ph)}tabuleiro.h         
-   cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
-
-$(Fobj)\Tabuleiro.obj :  {$(Pc)}\Tabuleiro.c \
-    ..\\tabelas\\TiposEspacosTabuleiro.def {$(Ph)}TST_Espc.h           {$(Ph)}cespdin.h            \
-    {$(Ph)}conta.h              {$(Ph)}generico.h           {$(Ph)}lista.h              \
+    {$(Ph)}jogo.h               {$(Ph)}lista.h              {$(Ph)}peca.h               \
     {$(Ph)}tabuleiro.h         
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
+$(Fobj)\Jogo.obj :  {$(Pc)}\Jogo.c \
+    {$(Ph)}jogo.h               {$(Ph)}lista.h              {$(Ph)}peca.h               \
+    {$(Ph)}tabuleiro.h         
+   cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
+
+$(Fobj)\Tabuleiro.obj :  {$(Pc)}\Tabuleiro.c \
+    ..\\tabelas\\TiposEspacosTabuleiro.def {$(Ph)}cespdin.h            {$(Ph)}conta.h              \
+    {$(Ph)}generico.h           {$(Ph)}lista.h              {$(Ph)}peca.h               \
+    {$(Ph)}tabuleiro.h          {$(Ph)}tst_espc.h          
+   cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
+
 $(Fobj)\Lista.obj :  {$(Pc)}\Lista.c \
-    {$(Ph)}TST_Espc.h           {$(Ph)}cespdin.h            {$(Ph)}generico.h           \
-    {$(Ph)}lista.h             
+    {$(Ph)}cespdin.h            {$(Ph)}generico.h           {$(Ph)}lista.h              \
+    {$(Ph)}tst_espc.h          
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
 $(Fobj)\Peca.obj :  {$(Pc)}\Peca.c \

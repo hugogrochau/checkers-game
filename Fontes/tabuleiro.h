@@ -33,6 +33,11 @@
 #define TAB_EXT extern
 #endif
 
+#ifdef _DEBUG
+#include "peca.h"
+#include "lista.h"
+#endif
+
 /***** Declarações exportadas pelo módulo *****/
 
 /* Tipo referência para um tabuleiro */
@@ -67,7 +72,7 @@ typedef struct TAB_tagPosicao
 
 typedef enum
 {
-    TAB_CondRetOk = 0,
+    TAB_CondRetOK = 0,
     TAB_CondRetTabuleiroVazio = 1,
     TAB_CondRetPosicaoInvalida = 2,
     TAB_CondRetErroEstrutura = 3
@@ -255,14 +260,6 @@ int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
 
 /* Declarações dos simbolos de instrumentação */
 
-TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab);
-
-TAB_tbCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab);
-
-TAB_tbCondRet TAB_VerificarLinha(LIS_tppLista linha);
-
-TAB_tbCondRet TAB_VerificarPeca(PECA_tppPeca peca);
-
 typedef enum
 {
     DeturpaTipoTabuleiro = 1,
@@ -307,13 +304,18 @@ typedef enum
     DeturpaPecaLixo = 13,
     /* Faz a peça apontar para lixo */
 
+} TAB_tpModoDeturpacao;
 
-    DeturpaPecaStatus = 14,
-    /* Coloca um status invalido para alguma peça */
+TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab);
 
-    DeturpaPecaCor = 15,
-    /* Coloca uma cor invalida para alguma peça */
-} TAB_tpModosDeturpacao;
+TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab);
+
+TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha);
+
+TAB_tpCondRet TAB_VerificarPeca(void * peca);
+
+void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModoDeturpacao modoDeturpar);
+
 
 #endif
 

@@ -4,7 +4,7 @@ GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
 Composição do construto: JogoDeDamas.comp
 
    Nome do Construto:           JogoDeDamas
-   Diretório base:              C:\Users\Gustavo\Documents\GitHub\prog-modular-damas\Composicao
+   Diretório base:              U:\prog\modular\prog-modular-damas\Composicao
 
    Arquivo composição:          JogoDeDamas.comp
    Arquivo plataforma:          gmake.parm
@@ -24,33 +24,34 @@ Módulos do construto: JogoDeDamas.comp
 Estatísticas do construto
 
    Estatísticas do arquivo: ..\\tabelas\\TiposEspacosTabuleiro.def
-      Total linhas:              27
-      Linhas de código:           7
+      Total linhas:              33
+      Linhas de código:          12
       Linhas de comentário:      17
-      Linhas em branco:           3
+      Linhas em branco:           4
    Arquivos em que é incluído
       Tabuleiro.c
 
    Estatísticas do arquivo: Jogo.c
-      Total linhas:             816
-      Linhas de código:         421
-      Linhas de comentário:     287
-      Linhas em branco:         108
+      Total linhas:             894
+      Linhas de código:         498
+      Linhas de comentário:     285
+      Linhas em branco:         110
    Arquivos de inclusão de que necessita
       jogo.h
+      lista.h
       peca.h
       tabuleiro.h
 
    Estatísticas do arquivo: Lista.c
-      Total linhas:             634
-      Linhas de código:         337
-      Linhas de comentário:     154
-      Linhas em branco:         164
+      Total linhas:             654
+      Linhas de código:         347
+      Linhas de comentário:     158
+      Linhas em branco:         170
    Arquivos de inclusão de que necessita
-      TST_Espc.h
       cespdin.h
       generico.h
       lista.h
+      tst_espc.h
 
    Estatísticas do arquivo: Peca.c
       Total linhas:             124
@@ -61,38 +62,30 @@ Estatísticas do construto
       peca.h
 
    Estatísticas do arquivo: Princip.c
-      Total linhas:             106
-      Linhas de código:          87
+      Total linhas:             129
+      Linhas de código:         110
       Linhas de comentário:       1
       Linhas em branco:          18
    Arquivos de inclusão de que necessita
       jogo.h
+      lista.h
       peca.h
       tabuleiro.h
 
-   Estatísticas do arquivo: TST_Espc.h
-      Total linhas:             226
-      Linhas de código:          23
-      Linhas de comentário:     182
-      Linhas em branco:          21
-   Arquivos em que é incluído
-      Lista.c
-      Tabuleiro.c
-      generico.h
-
    Estatísticas do arquivo: Tabuleiro.c
-      Total linhas:             827
-      Linhas de código:         479
+      Total linhas:             802
+      Linhas de código:         461
       Linhas de comentário:     162
-      Linhas em branco:         187
+      Linhas em branco:         180
    Arquivos de inclusão de que necessita
       ..\\tabelas\\TiposEspacosTabuleiro.def
-      TST_Espc.h
       cespdin.h
       conta.h
       generico.h
       lista.h
+      peca.h
       tabuleiro.h
+      tst_espc.h
 
    Estatísticas do arquivo: cespdin.h
       Total linhas:             668
@@ -117,17 +110,18 @@ Estatísticas do construto
       Linhas de comentário:     569
       Linhas em branco:          82
    Arquivos de inclusão de que necessita
-      TST_Espc.h
+      tst_espc.h
    Arquivos em que é incluído
       Lista.c
       Tabuleiro.c
 
    Estatísticas do arquivo: jogo.h
-      Total linhas:             244
-      Linhas de código:          48
-      Linhas de comentário:     154
-      Linhas em branco:          42
+      Total linhas:             250
+      Linhas de código:          50
+      Linhas de comentário:     155
+      Linhas em branco:          45
    Arquivos de inclusão de que necessita
+      lista.h
       peca.h
       tabuleiro.h
    Arquivos em que é incluído
@@ -135,13 +129,17 @@ Estatísticas do construto
       Princip.c
 
    Estatísticas do arquivo: lista.h
-      Total linhas:             408
-      Linhas de código:          41
+      Total linhas:             411
+      Linhas de código:          44
       Linhas de comentário:     312
       Linhas em branco:          55
    Arquivos em que é incluído
+      Jogo.c
       Lista.c
+      Princip.c
       Tabuleiro.c
+      jogo.h
+      tabuleiro.h
 
    Estatísticas do arquivo: peca.h
       Total linhas:             186
@@ -152,26 +150,41 @@ Estatísticas do construto
       Jogo.c
       Peca.c
       Princip.c
+      Tabuleiro.c
       jogo.h
+      tabuleiro.h
 
    Estatísticas do arquivo: tabuleiro.h
-      Total linhas:             325
-      Linhas de código:          61
-      Linhas de comentário:     206
-      Linhas em branco:          58
+      Total linhas:             327
+      Linhas de código:          64
+      Linhas de comentário:     204
+      Linhas em branco:          59
+   Arquivos de inclusão de que necessita
+      lista.h
+      peca.h
    Arquivos em que é incluído
       Jogo.c
       Princip.c
       Tabuleiro.c
       jogo.h
 
+   Estatísticas do arquivo: tst_espc.h
+      Total linhas:             226
+      Linhas de código:          23
+      Linhas de comentário:     182
+      Linhas em branco:          21
+   Arquivos em que é incluído
+      Lista.c
+      Tabuleiro.c
+      generico.h
+
 Totais por tipo de arquivo
 
   Tipo: h        Path: ..\Fontes
-         Total linhas do tipo:      3248
-         Linhas de código:           374
-         Linhas de comentário:      2417
-         Linhas em branco:           457
+         Total linhas do tipo:      3259
+         Linhas de código:           382
+         Linhas de comentário:      2416
+         Linhas em branco:           461
          Arquivos deste tipo:          8
 
   Tipo: obj      Path: ..\Objetos
@@ -189,24 +202,24 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          0
 
   Tipo: DEFAULT  Path: ..\Fontes
-         Total linhas do tipo:        27
-         Linhas de código:             7
+         Total linhas do tipo:        33
+         Linhas de código:            12
          Linhas de comentário:        17
-         Linhas em branco:             3
+         Linhas em branco:             4
          Arquivos deste tipo:          1
 
   Tipo: c        Path: ..\Fontes
-         Total linhas do tipo:      2507
-         Linhas de código:          1383
-         Linhas de comentário:       652
-         Linhas em branco:           494
+         Total linhas do tipo:      2603
+         Linhas de código:          1475
+         Linhas de comentário:       654
+         Linhas em branco:           495
          Arquivos deste tipo:          5
 
 Totais para todo o construto JogoDeDamas
 
-   Total linhas:              5782
-   Linhas de código:          1764
-   Linhas de comentário:      3086
-   Linhas em branco:           954
+   Total linhas:              5895
+   Linhas de código:          1869
+   Linhas de comentário:      3087
+   Linhas em branco:           960
    Arquivos processados:        14
 

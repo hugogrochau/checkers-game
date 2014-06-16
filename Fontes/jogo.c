@@ -381,7 +381,7 @@ JOGO_tpCondRet JOGO_PreencherTabuleiro (JOGO_tppJogo jogo, FILE *fp)
 
     fclose(fp);
 
-    return JOGO_CondRetOk;
+    return JOGO_CondRetOK;
 }
 
 /***********************************************************************
@@ -424,7 +424,7 @@ JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo)
         }
         printf("\n");
     }
-    return JOGO_CondRetOk;
+    return JOGO_CondRetOK;
 }
 
 /***********************************************************************

@@ -94,6 +94,9 @@ typedef enum
 
 } LIS_tpCondRet ;
 
+#ifdef _DEBUG
+void LIS_ColocarCabecaTabuleiro(LIS_tppLista lis, void* pCabeca, int tipoEspaco);
+#endif
 
 /***********************************************************************
 *

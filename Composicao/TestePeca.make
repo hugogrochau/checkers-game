@@ -59,8 +59,8 @@ limpa :
 ### Dependências de módulos objeto a compilar
 
 $(Fobj)\TestPeca.obj :  {$(Pc)}\TestPeca.c \
-    {$(Ph)}TST_Espc.h           {$(Ph)}generico.h           {$(Ph)}lerparm.h            \
-    {$(Ph)}peca.h               {$(Ph)}tst_espc.h          
+    {$(Ph)}generico.h           {$(Ph)}lerparm.h            {$(Ph)}peca.h               \
+    {$(Ph)}tst_espc.h          
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
 $(Fobj)\Peca.obj :  {$(Pc)}\Peca.c \

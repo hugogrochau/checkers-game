@@ -19,15 +19,16 @@
 #include    <stdio.h>
 #include    <malloc.h>
 
-#include    "tst_espc.h"
-
 #include    "generico.h"
 #include    "lerparm.h"
 
 #include    "peca.h"
 #include    "tabuleiro.h"
 
+#ifdef _DEBUG
+#include    "cespdin.h"
 
+#endif
 static const char CRIAR_TABULEIRO_CMD            [ ] = "=criartabuleiro"     ;
 static const char DESTRUIR_TABULEIRO_CMD         [ ] = "=destruirtabuleiro"  ;
 static const char OBTER_TAMANHO_CMD              [ ] = "=obtertamanho"       ;
@@ -217,7 +218,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
         pos.linha = Linha;
         tabCondRet = TAB_IncluirPeca( vtTab[ inxTab ] , pDado , pos) ;
 
-        if ( tabCondRet != TAB_CondRetOk )
+        if ( tabCondRet != TAB_CondRetOK )
         {
             PECA_DestruirPeca(pDado) ;
         }
@@ -338,10 +339,10 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
     /* Testar verificador de tabuleiro */
     else if ( strcmp( ComandoTeste, VERIFICAR_TABULEIRO_CMD ) == 0 )
     {
-        numLidos = LER_LerParametros( "i",
-                                      &inxTab ) ;
-        if ( ( numLidos != 1 )
-            || !VerificarInx( inxTab ))
+        numLidos = LER_LerParametros( "ii",
+                                      &inxTab, &condEsp ) ;
+        if ( ( numLidos != 2 )
+            || !ValidarInxTabuleiro( inxTab ))
         {
             return TST_CondRetParm;
         }
@@ -356,21 +357,21 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
         numLidos = LER_LerParametros( "ii" ,
                                        &inxTab , &valEsp ) ;
         if ( ( numLidos != 2 )
-             || !VerificarInx ( inxTab ))
+             || !ValidarInxTabuleiro( inxTab ))
         {
             return TST_CondRetParm;
         }
 
         TAB_Deturpar( vtTab [ inxTab ] , valEsp ) ;
 
-        return TST_CondRetOk ;
+        return TST_CondRetOK ;
     } /* fim ativa: Deturpar um tabuleiro */
     /* Verificar vazamento de memória */
     else if ( strcmp( ComandoTeste, VERIFICAR_MEMORIA_CMD ) == 0 )
     {
         CED_ExibirTodosEspacos( CED_ExibirTodos ) ;
 
-        return TST_CondRetOk ;
+        return TST_CondRetOK ;
     } /* fim ativa: Verificar vazamento de memória */
     #endif
     /* Fim instrumentação */

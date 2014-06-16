@@ -1,43 +1,49 @@
 // Script:    TesteContador-Tab.script
-// Autor:     Gustavo Martins
+// Autor:     Gustavo Martins/Hugo Grochau
 // Data:      15/jun/2014
-// Propósito: Arquivo de script para controle de cobertura
+// Propósito: Controle de cobertura de instrumentação do módulo tabuleiro
 //
 
 == Declarar os tabuleiros usados
-=declararparm    inxTab0        int   0
+=declararparm    tab0        int   0
 
-== Declarar condições de retorno
+== Declarar condicoes de retorno
 =declararparm OK int 0
 =declararparm TabuleiroVazio int 1
 =declararparm PosicaoInvalida int 2
 =declararparm ErroEstrutura int 3
+
+== Declarar modos de deturpacao
+=declararparm DeturpaTipoTabuleiro int 1
+=declararparm DeturpaTipoColuna int 2
+=declararparm DeturpaTipoLinha int 3
+=declararparm DeturpaTipoPeca int 4
+=declararparm DeturparEspacoTabuleiro int 5
+=declararparm DeturpaEspacoColuna int 6
+=declararparm DeturpaEspacoLinha int 7
+=declararparm DeturpaEspacoPeca int 8
+=declararparm DeturpaPtColunaNulo int 9
+=declararparm DeturpaPtLinhaNulo int 10
+=declararparm DeturpaColunaLixo int 11
+=declararparm DeturpaLinhaLixo int 12
+=declararparm DeturpaPecaLixo int 13
+=declararparm DeturpaPecaStatus int 14
+=declararparm DeturpaPecaCor int 15
 
 == Iniciar contagem
 =inicializarcontadores  ""
 =lercontadores          "..\\scripts\\Tabuleiro"
 =iniciarcontagem
 
-== Criar Tabuleiro
-=criartabuleiro   inxTab0   8  8  pNaoNull
+== Deturpar tipo tabuleiro
+=criartabuleiro   tab0   8  8  pNaoNull
+=incluirpeca tab0 0 0 branco OK
+=deturpar DeturpaTipoTabuleiro
+=verificartabuleiro tab0 ErroEstrutura
+=AceitaFalhasAcumuladas 1
+=destruirtabuleiro tab0
 
-== Incluir uma peca
-=incluirpeca inxTab0 0 0 branco OK
-
-== Mover a peca
-=moverpeca inxTab0 0 0 7 7 OK
-
-== Verificar se ela foi movida
-=obterpeca inxTab0 7 7 pNaoNull
-=obterpeca inxTab0 0 0 pNull
-
-== Verificar contadores do tabuleiro
-=verificartabuleiro inxTab0
-
-== Destruir Tabuleiro
-=destruirtabuleiro inxTab0
-
-== Terminar controlar contadores
+== Terminar controle dos contadores
 =pararcontagem
 =verificarcontagens    0
 

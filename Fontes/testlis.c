@@ -24,8 +24,6 @@
 #include    <stdio.h>
 #include    <malloc.h>
 
-#include    "tst_espc.h"
-
 #include    "generico.h"
 #include    "lerparm.h"
 

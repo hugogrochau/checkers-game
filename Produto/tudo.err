@@ -1,16 +1,6 @@
-Lista.c
-TestLis.c
-Microsoft (R) Incremental Linker Version 11.00.51106.1
-Copyright (C) Microsoft Corporation.  All rights reserved.
-
-/OUT:..\Produto\TesteLista.exe 
-/INCREMENTAL:NO 
-/MACHINE:IX86 
-Lista.obj TestLis.obj 
-ArcaboucoTeste.lib 
 TestPeca.c
 Peca.c
-Microsoft (R) Incremental Linker Version 11.00.51106.1
+Microsoft (R) Incremental Linker Version 10.00.40219.01
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 /OUT:..\Produto\TestePeca.exe 
@@ -22,12 +12,22 @@ Lista.c
 Peca.c
 Tabuleiro.c
 TestTab.c
-Microsoft (R) Incremental Linker Version 11.00.51106.1
+Microsoft (R) Incremental Linker Version 10.00.40219.01
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 /OUT:..\Produto\TesteTabuleiro.exe 
 /INCREMENTAL:NO 
 /MACHINE:IX86 
 Lista.obj Peca.obj Tabuleiro.obj TestTab.obj 
+ArcaboucoTeste.lib 
+Lista.c
+TestLis.c
+Microsoft (R) Incremental Linker Version 10.00.40219.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/OUT:..\Produto\TesteLista.exe 
+/INCREMENTAL:NO 
+/MACHINE:IX86 
+Lista.obj TestLis.obj 
 ArcaboucoTeste.lib 
 

@@ -9,6 +9,8 @@
 #define TRUE 1
 #define FALSE 0
 #define TAM_MAX_NOME 128
+#define VERMELHO 0
+#define AZUL 1
 
 int ContinuarJogo(JOGO_tppJogo jogo);
 
@@ -78,7 +80,8 @@ int ContinuarJogo(JOGO_tppJogo jogo)
 
     if (linhaOrigem == 'd' && linhaDestino == 'd')
     {
-        printf("%s venceu!", JOGO_ObterJogadorNaoDaVez(jogo)->nome);
+        JOGO_ImprimirComCor(JOGO_ObterJogadorNaoDaVez(jogo)->nome), JOGO_ObterJogadorNaoDaVez(jogo)->cor, TRUE);
+        printf(" venceu!\n");
         return FALSE;
     }
 
@@ -87,7 +90,7 @@ int ContinuarJogo(JOGO_tppJogo jogo)
         colunaOrigem < 0 || colunaOrigem > 8 ||
         colunaDestino < 0 || colunaDestino > 8)
     {
-        printf("Esse movimento nao e valido, tente novamente\n");
+        JOGO_ImprimirComCor("Esse movimento nao e valido, tente novamente\n", VERMELHO, TRUE);
         return TRUE;
     }
 

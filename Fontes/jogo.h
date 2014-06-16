@@ -44,7 +44,7 @@
 
 typedef enum
 {
-    JOGO_CondRetOk = 1,
+    JOGO_CondRetOK = 1,
     /* Concluiu corretamente */
 
     JOGO_CondRetJogador1Ganhou = 2,

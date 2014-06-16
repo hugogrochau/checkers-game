@@ -55,6 +55,10 @@ typedef struct tagElemLista
     struct tagElemLista *pProx ;
     /* Ponteiro para o elemento sucessor */
 
+#ifdef _DEBUG
+    void *pCabecaTabuleiro ;
+#endif
+
 } tpElemLista ;
 
 /***********************************************************************
@@ -95,6 +99,21 @@ static tpElemLista *CriarElemento( LIS_tppLista pLista ,
 static void LimparCabeca( LIS_tppLista pLista ) ;
 
 /*****  Código das funções exportadas pelo módulo  *****/
+
+/***************************************************************************
+*
+*  Função: LIS  &Colocar Cabeca
+*  ****/
+
+#ifdef _DEBUG
+
+void LIS_ColocarCabecaTabuleiro(LIS_tppLista lis, void* pCabeca, int tipoEspaco)
+{   
+    lis->pElemCorr->pCabecaTabuleiro = pCabeca;
+    CED_DefinirTipoEspaco(lis->pElemCorr, tipoEspaco);
+}
+
+#endif
 
 /***************************************************************************
 *

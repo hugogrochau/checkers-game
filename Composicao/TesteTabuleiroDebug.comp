@@ -1,0 +1,26 @@
+# Composicao do programa de teste do tabuleiro debug
+
+[Diretorios]
+
+Nome        =  TesteTabuleiroDebug
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj			=  ..\Objetos
+c			=  ..\Fontes
+h			=  ..\Fontes
+
+[Modulos]
+Lista /D_DEBUG
+Peca
+Tabuleiro /D_DEBUG
+TestTab /D_DEBUG
+
+[BuildInicio]
+/OUT:..\Produto\TesteTabuleiroDebug.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+ArcaboucoTeste.lib
+
+[Fim]
