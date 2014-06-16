@@ -240,6 +240,8 @@ JOGO_tpCondRet JOGO_ExecutarJogada (JOGO_tppJogo jogo, short int linhaOrigem, sh
 
 JOGO_tppJogador JOGO_ObterJogadorNaoDaVez (JOGO_tppJogo jogo);
 
+void JOGO_ImprimirComCor(char* str, PECA_tpCor cor, int negrito);
+
 #undef JOGO_EXT
 
 /********** Fim do módulo de definição: JOGO  gerenciador do jogo de damas **********/

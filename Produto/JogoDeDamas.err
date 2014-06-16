@@ -1,7 +1,5 @@
-Princip.c
-..\Fontes\Princip.c(54) : warning C4013: 'getch' undefined; assuming extern returning int
-..\Fontes\Princip.c(60) : warning C4101: 'opcao' : unreferenced local variable
-Microsoft (R) Incremental Linker Version 11.00.51106.1
+Jogo.c
+Microsoft (R) Incremental Linker Version 10.00.40219.01
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 /OUT:..\Produto\JogoDeDamas.exe 

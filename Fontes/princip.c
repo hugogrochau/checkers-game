@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
+#include <conio.h>
 
 #include "jogo.h"
 
@@ -19,17 +21,17 @@ int main(void)
     system("cls");
     printf("~*~JOGO DE DAMAS~*~\n");
 
-    do
-    {
-        printf("\nJogador 1, digite seu nome: ");
-    }
-    while(scanf("%s", nomeJogador1) != 1);
+    printf("\nJogador 1, digite seu nome: ");
 
-    do
-    {
-        printf("\nJogador 2, digite seu nome: ");
-    }
-    while(scanf("%s", nomeJogador2) != 1);
+    fgets (nomeJogador1, TAM_MAX_NOME, stdin);
+    if ((strlen(nomeJogador1)>0) && (nomeJogador1[strlen (nomeJogador1) - 1] == '\n'))
+        nomeJogador1[strlen(nomeJogador1) - 1] = '\0';
+
+    printf("\nJogador 2, digite seu nome: ");
+
+    fgets (nomeJogador2, TAM_MAX_NOME, stdin);
+    if ((strlen(nomeJogador2)>0) && (nomeJogador2[strlen (nomeJogador2) - 1] == '\n'))
+        nomeJogador2[strlen(nomeJogador2) - 1] = '\0';
 
     jogo = JOGO_CriarJogo(nomeJogador1, nomeJogador2);
     while (jogo == NULL)
@@ -51,22 +53,23 @@ int main(void)
            "Digite 0d 0d a qualquer momento para desistir\n\n\n");
     while(ContinuarJogo(jogo));
     printf("Aperte qualquer tecla para sair :\n");
-    getch();
+    _getch();
     return 0;
 }
 
 int ContinuarJogo(JOGO_tppJogo jogo)
 {
-    char linhaOrigem, linhaDestino, opcao;
+    char linhaOrigem, linhaDestino;
     short int colunaOrigem, colunaDestino;
     JOGO_tpCondRet condRetJogada;
 
     JOGO_ImprimirTabuleiro(jogo);
 
-    printf("%s, escolha seu movimento (ex: 3a 5b): ", jogo->jogadorDaVez->nome);
+    JOGO_ImprimirComCor(jogo->jogadorDaVez->nome, jogo->jogadorDaVez->cor, TRUE);
+    printf(", escolha seu movimento (ex: 3a 5b): ");
     scanf(" %hd%c %hd%c", &colunaOrigem, &linhaOrigem,
                           &colunaDestino, &linhaDestino);
-    //system("cls");
+    system("cls");
     if (linhaOrigem == 'q' && linhaDestino == 'q')
     {
         printf("Obrigado por jogar");

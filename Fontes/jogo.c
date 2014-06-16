@@ -395,36 +395,32 @@ JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo)
     short int i, j;
     PECA_tppPeca peca;
     TAB_tpPosicao pos;
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
-    WORD saved_attributes;
-
-    GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
-    saved_attributes = consoleInfo.wAttributes;
 
     if (jogo == NULL)
     {
         return JOGO_CondRetJogoNaoInicializado;
     }
-    printf("  1  2  3  4  5  6  7  8\n");
+    printf(" | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |\n");
     for (i = 0; i < LINHAS; i++)
     {
-        printf("%c", 'a' + i);
+        printf("----------------------------------\n");
+        printf("%c", 'A' + i);
+        printf("|");
         for (j = 0; j < COLUNAS; j++)
         {
             pos.linha = i;
             pos.coluna = j;
             peca = (PECA_tppPeca) TAB_ObterPeca(jogo->tab, pos);
+
             if (peca != NULL)
             {
-                SetConsoleTextAttribute(hConsole, JOGO_ObterCorPeca(peca));
-                printf(" O ");
-                SetConsoleTextAttribute(hConsole, saved_attributes);
+                JOGO_ImprimirComCor(" O ", PECA_ObterCor(peca), PECA_ObterStatus(peca) == PECA_StatusDama);
             }
             else
             {
                 printf("   ");
             }
+            printf("|");
         }
         printf("\n");
     }
@@ -554,11 +550,45 @@ JOGO_tppJogador JOGO_ObterJogadorNaoDaVez(JOGO_tppJogo jogo)
     return jogo->jogador1;
 }
 
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Imprimir Com Cor
+*
+***********************************************************************/
+
+void JOGO_ImprimirComCor(char* str, PECA_tpCor cor, int negrito)
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
+    WORD saved_attributes;
+    WORD formato = 0;
+
+    GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
+    saved_attributes = consoleInfo.wAttributes;
+
+    if (cor == PECA_CorBranca)
+    {
+        formato = FOREGROUND_BLUE;
+    }
+    else if (cor == PECA_CorPreta)
+    {
+        formato = FOREGROUND_RED;
+    }
+    if (negrito)
+    {
+        formato |= FOREGROUND_INTENSITY;
+    }
+
+    SetConsoleTextAttribute(hConsole, formato);
+    printf(str);
+    SetConsoleTextAttribute(hConsole, saved_attributes);
+}
+
 /* Código das funções encapsuladas no módulo */
 
 /***********************************************************************
 *
-*  $FC Função: JOGO  -Criar jogador
+*  $FC Função: JOGO  -Criar Jogador
 *
 ***********************************************************************/
 
@@ -593,30 +623,6 @@ static void JOGO_DestruirJogador (JOGO_tppJogador jogador)
         free(jogador);
         jogador = NULL;
     }
-}
-
-/***********************************************************************
-*
-*  $FC Função: JOGO  -Obter cor peca
-*
-***********************************************************************/
-
-static WORD JOGO_ObterCorPeca(PECA_tppPeca peca)
-{
-    WORD cor = 0;
-    if (PECA_ObterCor(peca) == PECA_CorBranca)
-    {
-        cor = FOREGROUND_BLUE;
-    }
-    else if (PECA_ObterCor(peca) == PECA_CorPreta)
-    {
-        cor = FOREGROUND_RED;
-    }
-    if (PECA_ObterStatus(peca) == PECA_StatusDama)
-    {
-        cor |= FOREGROUND_INTENSITY;
-    }
-    return cor;
 }
 
 /***********************************************************************
