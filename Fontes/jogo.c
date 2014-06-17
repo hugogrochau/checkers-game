@@ -468,11 +468,7 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
     pecaMovimentada = (PECA_tppPeca) TAB_ObterPeca(jogo->tab, destino);
     if (condRetJogada == JOGO_CondRetComeuPeca)
     {
-        printf("origem.coluna %d\norigem.linha%d\ndestino.coluna %d\ndestino.linha %d\n",
-                origem.coluna,    origem.linha,   destino.coluna,    destino.linha);
         direcaoInversa = JOGO_ObterDirecao(destino, origem);
-        printf("direcaoInversa.x %d\ndirecaoInversa.y %d\n",
-                direcaoInversa.x,    direcaoInversa.y);
         /* move destino para a peça que foi comida */
         posComida = JOGO_AvancarPosicao(destino, direcaoInversa);
         if (PECA_ObterStatus(pecaMovimentada) == PECA_StatusDama)
@@ -482,7 +478,6 @@ JOGO_tpCondRet JOGO_ExecutarJogada(JOGO_tppJogo jogo,
                 posComida = JOGO_AvancarPosicao(posComida, direcaoInversa);
             }
         }
-        printf("posComida.linha = %d\nposComida.coluna = %d\n", posComida.linha, posComida.coluna);
         pecaComida = (PECA_tppPeca) TAB_RemoverPeca(jogo->tab, posComida);
 
         JOGO_ObterJogadorNaoDaVez(jogo)->numPecas--;
