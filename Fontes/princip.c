@@ -1,3 +1,21 @@
+/***************************************************************************
+*  $MCI Módulo de implementação: PRNC Módulo principal
+*
+*  Arquivo gerado:              princip.c
+*
+*  Projeto: INF 1301 / 1628 Jogo de Damas
+*  Gestor:  LES/DI/PUC-Rio
+*  Autores: avs, Hugo Pedrotti Grochau (hpg), Gustavo Marques Martins (gmm)
+*
+*  $HA Histórico de evolução:
+*     Versão  Autor    Data         Observações
+*     1       hpg      16/jun/2014  Desenvolvimento
+*
+*  $ED Descrição do módulo
+*     Este módulo contém o programa principal do jogo de damas
+*
+***************************************************************************/
+
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -12,7 +30,34 @@
 #define VERMELHO 0
 #define AZUL 1
 
+/***********************************************************************
+*
+*  $FC Função: PRNC  - Continuar Jogo
+*
+*  $ED Descrição da função
+*     Executa o próximo passo do jogo
+*
+*  $EP Parâmetros
+*     jogo - o jogo que está sendo jogado.
+*
+*  $FV Valor retornado
+*     se o jogo é para continuar: TRUE, se não: FALSE.
+*
+***********************************************************************/
+
 int ContinuarJogo(JOGO_tppJogo jogo);
+
+/***********************************************************************
+*
+*  $FC Função: PRNC &Programa principal
+*
+*  $ED Descrição da função
+*
+*     O programa principal do jogo de damas que lida com o input do
+*     usuário e administra o jogo
+*
+*
+***********************************************************************/
 
 int main(void)
 {
@@ -59,6 +104,12 @@ int main(void)
     return 0;
 }
 
+/***********************************************************************
+*
+*  $FC Função: PRNC  -Continuar Jogo
+*
+***********************************************************************/
+
 int ContinuarJogo(JOGO_tppJogo jogo)
 {
     char linhaOrigem, linhaDestino;
@@ -102,8 +153,6 @@ int ContinuarJogo(JOGO_tppJogo jogo)
     linhaDestino -= 'a';
     colunaDestino -= 1;
 
-    printf("destino.linha = %d\ndestino.coluna = %d\n",linhaDestino,colunaDestino);
-    printf("origem.linha = %d\norigem.coluna = %d\n",linhaOrigem,colunaOrigem);
     condRetJogada = JOGO_ExecutarJogada(jogo,
                                         linhaOrigem, (short int) colunaOrigem,
                                         linhaDestino, (short int) colunaDestino);
@@ -118,10 +167,12 @@ int ContinuarJogo(JOGO_tppJogo jogo)
             printf("Ocorreu algum erro grave com jogo, comece novamente\n");
             return FALSE;
         case JOGO_CondRetJogador1Ganhou:
-            printf("%s venceu!\n", jogo->jogador1->nome);
+            JOGO_ImprimirComCor(jogo->jogador1->nome, jogo->jogador1->cor, TRUE);
+            printf(" venceu!\n");
             return FALSE;
         case JOGO_CondRetJogador2Ganhou:
-            printf("%s venceu!\n", jogo->jogador2->nome);
+            JOGO_ImprimirComCor(jogo->jogador2->nome, jogo->jogador2->cor, TRUE);
+            printf(" venceu!\n");
             return FALSE;
         case JOGO_CondRetEmpate:
             printf("O jogo terminou num empate!\n");
