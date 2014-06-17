@@ -1,0 +1,24 @@
+Comandos de teste para testar o verificador do tabuleiro:
+=========================================================
+
+=verificartabuleiro - inxTab condEsp
+	Verifica a integridade da estrutura do tabuleiro.
+
+	inxTab - indice do tabuleiro de teste a ser verificado
+	condEsp - condição de retorno esperada OK (0) ou ErroEstrutura(3)
+
+=deturpar inxTab modoDeturpacao
+	Deturpa um tabuleiro de acordo com algum modo de deturpação
+	inxTab - indice do tabuleiro de teste a ser deturpado
+	modoDeturpacao - o modo de deturpação, ele pode ser:
+		* DeturpaTipoTabuleiro (1)
+		* DeturpaTipoColuna (2)
+		* DeturpaTipoLinha (3)
+		* DeturpaTipoElemento (4)
+		* DeturpaPtColunaNulo (5)
+		* DeturpaPtLinhaNulo (6)
+		* DeturpaPtElementoNulo (7)
+		* DeturpaDesencadeiaElemento (8)
+
+=verificarmemoria
+	Imprime todos os espaços de memória sobre controle
