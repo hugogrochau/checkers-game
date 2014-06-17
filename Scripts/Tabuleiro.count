@@ -35,21 +35,23 @@ Espaço linha válido
 Tipo linha inválido
 Tipo linha válido
 Avança linha
-Peça inválida
-Peça válida
-Peças válidas
+Elemento inválida
+Elemento válida
+Elementos válidas
 Acaba verificar linha
-Verificar peça
-Peça nula
-Peça não nula
-Espaço peça inválido
-Espaço peça válido
-Tipo peça inválido
-Tipo peça válido
-Cor peça inválida
-Cor peça válida
-Status peça inválida
-Status peça válida
-Acaba verificar peça
+Verificar elemento
+Elemento nula
+Elemento não nula
+Espaço elemento inválido
+Espaço elemento válido
+Tipo elemento inválido
+Tipo elemento válido
+Elemento solto
+Elemento ligado
+Proximo elemento tipo inválido
+Proximo elemento tipo válido
+Elemento anterior tipo inválido
+Elemento anterior tipo válido
+Acaba verificar elemento
 
 XPTO nome adicionado para fins de teste\=-2
