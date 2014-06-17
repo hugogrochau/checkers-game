@@ -39,6 +39,8 @@
 static char EspacoLixo[ 256 ] =
     "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" ;
 
+static TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab);
+static TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha);
 #endif
 
 #define TRUE  1
@@ -413,7 +415,7 @@ TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab)
 *  Funcao: TAB &Verificar Coluna
 *
 ***********************************************************************/
-TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
+static TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
 {
     LIS_tppLista coluna = tab->coluna;
     LIS_tppLista linha;
@@ -468,7 +470,7 @@ TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
 *
 ***********************************************************************/
 
-TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha)
+static TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha)
 {
     LIS_tpCondRet condRetLinha;
 

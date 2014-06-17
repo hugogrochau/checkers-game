@@ -409,7 +409,43 @@ LIS_tpCondRet LIS_ProcurarValor( LIS_tppLista pLista ,
 
 #ifdef _DEBUG
 
+/***********************************************************************
+*
+*  $FC Função: LIS  &Verificar Elemento
+*
+*  $ED Descrição da função
+*     Função da interface de teste.
+*     Verifica a integridade de um elemento.
+*
+*  $EP Parâmetros
+*     tab - ponteiro para um espaço que deveria ser um elemento de lista.
+*
+*  $FV Valor retornado
+*     Condição de retorno de teste
+*
+***********************************************************************/
+
 LIS_tpCondRet LIS_VerificarElemento(LIS_tppLista lista);
+
+/***********************************************************************
+*
+*  $FC Função: LIS  &Deturpar Elemento
+*
+*  $ED Descrição da função
+*     Função da interface de teste.
+*     Corrompe um elemento de maneras diferentes.
+*     Essa função destina-se a preparar os cenários de teste dos
+*     casos de teste utilizados ao testar os verificadores estruturais
+*     do elemento.
+*     Esta função não tem proteção contra erros de uso, consequentemente
+*     poderá levar o programa a ser cancelado pelo sistema operacional.
+*
+*  $EP Parâmetros
+*     lista  - lista cujo primeiro elemento será deturpado
+*     modoDeturpar - identifica como deve ser feita a deturpação
+*
+***********************************************************************/
+
 void LIS_DeturparElemento(LIS_tppLista lista, int modoDeturpar);
 
 #endif

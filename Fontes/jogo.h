@@ -237,7 +237,36 @@ JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo);
 
 JOGO_tpCondRet JOGO_ExecutarJogada (JOGO_tppJogo jogo, short int linhaOrigem, short int colunaOrigem, short int linhaDestino, short int colunaDestino);
 
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Obter jogador não da vez
+*
+*  $ED Descrição da função
+*     Retorna o jogador que não está jogando nessa rodada
+*
+*  $EP Parâmetros
+*     jogo - Ponteiro para o jogo sendo jogado
+*
+*  $FV Valor retornado
+*     O jogador que não está jogando
+*
+***********************************************************************/
+
 JOGO_tppJogador JOGO_ObterJogadorNaoDaVez (JOGO_tppJogo jogo);
+
+/***********************************************************************
+*
+*  $FC Função: JOGO  -Imprimir com cor
+*
+*  $ED Descrição da função
+*     Imprime um dado string com uma certa cor no console do windows
+*
+*  $EP Parâmetros
+*     str - o string a ser impresso
+*     cor - a cor que vai ser usada
+*     negrito - se a for vai ser forte ou nao
+*
+***********************************************************************/
 
 void JOGO_ImprimirComCor(char* str, PECA_tpCor cor, int negrito);
 

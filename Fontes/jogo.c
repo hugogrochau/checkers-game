@@ -251,9 +251,7 @@ static int JOGO_PodeComer(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao
 
 static TAB_tpPosicao JOGO_AvancarPosicao (TAB_tpPosicao posicao, JOGO_tpDirecao direcao);
 
-static int JOGO_PodeComerEmVolta (JOGO_tppJogo jogo, TAB_tpPosicao origem, JOGO_tpDirecao direcao);
 /* Código das funções exportadas pelo módulo */
-
 
 /***********************************************************************
 *
@@ -731,31 +729,24 @@ static JOGO_tpCondRet JOGO_TentarJogada(JOGO_tppJogo jogo, TAB_tpPosicao origem,
     /* conferindo se a peça existe ou se já existe alguma peça no destino */
     if (pecaMov == NULL || TAB_ObterPeca(jogo->tab, destino) != NULL)
     {
-        printf("%p\n", pecaMov);
-        printf("%p\n", TAB_ObterPeca(jogo->tab, destino));
-        printf("destino.linha : %d\ndestino.coluna : %d\n",destino.linha,destino.coluna);
-        printf("Carinha feliz : :)\n");
         return JOGO_CondRetJogadaInvalida;
     }
 
     /* Checa se o jogador esta movendo uma peca que nao lhe pertence */
     if (PECA_ObterCor(pecaMov) != jogo->jogadorDaVez->cor)
     {
-        printf(":)\n");
         return JOGO_CondRetJogadaInvalida;
     }
 
     /* Checa se a peca nao esta se movendo na diagonal */
     if (!JOGO_ValidaDiagonal(origem, destino))
     {
-        printf("3\n");
         return JOGO_CondRetJogadaInvalida;
     }
 
     /* destino fora do tabuleiro */
     if (!TAB_ChecarPos(jogo->tab, destino))
     {
-        printf("4\n");
         return JOGO_CondRetJogadaInvalida;
     }
 
@@ -764,49 +755,39 @@ static JOGO_tpCondRet JOGO_TentarJogada(JOGO_tppJogo jogo, TAB_tpPosicao origem,
     if (PECA_ObterStatus(pecaMov) == PECA_StatusNormal)
     {
         /* normal */
-        printf("PECA NORMAL\n");
         distancia = JOGO_ObterDistanciaDiagonal(origem, destino);
         if (distancia > 2)
         {
-            printf("DISTANCIA > 2\n");
             return JOGO_CondRetJogadaInvalida;
         }
         if (PECA_ObterCor(pecaMov) == PECA_CorPreta)
         {
-            printf("COR PRETA\n");
             if (direcao.y < 0)
             {
-                printf("DIRECAO.y < 0\n");
                 return JOGO_CondRetJogadaInvalida;
             }
         }
         else if (PECA_ObterCor(pecaMov) == PECA_CorBranca)
         {
-            printf("PECA BRANCA\n");
             if (direcao.y > 0)
             {
-                printf("direcao.y > 0\ndirecao.y %d\ndirecao.x%d\n", direcao.y, direcao.x);
                 return JOGO_CondRetJogadaInvalida;
             }
         }
         else
         {
-            printf("FUDEU GERAL\n");
             return JOGO_CondRetJogadaInvalida;
         }
 
         if (distancia == 1)
         {
-            printf("distancia = 1\n");
             return JOGO_CondRetJogadaValida;
         }
 
         if (JOGO_PodeComer(jogo, origem, destino))
         {
-            printf("PODE COMER\n");
             return JOGO_CondRetComeuPeca;
         }
-        printf("Provavelmente, nao pode comer\n");
         return JOGO_CondRetJogadaInvalida;
     }
     else
@@ -846,34 +827,26 @@ static int JOGO_PodeComer(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao
     direcao = JOGO_ObterDirecao(origem, destino);
     while (origem.linha != destino.linha && origem.coluna != destino.coluna)
     {
-        printf("Entrou no loop\n");
         origem = JOGO_AvancarPosicao(origem, direcao);
-        printf("1) Avancou Posicao\n");
 
         if (TAB_ObterPeca(jogo->tab, origem) != NULL)
         {
-            printf("2) ObtevePeca\n");
             /* Já tinha achado uma peça na última iteração */
             if (achouPeca)
             {
-                printf("3) Achou peca\n");
                 return FALSE;
             }
             if (jogo->jogadorDaVez->cor == 
                 PECA_ObterCor((PECA_tppPeca) TAB_ObterPeca(jogo->tab, origem)))
             {
-                printf("4) Peca eh da mesma cor\n");
                 return FALSE;
             }
-            printf("5) Deu certo\n");
             achouPeca = TRUE;
         }
         else
         {
-            printf("6) Entramos no 'Else' \n");
             if (achouPeca)
             {
-                printf("6.1) Deu certo!\n");
                 return TRUE;
             }
         }
@@ -881,13 +854,9 @@ static int JOGO_PodeComer(JOGO_tppJogo jogo, TAB_tpPosicao origem, TAB_tpPosicao
         /* Chegou no final do tabuleiro */
         if (!TAB_ChecarPos(jogo->tab, origem))
         {
-            printf("7) Posicao no tabuleiro eh invalida\n");
-            printf("7.1) Origem.linha = %d\nOrigem.coluna = %d\n",origem.linha,origem.coluna);
             return FALSE;
         }
-        printf("ta no loop ainda\n");
     }
-    printf("8) Nao executou nadazn\n");
     return FALSE;
 }
 

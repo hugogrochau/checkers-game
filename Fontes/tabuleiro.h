@@ -288,13 +288,43 @@ typedef enum
 
 } TAB_tpModoDeturpacao;
 
+/***********************************************************************
+*
+*  $FC Função: TAB  &Verificar Tabuleiro
+*
+*  $ED Descrição da função
+*     Função da interface de teste.
+*     Verifica a integridade de um tabuleiro.
+*
+*  $EP Parâmetros
+*     tab - ponteiro para um espaço que deveria ser uma cabeça
+*                      de tabuleiro.
+*
+*  $FV Valor retornado
+*     Condição de retorno de teste
+*
+***********************************************************************/
+
 TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab);
 
-TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab);
-
-TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha);
-
-TAB_tpCondRet TAB_VerificarPeca(void * peca);
+/***********************************************************************
+*
+*  $FC Função: TAB  &Deturpar Tabuleiro
+*
+*  $ED Descrição da função
+*     Função da interface de teste.
+*     Corrompe elementos específicos da estrutura do tabuleiro.
+*     Essa função destina-se a preparar os cenários de teste dos
+*     casos de teste utilizados ao testar os verificadores estruturais
+*     do tabuleiro.
+*     Esta função não tem proteção contra erros de uso, consequentemente
+*     poderá levar o programa a ser cancelado pelo sistema operacional.
+*
+*  $EP Parâmetros
+*     tam  - tabuleiro a ser deturpado
+*     modoDeturpar - identifica como deve ser feita a deturpação
+*
+***********************************************************************/
 
 void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModoDeturpacao modoDeturpar);
 
