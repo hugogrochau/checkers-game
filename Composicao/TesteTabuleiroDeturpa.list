@@ -32,10 +32,10 @@ Estatísticas do construto
       Tabuleiro.c
 
    Estatísticas do arquivo: Lista.c
-      Total linhas:             734
+      Total linhas:             740
       Linhas de código:         398
-      Linhas de comentário:     168
-      Linhas em branco:         193
+      Linhas de comentário:     176
+      Linhas em branco:         194
    Arquivos de inclusão de que necessita
       ..\\tabelas\\TiposEspacosTabuleiro.def
       cespdin.h
@@ -53,10 +53,10 @@ Estatísticas do construto
       peca.h
 
    Estatísticas do arquivo: Tabuleiro.c
-      Total linhas:             651
+      Total linhas:             654
       Linhas de código:         360
-      Linhas de comentário:     154
-      Linhas em branco:         137
+      Linhas de comentário:     155
+      Linhas em branco:         139
    Arquivos de inclusão de que necessita
       ..\\tabelas\\TiposEspacosTabuleiro.def
       cespdin.h
@@ -196,17 +196,17 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          1
 
   Tipo: c        Path: ..\Fontes
-         Total linhas do tipo:      1943
+         Total linhas do tipo:      1952
          Linhas de código:          1075
-         Linhas de comentário:       460
-         Linhas em branco:           447
+         Linhas de comentário:       469
+         Linhas em branco:           450
          Arquivos deste tipo:          4
 
 Totais para todo o construto TesteTabuleiroDeturpa
 
-   Total linhas:              5320
+   Total linhas:              5329
    Linhas de código:          1439
-   Linhas de comentário:      2987
-   Linhas em branco:           933
+   Linhas de comentário:      2996
+   Linhas em branco:           936
    Arquivos processados:        13
 

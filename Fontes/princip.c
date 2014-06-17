@@ -125,7 +125,7 @@ int ContinuarJogo(JOGO_tppJogo jogo)
     system("cls");
     if (linhaOrigem == 'q' && linhaDestino == 'q')
     {
-        printf("Obrigado por jogar");
+        printf("Obrigado por jogar\n");
         return FALSE;
     }
 

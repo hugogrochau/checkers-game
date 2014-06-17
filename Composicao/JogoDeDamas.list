@@ -44,10 +44,10 @@ Estatísticas do construto
       tabuleiro.h
 
    Estatísticas do arquivo: Lista.c
-      Total linhas:             734
+      Total linhas:             740
       Linhas de código:         398
-      Linhas de comentário:     168
-      Linhas em branco:         193
+      Linhas de comentário:     176
+      Linhas em branco:         194
    Arquivos de inclusão de que necessita
       ..\\tabelas\\TiposEspacosTabuleiro.def
       cespdin.h
@@ -76,10 +76,10 @@ Estatísticas do construto
       tabuleiro.h
 
    Estatísticas do arquivo: Tabuleiro.c
-      Total linhas:             651
+      Total linhas:             654
       Linhas de código:         360
-      Linhas de comentário:     154
-      Linhas em branco:         137
+      Linhas de comentário:     155
+      Linhas em branco:         139
    Arquivos de inclusão de que necessita
       ..\\tabelas\\TiposEspacosTabuleiro.def
       cespdin.h
@@ -213,17 +213,17 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          1
 
   Tipo: c        Path: ..\Fontes
-         Total linhas do tipo:      2545
+         Total linhas do tipo:      2554
          Linhas de código:          1388
-         Linhas de comentário:       703
-         Linhas em branco:           478
+         Linhas de comentário:       712
+         Linhas em branco:           481
          Arquivos deste tipo:          5
 
 Totais para todo o construto JogoDeDamas
 
-   Total linhas:              5911
+   Total linhas:              5920
    Linhas de código:          1766
-   Linhas de comentário:      3226
-   Linhas em branco:           943
+   Linhas de comentário:      3235
+   Linhas em branco:           946
    Arquivos processados:        14
 

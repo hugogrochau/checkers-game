@@ -27,4 +27,7 @@ Data        Horas Trabalhadas   Tipo de Tarefa                                  
 
 13/06/2014  6                   Codificar                                           Comecei a instrumentação do módulo tabuleiro
 
-14/06/2014  8                   Codificar                                           Finalizei a instrumentação do módulo tabuleiro
+14/06/2014  8                   Codificar                                           Comecei a instrumentação do módulo tabuleiro
+15/06/2014  8                   Codificar                                           Desenvolvimento do jogo
+16/06/2014  12                  Codificar, desenvolver scripts de teste             Finalizei a instrumentação do módulo tabuleiro
+17/06/2014  10                  Codificar, revisar scripts de teste                 Revisão e correção de erros

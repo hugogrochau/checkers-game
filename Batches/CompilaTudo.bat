@@ -40,12 +40,6 @@ pushd .
 nmake /F..\Composicao\JogoDeDamas.make 
 popd
 
-REM Compila jogo de damas versão debug
-del ..\Objetos\*.obj
-pushd .
-nmake /F..\Composicao\JogoDeDamasDebug.make 
-popd
-
 del ..\Objetos\*.obj
 popd
 

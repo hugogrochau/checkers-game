@@ -6,7 +6,7 @@ Peca.c
 Microsoft (R) Incremental Linker Version 11.00.51106.1
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
-/OUT:..\Produto\TRAB4-PRODUCAO.exe 
+/OUT:..\Produto\JogoDeDamas.exe 
 /INCREMENTAL:NO 
 /MACHINE:IX86 
 Princip.obj Jogo.obj Tabuleiro.obj Lista.obj Peca.obj 

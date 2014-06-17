@@ -85,8 +85,8 @@ static int Comparacao( void *a, void *b ) ;
 *
 *     Comandos da versao DEBUG
 *
-*     =verificartabuleiro           inxTab
-*     =deturpar                     inxTab   valEsp 
+*     =verificartabuleiro           inxTab   condEsp
+*     =deturpar                     inxTab   modoDeturpacao 
 *     =verificarmemoria             
 *
 ***********************************************************************/

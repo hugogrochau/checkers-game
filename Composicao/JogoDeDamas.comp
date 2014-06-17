@@ -17,7 +17,7 @@ Lista
 Peca
 
 [BuildInicio]
-/OUT:..\Produto\TRAB4-PRODUCAO.exe
+/OUT:..\Produto\JogoDeDamas.exe
 /INCREMENTAL:NO
 /MACHINE:IX86
 

@@ -32,5 +32,13 @@
 
 14/05/2014        1                     Codificar scripts                                                 Codifiquei script de contagem
 
-15/04/2014        1                     Codificar scripts                                                  Codifiquei script de controle de espaço
-										
+15/05/2014        1                     Codificar scripts                                                  Codifiquei script de controle de espaço
+							
+16/05/2014	  8                      Codificar, revisar codigo, documentacao                            Codificar scripts,
+                                                                                                           melhorar codigos do modulo jogo, implementar novos comandos de script
+
+17/05/2014       10                     Codificar, revisar, documentar                                     Codificar novos comandos, 
+                                                                                                           finalizar modulo jogo
+                                                                                                           revisar documentacao
+                                                                                                           atualziar scripts
+                                                                                                           revisar arquivos pendentes		

@@ -29,10 +29,10 @@ Estatísticas do construto
       Lista.c
 
    Estatísticas do arquivo: Lista.c
-      Total linhas:             734
+      Total linhas:             740
       Linhas de código:         398
-      Linhas de comentário:     168
-      Linhas em branco:         193
+      Linhas de comentário:     176
+      Linhas em branco:         194
    Arquivos de inclusão de que necessita
       ..\\tabelas\\TiposEspacosTabuleiro.def
       cespdin.h
@@ -137,17 +137,17 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          1
 
   Tipo: c        Path: ..\Fontes
-         Total linhas do tipo:      1248
+         Total linhas do tipo:      1254
          Linhas de código:           690
-         Linhas de comentário:       260
-         Linhas em branco:           338
+         Linhas de comentário:       268
+         Linhas em branco:           339
          Arquivos deste tipo:          2
 
 Totais para todo o construto TesteLista
 
-   Total linhas:              4100
+   Total linhas:              4106
    Linhas de código:           964
-   Linhas de comentário:      2428
-   Linhas em branco:           748
+   Linhas de comentário:      2436
+   Linhas em branco:           749
    Arquivos processados:         9
 

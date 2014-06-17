@@ -6,25 +6,10 @@ Peca.c
 Microsoft (R) Incremental Linker Version 11.00.51106.1
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
-/OUT:..\Produto\TRAB4-PRODUCAO.exe 
+/OUT:..\Produto\JogoDeDamas.exe 
 /INCREMENTAL:NO 
 /MACHINE:IX86 
 Princip.obj Jogo.obj Tabuleiro.obj Lista.obj Peca.obj 
-ArcaboucoTeste.lib 
-Lista.c
-Peca.c
-Tabuleiro.c
-TestTab.c
-Jogo.c
-Princip.c
-Microsoft (R) Incremental Linker Version 11.00.51106.1
-Copyright (C) Microsoft Corporation.  All rights reserved.
-
-/OUT:..\Produto\TRAB4-DEBUG.exe 
-/INCREMENTAL:NO 
-/MACHINE:IX86 
-Lista.obj Peca.obj Tabuleiro.obj TestTab.obj Jogo.obj 
-Princip.obj 
 ArcaboucoTeste.lib 
 Lista.c
 TestLis.c
