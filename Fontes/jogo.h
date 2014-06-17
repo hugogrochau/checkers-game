@@ -228,7 +228,6 @@ JOGO_tpCondRet JOGO_ImprimirTabuleiro (JOGO_tppJogo jogo);
 *
 *  $FV Valor retornado
 *     CondRetPosicaoInvalida - Uma das posições é inválida
-*     CondRetTabuleiroVazio - O tabuleiro não existe
 *     CondRetJogador1Ganhou - O jogador 1 ganhou
 *     CondRetJogador2Ganhou - O jogador 2 ganhou
 *     CondRetEmpate - Houve um empate

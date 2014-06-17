@@ -13,12 +13,12 @@
 
 //DECLARAR OS TIPOS DE RETORNO
 
-=declararparm JOGO_CondRetOK                        int    1
-=declararparm JOGO_CondRetJogador1Ganhou            int    2
-=declararparm JOGO_CondRetJogador2Ganhou            int    3
-=declararparm JOGO_CondRetEmpate                    int    4
-=declararparm JOGO_CondRetJogadaInvalida            int    5
-=declararparm JOGO_CondRetJogadaValida              int    6
+=declararparm CondRetOK                        int    1
+=declararparm CondRetJogador1Ganhou            int    2
+=declararparm CondRetJogador2Ganhou            int    3
+=declararparm CondRetEmpate                    int    4
+=declararparm CondRetJogadaInvalida            int    5
+=declararparm CondRetTabuleiroVazio
 
 ==Criar jogo
 =criarjogo       jogo0   Gustavo   Hugo
@@ -35,4 +35,10 @@
 
 
 ==executar uma jogada
-=executarjogada
+=executarjogada  jogo0  0 0 2 2 CondRetOK
+=executarjogada  jogo0  -1 -1 0 0 CondRetJogadaInvalida
+
+
+==resetar tudo
+=destruirjogo jogo0
+=resetarjogo
