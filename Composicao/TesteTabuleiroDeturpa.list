@@ -1,25 +1,24 @@
 GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
    LES / Informática / PUC-Rio    Versão 6.00 (c) 2005
 
-Composição do construto: JogoDeDamas.comp
+Composição do construto: TesteTabuleiroDeturpa.comp
 
-   Nome do Construto:           JogoDeDamas
+   Nome do Construto:           TesteTabuleiroDeturpa
    Diretório base:              C:\Users\Gustavo\Documents\GitHub\prog-modular-damas\Composicao
 
-   Arquivo composição:          JogoDeDamas.comp
+   Arquivo composição:          TesteTabuleiroDeturpa.comp
    Arquivo plataforma:          gmake.parm
 
-   Arquivo diretivas MAKE:      JogoDeDamas.make
-   Arquivo diretivas LINK:      JogoDeDamas.build
-   Arquivo listagem:            JogoDeDamas.list
+   Arquivo diretivas MAKE:      TesteTabuleiroDeturpa.make
+   Arquivo diretivas LINK:      TesteTabuleiroDeturpa.build
+   Arquivo listagem:            TesteTabuleiroDeturpa.list
 
-Módulos do construto: JogoDeDamas.comp
+Módulos do construto: TesteTabuleiroDeturpa.comp
 
-   Princip.c
-   Jogo.c
-   Tabuleiro.c
    Lista.c
    Peca.c
+   Tabuleiro.c
+   TestTab.c
 
 Estatísticas do construto
 
@@ -31,17 +30,6 @@ Estatísticas do construto
    Arquivos em que é incluído
       Lista.c
       Tabuleiro.c
-
-   Estatísticas do arquivo: Jogo.c
-      Total linhas:             894
-      Linhas de código:         498
-      Linhas de comentário:     285
-      Linhas em branco:         110
-   Arquivos de inclusão de que necessita
-      jogo.h
-      lista.h
-      peca.h
-      tabuleiro.h
 
    Estatísticas do arquivo: Lista.c
       Total linhas:             734
@@ -64,17 +52,6 @@ Estatísticas do construto
    Arquivos de inclusão de que necessita
       peca.h
 
-   Estatísticas do arquivo: Princip.c
-      Total linhas:             132
-      Linhas de código:         113
-      Linhas de comentário:       1
-      Linhas em branco:          18
-   Arquivos de inclusão de que necessita
-      jogo.h
-      lista.h
-      peca.h
-      tabuleiro.h
-
    Estatísticas do arquivo: Tabuleiro.c
       Total linhas:             649
       Linhas de código:         358
@@ -90,6 +67,20 @@ Estatísticas do construto
       tabuleiro.h
       tst_espc.h
 
+   Estatísticas do arquivo: TestTab.c
+      Total linhas:             434
+      Linhas de código:         258
+      Linhas de comentário:      90
+      Linhas em branco:         100
+   Arquivos de inclusão de que necessita
+      cespdin.h
+      generico.h
+      lerparm.h
+      lista.h
+      peca.h
+      tabuleiro.h
+      tst_espc.h
+
    Estatísticas do arquivo: cespdin.h
       Total linhas:             668
       Linhas de código:          52
@@ -98,6 +89,7 @@ Estatísticas do construto
    Arquivos em que é incluído
       Lista.c
       Tabuleiro.c
+      TestTab.c
 
    Estatísticas do arquivo: conta.h
       Total linhas:             468
@@ -118,19 +110,15 @@ Estatísticas do construto
    Arquivos em que é incluído
       Lista.c
       Tabuleiro.c
+      TestTab.c
 
-   Estatísticas do arquivo: jogo.h
-      Total linhas:             250
-      Linhas de código:          50
-      Linhas de comentário:     155
-      Linhas em branco:          45
-   Arquivos de inclusão de que necessita
-      lista.h
-      peca.h
-      tabuleiro.h
+   Estatísticas do arquivo: lerparm.h
+      Total linhas:             289
+      Linhas de código:          36
+      Linhas de comentário:     185
+      Linhas em branco:          68
    Arquivos em que é incluído
-      Jogo.c
-      Princip.c
+      TestTab.c
 
    Estatísticas do arquivo: lista.h
       Total linhas:             422
@@ -138,11 +126,9 @@ Estatísticas do construto
       Linhas de comentário:     314
       Linhas em branco:          59
    Arquivos em que é incluído
-      Jogo.c
       Lista.c
-      Princip.c
       Tabuleiro.c
-      jogo.h
+      TestTab.c
       tabuleiro.h
 
    Estatísticas do arquivo: peca.h
@@ -151,11 +137,9 @@ Estatísticas do construto
       Linhas de comentário:     126
       Linhas em branco:          26
    Arquivos em que é incluído
-      Jogo.c
       Peca.c
-      Princip.c
       Tabuleiro.c
-      jogo.h
+      TestTab.c
       tabuleiro.h
 
    Estatísticas do arquivo: tabuleiro.h
@@ -167,10 +151,8 @@ Estatísticas do construto
       lista.h
       peca.h
    Arquivos em que é incluído
-      Jogo.c
-      Princip.c
       Tabuleiro.c
-      jogo.h
+      TestTab.c
 
    Estatísticas do arquivo: tst_espc.h
       Total linhas:             226
@@ -180,15 +162,16 @@ Estatísticas do construto
    Arquivos em que é incluído
       Lista.c
       Tabuleiro.c
+      TestTab.c
       generico.h
 
 Totais por tipo de arquivo
 
   Tipo: h        Path: ..\Fontes
-         Total linhas do tipo:      3239
-         Linhas de código:           369
-         Linhas de comentário:      2413
-         Linhas em branco:           457
+         Total linhas do tipo:      3278
+         Linhas de código:           355
+         Linhas de comentário:      2443
+         Linhas em branco:           480
          Arquivos deste tipo:          8
 
   Tipo: obj      Path: ..\Objetos
@@ -213,17 +196,17 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          1
 
   Tipo: c        Path: ..\Fontes
-         Total linhas do tipo:      2533
-         Linhas de código:          1426
-         Linhas de comentário:       656
-         Linhas em branco:           475
-         Arquivos deste tipo:          5
+         Total linhas do tipo:      1941
+         Linhas de código:          1073
+         Linhas de comentário:       460
+         Linhas em branco:           447
+         Arquivos deste tipo:          4
 
-Totais para todo o construto JogoDeDamas
+Totais para todo o construto TesteTabuleiroDeturpa
 
-   Total linhas:              5805
-   Linhas de código:          1807
-   Linhas de comentário:      3086
-   Linhas em branco:           936
-   Arquivos processados:        14
+   Total linhas:              5252
+   Linhas de código:          1440
+   Linhas de comentário:      2920
+   Linhas em branco:           931
+   Arquivos processados:        13
 

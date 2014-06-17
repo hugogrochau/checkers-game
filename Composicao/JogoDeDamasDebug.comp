@@ -1,8 +1,8 @@
-# Composicao do programa do JogoDeDamas
+# Composicao do programa do jogo de damas versao debug
 
 [Diretorios]
 
-Nome        =  JogoDeDamas
+Nome        =  JogoDeDamasDebug
 PathDefault =  ..\Fontes
 err         =  ..\Produto
 obj			=  ..\Objetos
@@ -10,17 +10,17 @@ c			=  ..\Fontes
 h			=  ..\Fontes
 
 [Modulos]
-Princip
-Jogo
-Tabuleiro
-Lista
+Lista /D_DEBUG
 Peca
+Tabuleiro /D_DEBUG
+TestTab /D_DEBUG
+Jogo
+Princip
 
 [BuildInicio]
-/OUT:..\Produto\JogoDeDamas.exe
+/OUT:..\Produto\JogoDeDamasDebug.exe
 /INCREMENTAL:NO
 /MACHINE:IX86
-/D_DEBUG
 
 [BuildFim]
 ArcaboucoTeste.lib

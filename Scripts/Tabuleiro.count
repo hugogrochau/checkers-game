@@ -6,10 +6,6 @@
 ///////////////////////////////////////////////
 
 Verificar tabuleiro
-Tabuleiro nulo
-Tabuleiro nao nulo
-Espaco tabuleiro invalido
-Espaco tabuleiro valido
 Tipo tabuleiro invalido
 Tipo tabuleiro valido
 Coluna invalida
@@ -18,8 +14,6 @@ Acaba verificar tabuleiro
 Verificar coluna
 Coluna nula
 Coluna nao nula
-Espaco coluna invalido
-Espaco coluna valido
 Tipo coluna invalido
 Tipo coluna valido
 Avanca coluna
@@ -30,8 +24,6 @@ Acaba verificar coluna
 Verificar linha
 Linha nula
 Linha nao nula
-Espaco linha invalido
-Espaco linha valido
 Tipo linha invalido
 Tipo linha valido
 Avanca linha
@@ -42,16 +34,10 @@ Acaba verificar linha
 Verificar elemento
 Elemento nulo
 Elemento nao nulo
-Espaco elemento invalido
-Espaco elemento valido
 Tipo elemento invalido
 Tipo elemento valido
 Elemento solto
 Elemento ligado
-Proximo elemento tipo invalido
-Proximo elemento tipo valido
-Elemento anterior tipo invalido
-Elemento anterior tipo valido
 Acaba verificar elemento
 
 XPTO nome adicionado para fins de teste\=-2

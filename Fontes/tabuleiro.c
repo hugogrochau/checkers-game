@@ -369,29 +369,16 @@ TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab)
 {
     CNT_CONTAR("Verificar tabuleiro");
 
-    if (tab == NULL)
+    if (tab->coluna == NULL)
     {
 
-        CNT_CONTAR("Tabuleiro nulo");
+        CNT_CONTAR("Coluna nula");
 
-        TST_NotificarFalha( "Tentou verificar tabuleiro inexistente." );
+        TST_NotificarFalha( "Tabuleiro tem coluna NULL." );
         return TAB_CondRetErroEstrutura;
     }
-
-    CNT_CONTAR("Tabuleiro nao nulo");
 
     CED_MarcarEspacoAtivo(tab);
-
-    if (!CED_VerificarEspaco( tab, NULL ))
-    {
-
-        CNT_CONTAR("Espaco tabuleiro invalido");
-
-        TST_NotificarFalha( "Controle do espaco acusou erro." );
-        return TAB_CondRetErroEstrutura;
-    }
-
-    CNT_CONTAR("Espaco tabuleiro valido");
 
     if (TST_CompararInt(TAB_TipoEspacoCabeca,
                         CED_ObterTipoEspaco(tab),
@@ -434,27 +421,7 @@ TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
 
     CNT_CONTAR("Verificar coluna");
 
-    if (coluna == NULL)
-    {
-
-        CNT_CONTAR("Coluna nula");
-
-        TST_NotificarFalha( "Tabuleiro tem coluna NULL." );
-        return TAB_CondRetErroEstrutura;
-    }
-
     CNT_CONTAR("Coluna nao nula");
-
-    if (!CED_VerificarEspaco( coluna, NULL ))
-    {
-
-        CNT_CONTAR("Espaco coluna invalido");
-
-        TST_NotificarFalha( "Controle do espaco acusou erro." );
-        return TAB_CondRetErroEstrutura;
-    }
-
-    CNT_CONTAR("Espaco coluna valido");
 
     if (TST_CompararInt(TAB_TipoEspacoColuna,
                         CED_ObterTipoEspaco(coluna),
@@ -488,7 +455,6 @@ TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
 
     CNT_CONTAR("Linhas validas");
 
-
     CED_MarcarEspacoAtivo(coluna);
 
     CNT_CONTAR("Acaba verificar coluna");
@@ -518,17 +484,6 @@ TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha)
     }
 
     CNT_CONTAR("Linha nao nula");
-
-    if (!CED_VerificarEspaco( linha, NULL ))
-    {
-
-        CNT_CONTAR("Espaco linha invalido");
-
-        TST_NotificarFalha( "Controle do espaco acusou erro." );
-        return TAB_CondRetErroEstrutura;
-    }
-
-    CNT_CONTAR("Espaco linha valido");
 
     if (TST_CompararInt(TAB_TipoEspacoLinha,
                         CED_ObterTipoEspaco(linha),
@@ -602,25 +557,6 @@ void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModoDeturpacao modoDeturpar)
         CED_DefinirTipoEspaco(linha, CED_ID_TIPO_VALOR_NULO);
         break;
 
-    /* espacos */
-    case DeturpaEspacoTabuleiro:
-        memcpy((char *) tab,
-               LIXO(8),
-               8);
-        break;
-
-    case DeturpaEspacoColuna:
-        memcpy((char *) coluna,
-               LIXO(12),
-               12);
-        break;
-
-    case DeturpaEspacoLinha:
-        memcpy((char *) linha,
-               LIXO(12),
-               12);
-        break;
-
     /* ponteiro nulo */
     case DeturpaPtColunaNulo:
         tab->coluna = NULL;
@@ -628,15 +564,6 @@ void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModoDeturpacao modoDeturpar)
 
     case DeturpaPtLinhaNulo:
         LIS_SobrescreverValorCorrente(coluna, NULL);
-        break;
-
-    /* ponteiro para lixo */
-    case DeturpaColunaLixo:
-        tab->coluna = (LIS_tppLista) EspacoLixo;
-        break;
-
-    case DeturpaLinhaLixo:
-        LIS_SobrescreverValorCorrente(coluna, EspacoLixo);
         break;
     
     /* elemento */

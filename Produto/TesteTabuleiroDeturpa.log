@@ -1,0 +1,52 @@
+
+!!! Inicio dos testes
+!!!      Construto sob teste: ..\Produto\TesteTabuleiroDeturpa
+!!!      Script de teste:     ..\Scripts\TesteTabuleiroDeturpa.script
+
+!!!    0  Linha:     1  // Script:    TesteContador-Tab.script 
+!!!    0  Linha:     2  // Autor:     Gustavo Martins/Hugo Grochau 
+!!!    0  Linha:     3  // Data:      15/jun/2014 
+!!!    0  Linha:     4  // Propósito: Controle de cobertura de instrumentação do módulo tabuleiro 
+!!!    0  Linha:     5  // 
+    7  == Declarar parametros
+   16  == Declarar condicoes de retorno
+   22  == Declarar modos de deturpacao
+   32  == Iniciar contagem
+   37  == Verificar tabuleiro
+   43  == Deturpar tipo tabuleiro
+>>>    1  Linha:    47  Tipo do espaco de dados nao Ã© um tabuleiro. Deveria ser: 1  É: 0
+<<<    0  Linha:    48  Falhas registradas eram esperadas e foram recuperadas. 
+   51  == Deturpar tipo coluna
+>>>    1  Linha:    55  Tipo do espaco de dados nao Ã© uma coluna. Deveria ser: 2  É: 0
+<<<    0  Linha:    56  Falhas registradas eram esperadas e foram recuperadas. 
+   59  == Deturpar tipo linha
+>>>    1  Linha:    63  Tipo do espaco de dados nao Ã© uma linha. Deveria ser: 3  É: 0
+<<<    0  Linha:    64  Falhas registradas eram esperadas e foram recuperadas. 
+   67  == Deturpar tipo elemento
+>>>    1  Linha:    71  Tipo do espaco de dados nao é um elemento. Deveria ser: 4  É: 0
+<<<    0  Linha:    72  Falhas registradas eram esperadas e foram recuperadas. 
+   75  == Deturpar ponteiro de coluna nulo
+>>>    1  Linha:    79  Tabuleiro tem coluna NULL. 
+<<<    0  Linha:    80  Falhas registradas eram esperadas e foram recuperadas. 
+   83  == Deturpar ponteiro de linha nulo
+>>>    1  Linha:    87  Coluna tem linha NULL. 
+<<<    0  Linha:    88  Falhas registradas eram esperadas e foram recuperadas. 
+   91  == Deturpar ponteiro elemento nulo
+>>>    1  Linha:    95  Tentou verificar elemento nulo. 
+<<<    0  Linha:    96  Falhas registradas eram esperadas e foram recuperadas. 
+   99  == Deturpar desencadeia elemento
+>>>    1  Linha:   103  Elemento esta solto 
+<<<    0  Linha:   104  Falhas registradas eram esperadas e foram recuperadas. 
+  107  == Terminar controle dos contadores
+  111  == Terminar contagem
+!!!    0  Linha:   114  // fim 
+
+!!! Número de linhas lidas:         114
+!!! Número de casos de teste:        15
+!!! Número comandos corretos:        77
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 96

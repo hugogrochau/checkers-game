@@ -669,7 +669,6 @@ LIS_tpCondRet LIS_VerificarElemento(LIS_tppLista lista)
 
     if (elem == NULL)
     {
-
         CNT_CONTAR("Elemento nulo");
 
         TST_NotificarFalha("Tentou verificar elemento nulo.");
@@ -677,17 +676,6 @@ LIS_tpCondRet LIS_VerificarElemento(LIS_tppLista lista)
     }
 
     CNT_CONTAR("Elemento nao nulo");
-
-    if (!CED_VerificarEspaco(elem, NULL ))
-    {
-
-        CNT_CONTAR("Espaco elemento invalido");
-
-        TST_NotificarFalha("Controle do espaco acusou erro.");
-        return LIS_CondRetErroEstrutura;
-    }
-
-    CNT_CONTAR("Espaco elemento valido");
 
     if (TST_CompararInt(4, /*TAB_TipoEspacoElemento*/
                         CED_ObterTipoEspaco(elem),
@@ -712,28 +700,6 @@ LIS_tpCondRet LIS_VerificarElemento(LIS_tppLista lista)
 
     CNT_CONTAR("Elemento ligado");
 
-    if (elem->pProx != NULL && TST_CompararInt(4, /*TAB_TipoEspacoElemento*/
-                               CED_ObterTipoEspaco(elem->pProx),
-                               "Próximo elemento tem tipo invalido" ) != TST_CondRetOK )
-    {
-        CNT_CONTAR("Proximo elemento tipo invalido");
- 
-        return LIS_CondRetErroEstrutura;
-    }
-    
-    CNT_CONTAR("Proximo elemento tipo valido");
-
-    if (elem->pAnt != NULL && TST_CompararInt(4, /*TAB_TipoEspacoElemento*/
-                               CED_ObterTipoEspaco(elem->pAnt),
-                               "Elemento anterior tem tipo invalido") != TST_CondRetOK )
-    {
-        CNT_CONTAR("Elemento anterior tipo invalido");
- 
-        return LIS_CondRetErroEstrutura;
-    }
-    
-    CNT_CONTAR("Elemento anterior tipo valido");
-
     CED_MarcarEspacoAtivo(elem);
 
     CNT_CONTAR("Acaba verificar elemento");
@@ -750,45 +716,14 @@ void LIS_DeturparElemento(LIS_tppLista lista, int modoDeturpar)
             CED_DefinirTipoEspaco(elem, CED_ID_TIPO_VALOR_NULO);
             break;
 
-        case 8: /* DeturpaEspacoElemento */
+        case 7: /* DeturpaPtElementoNulo */
+            lista->pElemCorr = NULL;
+            break;
 
-        break;
-
-        case 11: /* DeturpaPtElementoNulo */
-
-        break;
-
-        case 12: /* DeturpaPtProxElementoNulo */
-
-        break;
-
-        case 13: /* DeturpaPtElementoAntNulo */
-
-        break;
-
-        case 14: /* DeturpaPtConteudoElementoNulo */
-
-        break;
-
-        case 15: /* DeturpaEliminaElemento */
-
-        break;
-
-        case 16: /* DeturpaDesencadeiaElemento */
-
-        break;
-
-        case 19: /* DeturpaElementoLixo */
-
-        break;
-
-        case 20: /* DeturpaProxElementoLixo */
-    
-        break;
-        
-        case 21: /* DeturpaElementoAntLixo */
-
-        break;
+        case 8: /* DeturpaDesencadeiaElemento */
+            elem->pProx->pAnt = NULL;
+            elem->pProx->pProx = NULL;
+            break;
     }
 } 
 

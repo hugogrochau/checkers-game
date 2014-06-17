@@ -24,23 +24,10 @@
 =declararparm DeturpaTipoColuna int 2
 =declararparm DeturpaTipoLinha int 3
 =declararparm DeturpaTipoElemento int 4
-=declararparm DeturpaEspacoTabuleiro int 5
-=declararparm DeturpaEspacoColuna int 6
-=declararparm DeturpaEspacoLinha int 7
-=declararparm DeturpaEspacoElemento int 8
-=declararparm DeturpaPtColunaNulo int 9
-=declararparm DeturpaPtLinhaNulo int 10
-=declararparm DeturpaPtElementoNulo int 11
-=declararparm DeturpaPtProxElementoNulo int 12
-=declararparm DeturpaPtElementoAntNulo int 13
-=declararparm DeturpaConteudoElementoNulo int 14
-=declararparm DeturpaEliminaElemento int 15
-=declararparm DeturpaDesencadeiaElemento int 16
-=declararparm DeturpaColunaLixo int 17
-=declararparm DeturpaLinhaLixo int 18
-=declararparm DeturpaElementoLixo int 19
-=declararparm DeturpaProxElementoLixo int 20
-=declararparm DeturpaElementoAntLixo int 21
+=declararparm DeturpaPtColunaNulo int 5
+=declararparm DeturpaPtLinhaNulo int 6
+=declararparm DeturpaPtElementoNulo int 7
+=declararparm DeturpaDesencadeiaElemento int 8
 
 == Iniciar contagem
 =inicializarcontadores ""
@@ -85,9 +72,41 @@
 =AceitaFalhasAcumuladas 1
 =destruirtabuleiro tab0
 
+== Deturpar ponteiro de coluna nulo
+=criartabuleiro   tab0   8  8  pNaoNull
+=incluirpeca tab0 0 0 branco OK
+=deturpar 0 DeturpaPtColunaNulo
+=verificartabuleiro tab0 ErroEstrutura
+=AceitaFalhasAcumuladas 1
+=destruirtabuleiro tab0
+
+== Deturpar ponteiro de linha nulo
+=criartabuleiro   tab0   8  8  pNaoNull
+=incluirpeca tab0 0 0 branco OK
+=deturpar 0 DeturpaPtLinhaNulo
+=verificartabuleiro tab0 ErroEstrutura
+=AceitaFalhasAcumuladas 1
+=destruirtabuleiro tab0
+
+== Deturpar ponteiro elemento nulo
+=criartabuleiro   tab0   8  8  pNaoNull
+=incluirpeca tab0 0 0 branco OK
+=deturpar 0 DeturpaPtElementoNulo
+=verificartabuleiro tab0 ErroEstrutura
+=AceitaFalhasAcumuladas 1
+=destruirtabuleiro tab0
+
+== Deturpar desencadeia elemento
+=criartabuleiro   tab0   8  8  pNaoNull
+=incluirpeca tab0 0 0 branco OK
+=deturpar 0 DeturpaDesencadeiaElemento
+=verificartabuleiro tab0 ErroEstrutura
+=AceitaFalhasAcumuladas 1
+=destruirtabuleiro tab0
+
 == Terminar controle dos contadores
 =pararcontagem
-//=verificarcontagens 0
+=verificarcontagens 0
 
 == Terminar contagem
 =terminarcontadores

@@ -40,8 +40,8 @@ Estatísticas do construto
       tst_espc.h
 
    Estatísticas do arquivo: generico.h
-      Total linhas:             723
-      Linhas de código:          72
+      Total linhas:             710
+      Linhas de código:          59
       Linhas de comentário:     569
       Linhas em branco:          82
    Arquivos de inclusão de que necessita
@@ -78,8 +78,8 @@ Estatísticas do construto
 Totais por tipo de arquivo
 
   Tipo: h        Path: ..\Fontes
-         Total linhas do tipo:      1424
-         Linhas de código:           165
+         Total linhas do tipo:      1411
+         Linhas de código:           152
          Linhas de comentário:      1062
          Linhas em branco:           197
          Arquivos deste tipo:          4
@@ -114,8 +114,8 @@ Totais por tipo de arquivo
 
 Totais para todo o construto TestePeca
 
-   Total linhas:              1786
-   Linhas de código:           353
+   Total linhas:              1773
+   Linhas de código:           340
    Linhas de comentário:      1164
    Linhas em branco:           269
    Arquivos processados:         6

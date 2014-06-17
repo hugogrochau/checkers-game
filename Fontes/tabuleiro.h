@@ -274,58 +274,17 @@ typedef enum
     DeturpaTipoElemento = 4,
     /* Modifica o tipo da elemento */
 
-
-    DeturpaEspacoTabuleiro = 5,
-    /* Deturpa espaço do tabuleiro */
-
-    DeturpaEspacoColuna = 6,
-    /* Deturpa espaço da coluna */
-
-    DeturpaEspacoLinha = 7,
-    /* Deturpa espaço da linha */
-
-    DeturpaEspacoElemento = 8,
-    /* Deturpa espaço do elemento */
-
-
-    DeturpaPtColunaNulo = 9,
+    DeturpaPtColunaNulo = 5,
     /* Anula ponteiro para coluna */
 
-    DeturpaPtLinhaNulo = 10,
+    DeturpaPtLinhaNulo = 6,
     /* Anula ponteiro para linha */
 
-    DeturpaPtElementoNulo = 11,
+    DeturpaPtElementoNulo = 7,
     /* Anula ponteiro para elemento */
 
-    DeturpaPtProxElementoNulo = 12,
-    /* Anula ponteiro para próximo elemento */
-
-    DeturpaPtElementoAntNulo = 13,
-    /* Anula ponteiro para elemento anterior */
-
-    DeturpaPtConteudoElementoNulo = 14,
-    /* Anula ponteiro para conteudo do elemento */
-
-    DeturpaEliminaElemento = 15,
-    /* Elimina o elemento corrente da lista */
-
-    DeturpaDesencadeiaElemento = 16,
+    DeturpaDesencadeiaElemento = 8,
     /* Desencadeia o elemento sem liberá-lo com free */
-
-    DeturpaColunaLixo = 17,
-    /* Faz coluna apontar para lixo */
-
-    DeturpaLinhaLixo = 18,
-    /* Faz a linha apontar para lixo */
-
-    DeturpaElementoLixo = 19,
-    /* Faz o elemento apontar para lixo */
-
-    DeturpaProxElementoLixo = 20,
-    /* Faz o próximo elemento apontar para lixo */
-
-    DeturpaElementoAntLixo = 21,
-    /* Faz o elemento anterior apontar para lixo */
 
 } TAB_tpModoDeturpacao;
 
