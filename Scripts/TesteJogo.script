@@ -1,0 +1,38 @@
+// Script:    TesteJogo.script
+// Autor:     Gustavo martins (gmm)
+// Data:      17/jun/2014
+// Propósito: Testar o módulo tabuleiro
+
+//INCICIALIZAR OS INDICES
+
+== Inicializar valores
+=declararparm jogo0 int 0
+=declararparm jogo1 int 1
+=declararparm jogo2 int 2
+
+
+//DECLARAR OS TIPOS DE RETORNO
+
+=declararparm JOGO_CondRetOK                        int    1
+=declararparm JOGO_CondRetJogador1Ganhou            int    2
+=declararparm JOGO_CondRetJogador2Ganhou            int    3
+=declararparm JOGO_CondRetEmpate                    int    4
+=declararparm JOGO_CondRetJogadaInvalida            int    5
+=declararparm JOGO_CondRetJogadaValida              int    6
+
+==Criar jogo
+=criarjogo       jogo0   Gustavo   Hugo
+
+==Destruir o jogo
+=destruirjogo   jogo0
+
+==Criar Jogo
+=criarjogo     jogo0   Gustavo   Hugo
+
+==Preenche e imprime o tabuleiro
+=preenchertabuleiro jogo0
+=imprimirtabuleiro  jogo0
+
+
+==executar uma jogada
+=executarjogada
