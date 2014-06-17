@@ -155,7 +155,7 @@ TAB_tppTabuleiro TAB_CriarTabuleiro (unsigned short int colunas, unsigned short 
                 return NULL;
             }
 #ifdef _DEBUG
-            LIS_ColocarCabecaTabuleiro(lstLin, tab, TAB_TipoEspacoPeca);
+            LIS_ColocarCabecaTabuleiro(lstLin, tab, TAB_TipoEspacoElemento);
 #endif
 
         }
@@ -225,13 +225,8 @@ TAB_tpCondRet TAB_IncluirPeca (TAB_tppTabuleiro tab, void *pPeca, TAB_tpPosicao 
         return TAB_CondRetPosicaoInvalida;
     }
 
-
     lst = TAB_ObterCasa(tab, pos);
     LIS_SobrescreverValorCorrente(lst, pPeca);
-
-#ifdef _DEBUG
-    CED_DefinirTipoEspaco(pPeca, TAB_TipoEspacoPeca);
-#endif
 
     TAB_IrInicioTabuleiro(tab);
     return TAB_CondRetOK;
@@ -554,8 +549,7 @@ TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha)
 
         CNT_CONTAR("Avança linha");
 
-        peca = LIS_ObterValor(peca);
-        if ((condRetLinha = TAB_VerificarPeca(peca)) != TAB_CondRetOK)
+        if ((condRetLinha = LIS_VerificarElemento(linha)) != TAB_CondRetOK)
         {
 
             CNT_CONTAR("Peça inválida");
@@ -572,8 +566,6 @@ TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha)
 
     IrInicioLista(linha);
 
-    /* TODO: Verificar Peças */
-
     CED_MarcarEspacoAtivo(linha);
 
     CNT_CONTAR("Acaba verificar linha");
@@ -581,56 +573,7 @@ TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha)
     return TAB_CondRetOK;
 }
 
-/***********************************************************************
-*
-*  Função: TAB &Verificar Peca
-*
-***********************************************************************/
 
-TAB_tpCondRet TAB_VerificarPeca(void * peca)
-{
-
-    CNT_CONTAR("Verificar peça");
-
-    if (peca == NULL)
-    {
-
-        CNT_CONTAR("Peça nula");
-
-        return TAB_CondRetOK;
-    }
-
-    CNT_CONTAR("Peça não nula");
-
-    if (!CED_VerificarEspaco( peca, NULL ))
-    {
-
-        CNT_CONTAR("Espaço peça inválido");
-
-        TST_NotificarFalha("Controle do espaço acusou erro.");
-        return TAB_CondRetErroEstrutura;
-    }
-
-    CNT_CONTAR("Espaço peça válido");
-
-    if (TST_CompararInt(TAB_TipoEspacoPeca,
-                        CED_ObterTipoEspaco(peca),
-                        "Tipo do espaço de dados não é uma peça.") != TST_CondRetOK )
-    {
-
-        CNT_CONTAR("Tipo peça inválido");
-
-        return TAB_CondRetErroEstrutura;
-    }
-
-    CNT_CONTAR("Tipo peça válido");
-
-    CED_MarcarEspacoAtivo(peca);
-
-    CNT_CONTAR("Acaba verificar peça");
-
-    return TAB_CondRetOK;
-}
 
 /***********************************************************************
 *
@@ -642,21 +585,11 @@ void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModoDeturpacao modoDeturpar)
 {
     LIS_tppLista coluna = tab->coluna;
     LIS_tppLista linha = (LIS_tppLista) LIS_ObterValor(coluna);
-    PECA_tppPeca peca = NULL;
     if (tab == NULL || coluna == NULL || linha == NULL)
     {
         return;
     }
 
-    while (peca == NULL && LIS_AvancarElementoCorrente(linha, 1) != LIS_CondRetFimLista)
-    {
-         peca = (PECA_tppPeca) LIS_ObterValor(linha);
-    }
-    IrInicioLista(linha);
-    if (peca == NULL) /* não existe uma peça na primeira linha */
-    {
-        return;
-    }
     switch (modoDeturpar)
     {
     /* tipos */
@@ -670,10 +603,6 @@ void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModoDeturpacao modoDeturpar)
 
     case DeturpaTipoLinha:
         CED_DefinirTipoEspaco(linha, CED_ID_TIPO_VALOR_NULO);
-        break;
-
-    case DeturpaTipoPeca:
-        CED_DefinirTipoEspaco(peca, CED_ID_TIPO_VALOR_NULO);
         break;
 
     /* espaços */
@@ -695,12 +624,6 @@ void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModoDeturpacao modoDeturpar)
                12);
         break;
 
-    case DeturpaEspacoPeca:
-        memcpy((char *) peca,
-               LIXO(2),
-               2);
-        break;
-
     /* ponteiro nulo */
     case DeturpaPtColunaNulo:
         tab->coluna = NULL;
@@ -718,10 +641,10 @@ void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModoDeturpacao modoDeturpar)
     case DeturpaLinhaLixo:
         LIS_SobrescreverValorCorrente(coluna, EspacoLixo);
         break;
-
-    case DeturpaPecaLixo:
-        LIS_SobrescreverValorCorrente(linha, EspacoLixo);
-        break;
+    
+    /* elemento */
+    default:
+        LIS_DeturparElemento(linha, modoDeturpar);
     }
 }
 

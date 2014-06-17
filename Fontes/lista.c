@@ -11,6 +11,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*     7       hpg   16/jun/2014 auto-verificação do tabuleiro
 *     6       gmm   19/abr/2014 implementação da função alterar valor corrente e deletar valor elemento corrente
 *     5       hpg   31/mar/2014 implementação da função de inserção ordenada
 *     4       avs   01/fev/2006 criar linguagem script simbólica
@@ -33,6 +34,7 @@
 #ifdef _DEBUG
     #include "generico.h"
     #include "cespdin.h"
+    #include "conta.h"
 #endif
 
 
@@ -110,7 +112,7 @@ static void LimparCabeca( LIS_tppLista pLista ) ;
 void LIS_ColocarCabecaTabuleiro(LIS_tppLista lis, void* pCabeca, int tipoEspaco)
 {   
     lis->pElemCorr->pCabecaTabuleiro = pCabeca;
-    CED_DefinirTipoEspaco(lis->pElemCorr, tipoEspaco);
+    CED_DefinirTipoEspaco(lis->pElemCorr, tipoEspacoElemento);
 }
 
 #endif
@@ -649,6 +651,147 @@ void LimparCabeca( LIS_tppLista pLista )
     pLista->numElem   = 0 ;
 
 } /* Fim função: LIS  -Limpar a cabeça da lista */
+
+
+#ifdef _DEBUG
+
+/***********************************************************************
+*
+*  Função: TAB &Verificar Elemento
+*
+***********************************************************************/
+
+LIS_tpCondRet VerificarElemento(LIS_tppLista lista) 
+{
+    LIS_tpElemLista elem = lista->pElemCorr;
+    CNT_CONTAR("Verificar elemento");
+
+    if (elem == NULL)
+    {
+
+        CNT_CONTAR("Elemento nulo");
+
+        TST_NotificarFalha("Tentou verificar elemento nulo.");
+        return LIS_CondRetErroEstrutura;
+    }
+
+    CNT_CONTAR("Elemento não nulo");
+
+    if (!CED_VerificarEspaco(elem, NULL ))
+    {
+
+        CNT_CONTAR("Espaço elemento inválido");
+
+        TST_NotificarFalha("Controle do espaço acusou erro.");
+        return LIS_CondRetErroEstrutura;
+    }
+
+    CNT_CONTAR("Espaço elemento válido");
+
+    if (TST_CompararInt(TAB_TipoEspacoElemento,
+                        CED_ObterTipoEspaco(elem),
+                        "Tipo do espaço de dados não é um elemento.") != TST_CondRetOK )
+    {
+
+        CNT_CONTAR("Tipo elemento inválido");
+
+        return LIS_CondRetErroEstrutura;
+    }
+
+    CNT_CONTAR("Tipo elemento válido");
+
+    if (elem->pProx == NULL && elem->pAnt == NULL)
+    {
+        
+        CNT_CONTAR("Elemento solto");
+
+        TST_NotificarFalha("Elemento está solto");
+        return LIS_CondRetErroEstrutura;
+    }
+
+    CNT_CONTAR("Elemento ligado");
+
+    if (elem->pProx != NULL && TST_CompararInt(TAB_TipoEspacoElemento,
+                               CED_ObterTipoEspaco(elem->pProx),
+                               "Próximo elemento tem tipo inválido" != TST_CondRetOK )
+    {
+        CNT_CONTAR("Proximo elemento tipo inválido");
+ 
+        return LIS_CondRetErroEstrutura;
+    }
+    
+    CNT_CONTAR("Proximo elemento tipo válido");
+
+    if (elem->pAnt != NULL && TST_CompararInt(TAB_TipoEspacoElemento,
+                               CED_ObterTipoEspaco(elem->pAnt),
+                               "Elemento anterior tem tipo inválido" != TST_CondRetOK )
+    {
+        CNT_CONTAR("Elemento anterior tipo inválido");
+ 
+        return LIS_CondRetErroEstrutura;
+    }
+    
+    CNT_CONTAR("Elemento anterior tipo válido");
+
+    CED_MarcarEspacoAtivo(elemento);
+
+    CNT_CONTAR("Acaba verificar elemento");
+
+    return LIS_CondRetOK;
+}
+
+void LIS_DeturparElemento(LIS_tppLista lista, int modoDeturpar)
+{ 
+    switch(modoDeturpar)
+    {
+        case 4: /* DeturpaTipoElemento */
+
+        break;
+
+        case 8: /* DeturpaEspacoElemento */
+
+        break;
+
+        case 11: /* DeturpaPtElementoNulo */
+
+        break;
+
+        case 12: /* DeturpaPtProxElementoNulo */
+
+        break;
+
+        case 13: /* DeturpaPtElementoAntNulo */
+
+        break;
+
+        case 14: /* DeturpaPtConteudoElementoNulo */
+
+        break;
+
+        case 15: /* DeturpaEliminaElemento */
+
+        break;
+
+        case 16: /* DeturpaDesencadeiaElemento */
+
+        break;
+
+        case 19: /* DeturpaElementoLixo */
+
+        break;
+
+        case 20: /* DeturpaProxElementoLixo */
+    
+        break;
+        
+        case 21: /* DeturpaElementoAntLixo */
+
+        break;
+    }
+}
+
+#endif 
+
 
 /********** Fim do módulo de implementação: LIS  Lista duplamente encadeada **********/
 

@@ -14,6 +14,7 @@
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*     7       hpg   16/jun/2014 auto-verificação do tabuleiro
 *     6       gmm   19/abr/2014 implementação da função alterar valor corrente e deletar valor elemento corrente
 *     5       hpg   31/mar/2014 implementação da função de inserção ordenada
 *     4       avs   01/fev/2006 criar linguagem script simbólica
@@ -89,8 +90,11 @@ typedef enum
     LIS_CondRetNaoAchou ,
     /* Não encontrou o valor procurado */
 
-    LIS_CondRetFaltouMemoria
+    LIS_CondRetFaltouMemoria ,
     /* Faltou memória ao tentar criar um elemento de lista */
+
+    LIS_CondRetErroEstrutura
+    /* Ha algum erro estrutural na lista */
 
 } LIS_tpCondRet ;
 
@@ -402,6 +406,10 @@ LIS_tpCondRet LIS_AvancarElementoCorrente( LIS_tppLista pLista ,
 
 LIS_tpCondRet LIS_ProcurarValor( LIS_tppLista pLista ,
                                  void *pValor        ) ;
+
+#ifdef _DEBUG
+LIS_tpCondRet VerificarElemento(LIS_tppLista lista);
+#endif
 
 #undef LISTA_EXT
 

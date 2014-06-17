@@ -27,8 +27,9 @@
 
 #ifdef _DEBUG
 #include    "cespdin.h"
-
+#include    "lista.h"
 #endif
+
 static const char CRIAR_TABULEIRO_CMD            [ ] = "=criartabuleiro"     ;
 static const char DESTRUIR_TABULEIRO_CMD         [ ] = "=destruirtabuleiro"  ;
 static const char OBTER_TAMANHO_CMD              [ ] = "=obtertamanho"       ;

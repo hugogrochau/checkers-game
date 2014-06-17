@@ -23,7 +23,7 @@ typedef enum
 	TAB_TipoEspacoCabeca = 1, 
     TAB_TipoEspacoColuna = 2,
     TAB_TipoEspacoLinha = 3,
-    TAB_TipoEspacoPeca = 4,
+    TAB_TipoEspacoElemento = 4,
 
 	CED_ID_TIPO_ILEGAL = 999 
 } CED_tpIdTipoEspaco ;
