@@ -1,19 +1,19 @@
 GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
    LES / Informática / PUC-Rio    Versão 6.00 (c) 2005
 
-Composição do construto: TesteTabuleiroDeturpa.comp
+Composição do construto: TesteTabuleiroControleEspaco.comp
 
-   Nome do Construto:           TesteTabuleiroDeturpa
+   Nome do Construto:           TesteTabuleiroControleEspaco
    Diretório base:              C:\Users\Gustavo\Documents\GitHub\prog-modular-damas\Composicao
 
-   Arquivo composição:          TesteTabuleiroDeturpa.comp
+   Arquivo composição:          TesteTabuleiroControleEspaco.comp
    Arquivo plataforma:          gmake.parm
 
-   Arquivo diretivas MAKE:      TesteTabuleiroDeturpa.make
-   Arquivo diretivas LINK:      TesteTabuleiroDeturpa.build
-   Arquivo listagem:            TesteTabuleiroDeturpa.list
+   Arquivo diretivas MAKE:      TesteTabuleiroControleEspaco.make
+   Arquivo diretivas LINK:      TesteTabuleiroControleEspaco.build
+   Arquivo listagem:            TesteTabuleiroControleEspaco.list
 
-Módulos do construto: TesteTabuleiroDeturpa.comp
+Módulos do construto: TesteTabuleiroControleEspaco.comp
 
    Lista.c
    Peca.c
@@ -202,7 +202,7 @@ Totais por tipo de arquivo
          Linhas em branco:           447
          Arquivos deste tipo:          4
 
-Totais para todo o construto TesteTabuleiroDeturpa
+Totais para todo o construto TesteTabuleiroControleEspaco
 
    Total linhas:              5320
    Linhas de código:          1439

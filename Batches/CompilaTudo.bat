@@ -28,6 +28,12 @@ pushd .
 nmake /F..\Composicao\TesteTabuleiroDeturpa.make 
 popd
 
+REM Compila teste de controle de espaço do módulo tabuleiro
+del ..\Objetos\*.obj
+pushd .
+nmake /F..\Composicao\TesteTabuleiroControleEspaco.make 
+popd
+
 REM Compila jogo de damas
 del ..\Objetos\*.obj
 pushd .

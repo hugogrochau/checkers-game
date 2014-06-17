@@ -119,7 +119,7 @@ int ContinuarJogo(JOGO_tppJogo jogo)
     JOGO_ImprimirTabuleiro(jogo);
 
     JOGO_ImprimirComCor(jogo->jogadorDaVez->nome, jogo->jogadorDaVez->cor, TRUE);
-    printf(", escolha seu movimento (ex: 3a 5b): ");
+    printf(", escolha seu movimento (ex: 1f 2e): ");
     scanf(" %hd%c %hd%c", &colunaOrigem, &linhaOrigem,
                           &colunaDestino, &linhaDestino);
     system("cls");

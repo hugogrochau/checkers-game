@@ -1,0 +1,26 @@
+# Composicao do programa de teste do controle de espaco
+
+[Diretorios]
+
+Nome        =  TesteTabuleiroControleEspaco
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+obj			=  ..\Objetos
+c			=  ..\Fontes
+h			=  ..\Fontes
+
+[Modulos]
+Lista /D_DEBUG
+Peca
+Tabuleiro /D_DEBUG
+TestTab /D_DEBUG
+
+[BuildInicio]
+/OUT:..\Produto\TesteTabuleiroControleEspaco.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[BuildFim]
+ArcaboucoTeste.lib
+
+[Fim]

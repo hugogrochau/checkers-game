@@ -34,10 +34,10 @@ Estatísticas do construto
       Tabuleiro.c
 
    Estatísticas do arquivo: Jogo.c
-      Total linhas:             894
-      Linhas de código:         498
+      Total linhas:             853
+      Linhas de código:         458
       Linhas de comentário:     285
-      Linhas em branco:         110
+      Linhas em branco:         109
    Arquivos de inclusão de que necessita
       jogo.h
       lista.h
@@ -66,10 +66,10 @@ Estatísticas do construto
       peca.h
 
    Estatísticas do arquivo: Princip.c
-      Total linhas:             132
+      Total linhas:             183
       Linhas de código:         113
-      Linhas de comentário:       1
-      Linhas em branco:          18
+      Linhas de comentário:      48
+      Linhas em branco:          22
    Arquivos de inclusão de que necessita
       jogo.h
       lista.h
@@ -77,8 +77,8 @@ Estatísticas do construto
       tabuleiro.h
 
    Estatísticas do arquivo: Tabuleiro.c
-      Total linhas:             649
-      Linhas de código:         358
+      Total linhas:             651
+      Linhas de código:         360
       Linhas de comentário:     154
       Linhas em branco:         137
    Arquivos de inclusão de que necessita
@@ -137,10 +137,10 @@ Estatísticas do construto
       TestTab.c
 
    Estatísticas do arquivo: jogo.h
-      Total linhas:             250
+      Total linhas:             278
       Linhas de código:          50
-      Linhas de comentário:     155
-      Linhas em branco:          45
+      Linhas de comentário:     181
+      Linhas em branco:          47
    Arquivos de inclusão de que necessita
       lista.h
       peca.h
@@ -158,10 +158,10 @@ Estatísticas do construto
       TestTab.c
 
    Estatísticas do arquivo: lista.h
-      Total linhas:             422
+      Total linhas:             458
       Linhas de código:          49
-      Linhas de comentário:     314
-      Linhas em branco:          59
+      Linhas de comentário:     347
+      Linhas em branco:          62
    Arquivos em que é incluído
       Jogo.c
       Lista.c
@@ -186,10 +186,10 @@ Estatísticas do construto
       tabuleiro.h
 
    Estatísticas do arquivo: tabuleiro.h
-      Total linhas:             309
-      Linhas de código:          59
-      Linhas de comentário:     199
-      Linhas em branco:          51
+      Total linhas:             339
+      Linhas de código:          56
+      Linhas de comentário:     233
+      Linhas em branco:          50
    Arquivos de inclusão de que necessita
       lista.h
       peca.h
@@ -214,10 +214,10 @@ Estatísticas do construto
 Totais por tipo de arquivo
 
   Tipo: h        Path: ..\Fontes
-         Total linhas do tipo:      3528
-         Linhas de código:           405
-         Linhas de comentário:      2598
-         Linhas em branco:           525
+         Total linhas do tipo:      3622
+         Linhas de código:           402
+         Linhas de comentário:      2691
+         Linhas em branco:           529
          Arquivos deste tipo:          9
 
   Tipo: obj      Path: ..\Objetos
@@ -242,17 +242,17 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          1
 
   Tipo: c        Path: ..\Fontes
-         Total linhas do tipo:      2967
-         Linhas de código:          1684
-         Linhas de comentário:       746
-         Linhas em branco:           575
+         Total linhas do tipo:      2979
+         Linhas de código:          1646
+         Linhas de comentário:       793
+         Linhas em branco:           578
          Arquivos deste tipo:          6
 
 Totais para todo o construto JogoDeDamasDebug
 
-   Total linhas:              6528
-   Linhas de código:          2101
-   Linhas de comentário:      3361
-   Linhas em branco:          1104
+   Total linhas:              6634
+   Linhas de código:          2060
+   Linhas de comentário:      3501
+   Linhas em branco:          1111
    Arquivos processados:        16
 

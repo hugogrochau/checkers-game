@@ -302,11 +302,8 @@ void JOGO_DestruirJogo (JOGO_tppJogo jogo)
     if (jogo != NULL)
     {
         TAB_DestruirTabuleiro(jogo->tab);
-        jogo->tab = NULL;
         JOGO_DestruirJogador(jogo->jogador1);
-        jogo->jogador1 = NULL;
         JOGO_DestruirJogador(jogo->jogador2);
-        jogo->jogador2 = NULL;
         free(jogo);
         jogo = NULL;
     }
@@ -611,8 +608,6 @@ static void JOGO_DestruirJogador (JOGO_tppJogador jogador)
 {
     if (jogador != NULL)
     {
-        free(jogador->nome);
-        jogador->nome = NULL;
         free(jogador);
         jogador = NULL;
     }

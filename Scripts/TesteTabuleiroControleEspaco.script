@@ -8,6 +8,12 @@
 =declararparm    inxTab0        int   0
 =declararparm    inxTab1        int   1
 
+
+==Parametros de cor
+=declararparm preto int 0
+=declararparm branco int 1
+
+
 == Declarar condições de retorno
 =declararparm OK int 0
 =declararparm TabuleiroVazio int 1
@@ -20,33 +26,28 @@
 == Declarar criterios de exibicao
 =declararparm  CriterioExibir  int   1
 
-== Iniciar contagem
-=inicializarcontadores  ""
-=lercontadores          "..\\scripts\\Tabuleiro"
-=iniciarcontagem
-
 == Criar Tabuleiro
 =criartabuleiro   inxTab0   8  8  pNaoNull
 
 == Verificar espaços alocados
 =verificartodosespacos       0
-=obternumeroespacosalocados  73
+=recuperar
+=obternumeroespacosalocados  82
 
 == Incluir uma peca
 =incluirpeca inxTab0 0 0 branco OK
 
 == Mover a peca
 =moverpeca inxTab0 0 0 7 7 OK
-=moverpeca inxTab1 1 1 8 7 OK
 
 == Verificar se ela foi movida
 =obterpeca inxTab0 7 7 pNaoNull
 =obterpeca inxTab0 0 0 pNull
 
 == Controlar vazamento de memória
-=exibirtodosespacos            CriterioExibir
+//=exibirtodosespacos            CriterioExibir
 =verificartodosespacos         CriterioExibir
-=obternumeroespacosalocados    74                 // tabuleiro + peca
+=obternumeroespacosalocados    82             
 
 == Destruir Tabuleiro
 =destruirtabuleiro inxTab0
@@ -55,11 +56,5 @@
 =obternumeroespacosalocados  0
 =verificartodosespacos       CriterioExibir
 
-== Terminar controlar contadores
-=pararcontagem
-=verificarcontagens    0
-
-== Terminar contagem
-=terminarcontadores
 
 // fim

@@ -1,0 +1,6 @@
+/OUT:..\Produto\TesteTabuleiroControleEspaco.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+Lista.obj  Peca.obj  Tabuleiro.obj  TestTab.obj  
+ArcaboucoTeste.lib
+

@@ -1,0 +1,36 @@
+
+!!! Inicio dos testes
+!!!      Construto sob teste: ..\Produto\TesteTabuleiroControleEspaco
+!!!      Script de teste:     ..\Scripts\TesteTabuleiroControleEspaco.script
+
+!!!    0  Linha:     1  // Script:    TesteControleEspaco-Tab.script 
+!!!    0  Linha:     2  // Autor:     Gustavo Martins 
+!!!    0  Linha:     3  // Data:      14/jun/2014 
+!!!    0  Linha:     4  // Propósito: Arquivo de script para controle de espaço dinâmico 
+!!!    0  Linha:     5  // 
+    7  == Declarar os tabuleiros usados
+   12  ==Parametros de cor
+   17  == Declarar condições de retorno
+   26  == Declarar criterios de exibicao
+   29  == Criar Tabuleiro
+   32  == Verificar espaços alocados
+>>>    1  Linha:    33  Condição de validade errada. Deveria ser: FALSE É: TRUE
+<<<    0  Linha:    34  Falha esperada foi recuperada. 
+   37  == Incluir uma peca
+   40  == Mover a peca
+   43  == Verificar se ela foi movida
+   47  == Controlar vazamento de memória
+!!!    0  Linha:    48  //=exibirtodosespacos            CriterioExibir 
+   52  == Destruir Tabuleiro
+   55  == Controlar vazamento de memória
+!!!    0  Linha:    60  // fim 
+
+!!! Número de linhas lidas:          60
+!!! Número de casos de teste:        12
+!!! Número comandos corretos:        22
+!!! Número de falhas encontradas:     0
+
+!!! Não foram encontrados problemas
+
+
+!!! Numero de espacos ainda alocados: 0

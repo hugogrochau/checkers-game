@@ -16,6 +16,9 @@ if errorlevel 4 goto sai
 ..\Produto\TesteTabuleiroDeturpa   /s..\Scripts\TesteTabuleiroDeturpa /l..\Produto\TesteTabuleiroDeturpa /a..\Scripts\estatisticas
 if errorlevel 4 goto sai
 
+..\Produto\TesteTabuleiroControleEspaco   /s..\Scripts\TesteTabuleiroControleEspaco /l..\Produto\TesteTabuleiroControleEspaco /a..\Scripts\estatisticas
+if errorlevel 4 goto sai
+
 exbestat /e..\Scripts\estatisticas
 
 :sai

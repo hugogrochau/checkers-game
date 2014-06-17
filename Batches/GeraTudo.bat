@@ -9,6 +9,7 @@ gmake  /b..\Composicao /cTesteLista
 gmake  /b..\Composicao /cTestePeca
 gmake  /b..\Composicao /cTesteTabuleiro
 gmake  /b..\Composicao /cTesteTabuleiroDeturpa
+gmake  /b..\Composicao /cTesteTabuleiroControleEspaco
 gmake  /b..\Composicao /cJogoDeDamas
 gmake  /b..\Composicao /cJogoDeDamasDebug
 

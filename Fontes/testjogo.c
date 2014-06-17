@@ -37,7 +37,7 @@ static const char RESETAR_JOGO_CMD               [ ] = "=resetarjogo"          ;
 #define TRUE  1
 #define FALSE 0
 
-#define PATH_TAB_INICIAL "TabuleiroInicial.tab"
+#define PATH_TAB_TESTE "TabuleiroInicial.tab"
 
 #define DIM_VT_JOGO   10
 
@@ -155,15 +155,16 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
             return TST_CondRetParm ;
         }
 
-        fp = fopen(PATH_TAB_INICIAL,"r");
+        fp = fopen(PATH_TAB_TESTE,"r");
         if (fp == NULL)
         {
-        	return TST_CompararPonteiroNulo(1,fp,"Erro na abertura do arquivo." );
+        	return TST_CondRetErro;
         }
         if (JOGO_PreencherTabuleiro(vtJogo[ inxJogo ], fp) == JOGO_CondRetOK)
         {
         	TST_CondRetOK ;
         }
+        fclose(fp);
         return TST_CondRetErro ;
 
     } /* fim ativa: Testar Preencher Tabuleiro */
@@ -181,11 +182,13 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
             return TST_CondRetParm ;
         }
 
+        if (vtJogo[inxJogo] == NULL)
+            printf("VETOR JOGO EH NULO\n");
+
         if (JOGO_ImprimirTabuleiro(vtJogo[ inxJogo ]) == JOGO_CondRetOK)
         {
         	return TST_CondRetOK ;
         }
-
         return TST_CondRetErro ;
     } /* fim ativa: Testar imprimir tabuleiro*/
 

@@ -9,35 +9,21 @@
 =declararparm jogo0 int 0
 =declararparm jogo1 int 1
 =declararparm jogo2 int 2
-
+=declararparm   str0    string  "abcdefg"
+=declararparm   str1    string  "qwerty"
 
 //DECLARAR OS TIPOS DE RETORNO
 
-=declararparm CondRetOK                        int    1
-=declararparm CondRetJogador1Ganhou            int    2
-=declararparm CondRetJogador2Ganhou            int    3
-=declararparm CondRetEmpate                    int    4
-=declararparm CondRetJogadaInvalida            int    5
-=declararparm CondRetTabuleiroVazio
+=declararparm CondRetOK    int    5
 
 ==Criar jogo
-=criarjogo       jogo0   Gustavo   Hugo
-
-==Destruir o jogo
-=destruirjogo   jogo0
-
-==Criar Jogo
-=criarjogo     jogo0   Gustavo   Hugo
+=criarjogo       jogo0   str0   str1
 
 ==Preenche e imprime o tabuleiro
 =preenchertabuleiro jogo0
-=imprimirtabuleiro  jogo0
-
 
 ==executar uma jogada
-=executarjogada  jogo0  0 0 2 2 CondRetOK
-=executarjogada  jogo0  -1 -1 0 0 CondRetJogadaInvalida
-
+=executarjogada  jogo0  0 5 1 4 CondRetOK
 
 ==resetar tudo
 =destruirjogo jogo0

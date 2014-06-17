@@ -1,8 +1,8 @@
-# Composicao do programa de teste do tabuleiro debug
+# Composicao do programa de teste do modulo jogo
 
 [Diretorios]
 
-Nome        =  TesteTabuleiroDebug
+Nome        =  TesteJogo
 PathDefault =  ..\Fontes
 err         =  ..\Produto
 obj			=  ..\Objetos
@@ -10,13 +10,13 @@ c			=  ..\Fontes
 h			=  ..\Fontes
 
 [Modulos]
-Lista /D_DEBUG
+Lista
 Peca
-Tabuleiro /D_DEBUG
-TestTab /D_DEBUG
+Tabuleiro
+TestJogo
 
 [BuildInicio]
-/OUT:..\Produto\TesteTabuleiroDebug.exe
+/OUT:..\Produto\TesteJogo.exe
 /INCREMENTAL:NO
 /MACHINE:IX86
 
