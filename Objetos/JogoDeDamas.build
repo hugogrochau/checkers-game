@@ -1,4 +1,4 @@
-/OUT:..\Produto\JogoDeDamas.exe
+/OUT:..\Produto\TRAB4-PRODUCAO.exe
 /INCREMENTAL:NO
 /MACHINE:IX86
 Princip.obj  Jogo.obj  Tabuleiro.obj  Lista.obj  Peca.obj  

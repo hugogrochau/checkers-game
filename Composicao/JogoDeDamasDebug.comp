@@ -18,7 +18,7 @@ Jogo
 Princip
 
 [BuildInicio]
-/OUT:..\Produto\JogoDeDamasDebug.exe
+/OUT:..\Produto\TRAB4-DEBUG.exe
 /INCREMENTAL:NO
 /MACHINE:IX86
 
