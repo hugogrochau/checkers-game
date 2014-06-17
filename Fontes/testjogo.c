@@ -82,8 +82,6 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
     JOGO_tpCondRet condEsp;
     JOGO_tpCondRet jogoCondRet;
 
-    int valEsp = -1 ;
-
     int i ;
 
     /* Efetuar reset de teste de jogo */
@@ -114,7 +112,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
             return TST_CondRetParm ;
         }
 
-        vtJogo[ inxTab ] =
+        vtJogo[ inxJogo ] =
             JOGO_CriarJogo( nome1, nome2 ) ;
 
         return TST_CompararPonteiroNulo( 1 , vtJogo[ inxJogo ] ,
@@ -131,7 +129,7 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
                                       &inxJogo ) ;
 
         if ( ( numLidos != 1 )
-                || ( ! ValidarInxTabuleiro( inxJogo )))
+                || ( ! ValidarInxJogo( inxJogo )))
         {
             return TST_CondRetParm ;
         }
@@ -192,19 +190,19 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
     } /* fim ativa: Testar imprimir tabuleiro*/
 
     /* Testar Executar Jogada*/
-    else if ( strcmp( ComandoTeste , executarjogada ) == 0 )
+    else if ( strcmp( ComandoTeste , EXECUTAR_JOGADA_CMD ) == 0 )
     {
 
         numLidos = LER_LerParametros( "iiiiii" ,
                                       &inxJogo , &Linha, &Coluna, &LinhaDest , &ColunaDest, &condEsp ) ;
         if ( ( numLidos != 6 )
-                || ( ! ValidarInxTabuleiro( inxTab )) )
+                || ( ! ValidarInxJogo( inxJogo )) )
         {
             return TST_CondRetParm ;
         }
 
 
-        jogoCondRet = JOGO_ExecutarJogada( vtJogo[ inxJogo ] , Linha , Coluna, LinhaDest, ColunaDest ) ;
+        jogoCondRet = JOGO_ExecutarJogada( vtJogo[ inxJogo ] , (short int) Linha , (short int) Coluna, (short int) LinhaDest, (short int) ColunaDest ) ;
 
 
         return TST_CompararInt( condEsp , jogoCondRet ,
@@ -229,8 +227,8 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
 int ValidarInxJogo( int inxJogo )
 {
 
-    if ( ( inxTabuleiro <  0 )
-            || ( inxTabuleiro >= DIM_VT_JOGO ))
+    if ( ( inxJogo <  0 )
+            || ( inxJogo >= DIM_VT_JOGO ))
     {
         return FALSE ;
     }

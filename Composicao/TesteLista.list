@@ -4,7 +4,7 @@ GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
 Composição do construto: TesteLista.comp
 
    Nome do Construto:           TesteLista
-   Diretório base:              U:\prog\modular\prog-modular-damas\Composicao
+   Diretório base:              C:\Users\Gustavo\Documents\GitHub\prog-modular-damas\Composicao
 
    Arquivo composição:          TesteLista.comp
    Arquivo plataforma:          gmake.parm
@@ -20,13 +20,23 @@ Módulos do construto: TesteLista.comp
 
 Estatísticas do construto
 
+   Estatísticas do arquivo: ..\\tabelas\\TiposEspacosTabuleiro.def
+      Total linhas:              33
+      Linhas de código:          12
+      Linhas de comentário:      17
+      Linhas em branco:           4
+   Arquivos em que é incluído
+      Lista.c
+
    Estatísticas do arquivo: Lista.c
-      Total linhas:             654
-      Linhas de código:         347
-      Linhas de comentário:     158
-      Linhas em branco:         170
+      Total linhas:             799
+      Linhas de código:         434
+      Linhas de comentário:     178
+      Linhas em branco:         222
    Arquivos de inclusão de que necessita
+      ..\\tabelas\\TiposEspacosTabuleiro.def
       cespdin.h
+      conta.h
       generico.h
       lista.h
       tst_espc.h
@@ -50,6 +60,14 @@ Estatísticas do construto
    Arquivos em que é incluído
       Lista.c
 
+   Estatísticas do arquivo: conta.h
+      Total linhas:             468
+      Linhas de código:          43
+      Linhas de comentário:     349
+      Linhas em branco:          76
+   Arquivos em que é incluído
+      Lista.c
+
    Estatísticas do arquivo: generico.h
       Total linhas:             723
       Linhas de código:          72
@@ -70,10 +88,10 @@ Estatísticas do construto
       TestLis.c
 
    Estatísticas do arquivo: lista.h
-      Total linhas:             411
-      Linhas de código:          44
-      Linhas de comentário:     312
-      Linhas em branco:          55
+      Total linhas:             422
+      Linhas de código:          49
+      Linhas de comentário:     314
+      Linhas em branco:          59
    Arquivos em que é incluído
       Lista.c
       TestLis.c
@@ -91,11 +109,11 @@ Estatísticas do construto
 Totais por tipo de arquivo
 
   Tipo: h        Path: ..\Fontes
-         Total linhas do tipo:      2317
-         Linhas de código:           227
-         Linhas de comentário:      1767
-         Linhas em branco:           323
-         Arquivos deste tipo:          5
+         Total linhas do tipo:      2796
+         Linhas de código:           275
+         Linhas de comentário:      2118
+         Linhas em branco:           403
+         Arquivos deste tipo:          6
 
   Tipo: obj      Path: ..\Objetos
          Total linhas do tipo:         0
@@ -112,24 +130,24 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          0
 
   Tipo: DEFAULT  Path: ..\Fontes
-         Total linhas do tipo:         0
-         Linhas de código:             0
-         Linhas de comentário:         0
-         Linhas em branco:             0
-         Arquivos deste tipo:          0
+         Total linhas do tipo:        33
+         Linhas de código:            12
+         Linhas de comentário:        17
+         Linhas em branco:             4
+         Arquivos deste tipo:          1
 
   Tipo: c        Path: ..\Fontes
-         Total linhas do tipo:      1168
-         Linhas de código:           639
-         Linhas de comentário:       250
-         Linhas em branco:           315
+         Total linhas do tipo:      1313
+         Linhas de código:           726
+         Linhas de comentário:       270
+         Linhas em branco:           367
          Arquivos deste tipo:          2
 
 Totais para todo o construto TesteLista
 
-   Total linhas:              3485
-   Linhas de código:           866
-   Linhas de comentário:      2017
-   Linhas em branco:           638
-   Arquivos processados:         7
+   Total linhas:              4142
+   Linhas de código:          1013
+   Linhas de comentário:      2405
+   Linhas em branco:           774
+   Arquivos processados:         9
 

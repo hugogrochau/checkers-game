@@ -76,8 +76,8 @@ $(Fobj)\Tabuleiro.obj :  {$(Pc)}\Tabuleiro.c \
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
 $(Fobj)\Lista.obj :  {$(Pc)}\Lista.c \
-    {$(Ph)}cespdin.h            {$(Ph)}generico.h           {$(Ph)}lista.h              \
-    {$(Ph)}tst_espc.h          
+    ..\\tabelas\\TiposEspacosTabuleiro.def {$(Ph)}cespdin.h            {$(Ph)}conta.h              \
+    {$(Ph)}generico.h           {$(Ph)}lista.h              {$(Ph)}tst_espc.h          
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
 $(Fobj)\Peca.obj :  {$(Pc)}\Peca.c \

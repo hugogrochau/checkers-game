@@ -4,7 +4,7 @@ GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
 Composição do construto: TestePeca.comp
 
    Nome do Construto:           TestePeca
-   Diretório base:              U:\prog\modular\prog-modular-damas\Composicao
+   Diretório base:              C:\Users\Gustavo\Documents\GitHub\prog-modular-damas\Composicao
 
    Arquivo composição:          TestePeca.comp
    Arquivo plataforma:          gmake.parm

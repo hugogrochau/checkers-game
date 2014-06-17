@@ -116,6 +116,10 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
     PECA_tppPeca pDado ;
     int valEsp = -1 ;
 
+#ifdef _DEBUG
+    TAB_tpModoDeturpacao modoDeturpacao;
+#endif
+
     int i ;
 
     /* Efetuar reset de teste de tabuleiro */
@@ -356,14 +360,14 @@ TST_tpCondRet TST_EfetuarComando( char *ComandoTeste )
     else if ( strcmp( ComandoTeste, DETURPAR_CMD ) == 0 )
     {
         numLidos = LER_LerParametros( "ii" ,
-                                       &inxTab , &valEsp ) ;
+                                       &inxTab , &modoDeturpacao ) ;
         if ( ( numLidos != 2 )
              || !ValidarInxTabuleiro( inxTab ))
         {
             return TST_CondRetParm;
         }
 
-        TAB_Deturpar( vtTab [ inxTab ] , valEsp ) ;
+        TAB_Deturpar( vtTab [ inxTab ] , modoDeturpacao ) ;
 
         return TST_CondRetOK ;
     } /* fim ativa: Deturpar um tabuleiro */

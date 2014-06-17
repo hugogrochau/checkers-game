@@ -1,5 +1,5 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: TAB  tabuleiro de damas ou qualquer outro jogo
+*  $MCI Módulo de implementacao: TAB  tabuleiro de damas ou qualquer outro jogo
 *
 *  Arquivo gerado:              tabuleiro.c
 *  Letras identificadoras:      TAB
@@ -8,15 +8,15 @@
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: Gustavo Marques Martins (gmm), Hugo Pedrotti Grochau (hpg)
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor     Data        Observações
+*  $HA Histórico de evolucao:
+*     Versao  Autor     Data        Observacões
 *     8       hpg       14/jun/2014  Contagem
-*     7       hpg       14/jun/2014  Deturpação
-*     6       hpg       13/jun/2014  Auto-verificação
+*     7       hpg       14/jun/2014  Deturpacao
+*     6       hpg       13/jun/2014  Auto-verificacao
 *     5       hpg,gmm   13/jun/2014  Tornou ChecarPos publica
-*     4       hpg,gmm   30/abr/2014  Comentários
-*     3       gmm       19/abr/2014  Mais implementação
-*     2       gmm       18/abr/2014  Mais implementação
+*     4       hpg,gmm   30/abr/2014  Comentarios
+*     3       gmm       19/abr/2014  Mais implementacao
+*     2       gmm       18/abr/2014  Mais implementacao
 *     1       gmm       16/abr/2014  início desenvolvimento
 *
 ***************************************************************************/
@@ -55,14 +55,14 @@ struct TAB_tagTabuleiro
     TAB_tpTamanho tam;
 
     LIS_tppLista coluna;
-    /* Ponteiro para o começo da lista de listas */
+    /* Ponteiro para o comeco da lista de listas */
 };
 
-/***** Protótipos das funções encapuladas no módulo *****/
+/***** Protótipos das funcões encapuladas no módulo *****/
 
 /***********************************************************************
 *
-*  $FC Função: TAB  -Destruir linha do tabuleiro
+*  $FC Funcao: TAB  -Destruir linha do tabuleiro
 *
 ***********************************************************************/
 
@@ -70,10 +70,10 @@ static void TAB_DestruirLinha (void *lstLin);
 
 /***********************************************************************
 *
-*  $FC Função: TAB  -Destruir uma lista por completo
+*  $FC Funcao: TAB  -Destruir uma lista por completo
 *
-*  $ED Descrição da função
-*      Destroi por completo uma lista. Destroi os elementos e dps a cabeça da lista
+*  $ED Descricao da funcao
+*      Destroi por completo uma lista. Destroi os elementos e dps a cabeca da lista
 *
 ***********************************************************************/
 
@@ -81,10 +81,10 @@ static void TAB_DestruirLista (LIS_tppLista lst);
 
 /***********************************************************************
 *
-*  $FC Função: TAB  -Obter casa
+*  $FC Funcao: TAB  -Obter casa
 *
-*  $ED Descrição da função
-*      Retorna uma lista apontando para a posição desejada
+*  $ED Descricao da funcao
+*      Retorna uma lista apontando para a posicao desejada
 *
 ***********************************************************************/
 
@@ -92,21 +92,21 @@ static LIS_tppLista TAB_ObterCasa (TAB_tppTabuleiro tab, TAB_tpPosicao pos);
 
 /***********************************************************************
 *
-*  $FC Função: TAB  -Ir inicio tabuleiro
+*  $FC Funcao: TAB  -Ir inicio tabuleiro
 *
-*  $ED Descrição da função
-*      Vai para o inicio do tabuleiro, resetando posição onde estava
+*  $ED Descricao da funcao
+*      Vai para o inicio do tabuleiro, resetando posicao onde estava
 *
 ***********************************************************************/
 
 static void TAB_IrInicioTabuleiro (TAB_tppTabuleiro tab);
 
-/*****  Código das funções exportadas pelo módulo  *****/
+/*****  Código das funcões exportadas pelo módulo  *****/
 
 
 /***********************************************************************
 *
-*  Função: TAB &Criar tabuleiro
+*  Funcao: TAB &Criar tabuleiro
 *
 ***********************************************************************/
 
@@ -123,6 +123,10 @@ TAB_tppTabuleiro TAB_CriarTabuleiro (unsigned short int colunas, unsigned short 
     {
         return NULL;
     }
+
+#ifdef _DEBUG
+    CED_DefinirTipoEspaco(tab, TAB_TipoEspacoCabeca);
+#endif
 
     lstCol = LIS_CriarLista(TAB_DestruirLinha);
 
@@ -171,17 +175,12 @@ TAB_tppTabuleiro TAB_CriarTabuleiro (unsigned short int colunas, unsigned short 
     tab->tam.colunas = colunas;
     tab->tam.linhas = linhas;
     tab->coluna = lstCol;
-
-#ifdef _DEBUG
-    CED_DefinirTipoEspaco(tab, TAB_TipoEspacoCabeca);
-#endif
-
     return tab;
 }
 
 /***********************************************************************
 *
-*  Função: TAB &Destruir tabuleiro
+*  Funcao: TAB &Destruir tabuleiro
 *
 ***********************************************************************/
 
@@ -197,7 +196,7 @@ void TAB_DestruirTabuleiro (TAB_tppTabuleiro tab)
 
 /***********************************************************************
 *
-*  Função: TAB &Obter tamanho
+*  Funcao: TAB &Obter tamanho
 *
 ***********************************************************************/
 
@@ -208,7 +207,7 @@ TAB_tpTamanho TAB_ObterTamanho (TAB_tppTabuleiro tab)
 
 /***********************************************************************
 *
-*  Função: TAB &Incluir peca
+*  Funcao: TAB &Incluir peca
 *
 ***********************************************************************/
 
@@ -234,7 +233,7 @@ TAB_tpCondRet TAB_IncluirPeca (TAB_tppTabuleiro tab, void *pPeca, TAB_tpPosicao 
 
 /***********************************************************************
 *
-*  Função: TAB &Obter tamanho
+*  Funcao: TAB &Obter tamanho
 *
 ***********************************************************************/
 
@@ -270,7 +269,7 @@ TAB_tpCondRet TAB_MoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao origem, TAB_tpP
 
 /***********************************************************************
 *
-*  Função: TAB &Obter peca
+*  Funcao: TAB &Obter peca
 *
 ***********************************************************************/
 
@@ -294,7 +293,7 @@ void *TAB_ObterPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 
 /***********************************************************************
 *
-*  Função: TAB &Destruir peca
+*  Funcao: TAB &Destruir peca
 *
 ***********************************************************************/
 
@@ -317,7 +316,7 @@ TAB_tpCondRet TAB_DestruirPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 
 /***********************************************************************
 *
-*  Função: TAB &Remover peca
+*  Funcao: TAB &Remover peca
 *
 ***********************************************************************/
 
@@ -343,7 +342,7 @@ void *TAB_RemoverPeca (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 
 /***********************************************************************
 *
-*  Função: TAB &Checar pos
+*  Funcao: TAB &Checar pos
 *
 ***********************************************************************/
 
@@ -359,11 +358,11 @@ int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 
 
 #ifdef _DEBUG
-/* Código das funções de instrumentação */
+/* Código das funcões de instrumentacao */
 
 /***********************************************************************
 *
-*  Função: TAB &Verificar Tabuleiro
+*  Funcao: TAB &Verificar Tabuleiro
 *
 ***********************************************************************/
 TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab)
@@ -379,41 +378,41 @@ TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab)
         return TAB_CondRetErroEstrutura;
     }
 
-    CNT_CONTAR("Tabuleiro não nulo");
+    CNT_CONTAR("Tabuleiro nao nulo");
 
     CED_MarcarEspacoAtivo(tab);
 
     if (!CED_VerificarEspaco( tab, NULL ))
     {
 
-        CNT_CONTAR("Espaço tabuleiro inválido");
+        CNT_CONTAR("Espaco tabuleiro invalido");
 
-        TST_NotificarFalha( "Controle do espaço acusou erro." );
+        TST_NotificarFalha( "Controle do espaco acusou erro." );
         return TAB_CondRetErroEstrutura;
     }
 
-    CNT_CONTAR("Espaço tabuleiro válido");
+    CNT_CONTAR("Espaco tabuleiro valido");
 
     if (TST_CompararInt(TAB_TipoEspacoCabeca,
                         CED_ObterTipoEspaco(tab),
-                        "Tipo do espaço de dados não é um tabuleiro.") != TST_CondRetOK )
+                        "Tipo do espaco de dados nao é um tabuleiro.") != TST_CondRetOK )
     {
 
-        CNT_CONTAR("Tipo tabuleiro inválido");
+        CNT_CONTAR("Tipo tabuleiro invalido");
 
         return TAB_CondRetErroEstrutura;
     }
 
-    CNT_CONTAR("Tipo tabuleiro válido");
+    CNT_CONTAR("Tipo tabuleiro valido");
 
     if (TAB_VerificarColuna(tab) != TAB_CondRetOK)
     {
-        CNT_CONTAR("Coluna inválida");
+        CNT_CONTAR("Coluna invalida");
         TAB_IrInicioTabuleiro(tab);
         return TAB_CondRetErroEstrutura;
     }
 
-    CNT_CONTAR("Coluna válida");
+    CNT_CONTAR("Coluna valida");
 
     TAB_IrInicioTabuleiro(tab);
 
@@ -424,7 +423,7 @@ TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab)
 
 /***********************************************************************
 *
-*  Função: TAB &Verificar Coluna
+*  Funcao: TAB &Verificar Coluna
 *
 ***********************************************************************/
 TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
@@ -444,50 +443,50 @@ TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
         return TAB_CondRetErroEstrutura;
     }
 
-    CNT_CONTAR("Coluna não nula");
+    CNT_CONTAR("Coluna nao nula");
 
     if (!CED_VerificarEspaco( coluna, NULL ))
     {
 
-        CNT_CONTAR("Espaço coluna inválido");
+        CNT_CONTAR("Espaco coluna invalido");
 
-        TST_NotificarFalha( "Controle do espaço acusou erro." );
+        TST_NotificarFalha( "Controle do espaco acusou erro." );
         return TAB_CondRetErroEstrutura;
     }
 
-    CNT_CONTAR("Espaço coluna válido");
+    CNT_CONTAR("Espaco coluna valido");
 
     if (TST_CompararInt(TAB_TipoEspacoColuna,
                         CED_ObterTipoEspaco(coluna),
-                        "Tipo do espaço de dados não é uma coluna.") != TST_CondRetOK )
+                        "Tipo do espaco de dados nao é uma coluna.") != TST_CondRetOK )
     {
 
-        CNT_CONTAR("Tipo coluna inválido");
+        CNT_CONTAR("Tipo coluna invalido");
 
         return TAB_CondRetErroEstrutura;
     }
 
-    CNT_CONTAR("Tipo coluna válido");
+    CNT_CONTAR("Tipo coluna valido");
 
-    while (LIS_AvancarElementoCorrente(coluna, 1) != LIS_CondRetFimLista)
-    {
-
-        CNT_CONTAR("Avança coluna");
+    do {
 
         linha = (LIS_tppLista) LIS_ObterValor(coluna);
         if ((condRetLinha = TAB_VerificarLinha(linha)) != TAB_CondRetOK)
         {
 
-            CNT_CONTAR("Linha inválida");
+            CNT_CONTAR("Linha invalida");
 
             return TAB_CondRetErroEstrutura;
         }
 
-        CNT_CONTAR("Linha válida");
+        CNT_CONTAR("Linha valida");
 
-    }
+        CNT_CONTAR("Avanca coluna");
 
-    CNT_CONTAR("Linhas válidas");
+    } while (LIS_AvancarElementoCorrente(coluna, 1) != LIS_CondRetFimLista);
+
+
+    CNT_CONTAR("Linhas validas");
 
 
     CED_MarcarEspacoAtivo(coluna);
@@ -499,13 +498,12 @@ TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
 
 /***********************************************************************
 *
-*  Função: TAB &Verificar Linha
+*  Funcao: TAB &Verificar Linha
 *
 ***********************************************************************/
 
 TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha)
 {
-    void * peca = NULL;
     LIS_tpCondRet condRetLinha;
 
     CNT_CONTAR("Verificar linha");
@@ -519,50 +517,49 @@ TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha)
         return TAB_CondRetErroEstrutura;
     }
 
-    CNT_CONTAR("Linha não nula");
+    CNT_CONTAR("Linha nao nula");
 
     if (!CED_VerificarEspaco( linha, NULL ))
     {
 
-        CNT_CONTAR("Espaço linha inválido");
+        CNT_CONTAR("Espaco linha invalido");
 
-        TST_NotificarFalha( "Controle do espaço acusou erro." );
+        TST_NotificarFalha( "Controle do espaco acusou erro." );
         return TAB_CondRetErroEstrutura;
     }
 
-    CNT_CONTAR("Espaço linha válido");
+    CNT_CONTAR("Espaco linha valido");
 
     if (TST_CompararInt(TAB_TipoEspacoLinha,
                         CED_ObterTipoEspaco(linha),
-                        "Tipo do espaço de dados não é uma linha.") != TST_CondRetOK )
+                        "Tipo do espaco de dados nao é uma linha.") != TST_CondRetOK )
     {
 
-        CNT_CONTAR("Tipo linha inválido");
+        CNT_CONTAR("Tipo linha invalido");
 
         return TAB_CondRetErroEstrutura;
     }
 
-    CNT_CONTAR("Tipo linha válido");
+    CNT_CONTAR("Tipo linha valido");
 
-    while (LIS_AvancarElementoCorrente(linha, 1) != LIS_CondRetFimLista)
-    {
-
-        CNT_CONTAR("Avança linha");
+    do {
 
         if ((condRetLinha = LIS_VerificarElemento(linha)) != TAB_CondRetOK)
         {
 
-            CNT_CONTAR("Peça inválida");
+            CNT_CONTAR("Elemento invalido");
 
             IrInicioLista(linha);
             return TAB_CondRetErroEstrutura;
         }
 
-        CNT_CONTAR("Peça válida");
+        CNT_CONTAR("Elemento valido");
 
-    }
+        CNT_CONTAR("Avanca linha");
 
-    CNT_CONTAR("Peças válidas");
+    } while (LIS_AvancarElementoCorrente(linha, 1) != LIS_CondRetFimLista);
+
+    CNT_CONTAR("Elementos validos");
 
     IrInicioLista(linha);
 
@@ -577,7 +574,7 @@ TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha)
 
 /***********************************************************************
 *
-*  Função: TAB &Deturpar tabuleiro
+*  Funcao: TAB &Deturpar tabuleiro
 *
 ***********************************************************************/
 
@@ -605,8 +602,8 @@ void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModoDeturpacao modoDeturpar)
         CED_DefinirTipoEspaco(linha, CED_ID_TIPO_VALOR_NULO);
         break;
 
-    /* espaços */
-    case DeturparEspacoTabuleiro:
+    /* espacos */
+    case DeturpaEspacoTabuleiro:
         memcpy((char *) tab,
                LIXO(8),
                8);
@@ -650,12 +647,12 @@ void TAB_Deturpar( TAB_tppTabuleiro tab, TAB_tpModoDeturpacao modoDeturpar)
 
 #endif
 
-/* Código das funções encapsuladas no módulo */
+/* Código das funcões encapsuladas no módulo */
 
 
 /***********************************************************************
 *
-*  Função: TAB &Destruir linha
+*  Funcao: TAB &Destruir linha
 *
 ***********************************************************************/
 
@@ -672,7 +669,7 @@ static void TAB_DestruirLinha (void *lstLin)
 
 /***********************************************************************
 *
-*  Função: TAB &Destruir lista
+*  Funcao: TAB &Destruir lista
 *
 ***********************************************************************/
 
@@ -688,7 +685,7 @@ static void TAB_DestruirLista (LIS_tppLista lst)
 
 /***********************************************************************
 *
-*  Função: TAB &Obter casa
+*  Funcao: TAB &Obter casa
 *
 ***********************************************************************/
 
@@ -703,7 +700,7 @@ static LIS_tppLista TAB_ObterCasa (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 
 /***********************************************************************
 *
-*  Função: TAB &Ir inicio tabuleiro
+*  Funcao: TAB &Ir inicio tabuleiro
 *
 ***********************************************************************/
 
@@ -722,4 +719,4 @@ static void TAB_IrInicioTabuleiro (TAB_tppTabuleiro tab)
     IrInicioLista(tab->coluna);
 }
 
-/********** Fim do módulo de implementação: TAB  tabuleiro de damas ou qualquer outro jogo **********/
+/********** Fim do módulo de implementacao: TAB  tabuleiro de damas ou qualquer outro jogo **********/

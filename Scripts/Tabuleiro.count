@@ -1,57 +1,57 @@
 ////////////////////////////////////////////////
 //
-// Declaração de contadores para o
+// Declaracao de contadores para o
 // módulo Tabuleiro
 //
 ///////////////////////////////////////////////
 
 Verificar tabuleiro
 Tabuleiro nulo
-Tabuleiro não nulo
-Espaço tabuleiro inválido
-Espaço tabuleiro válido
-Tipo tabuleiro inválido
-Tipo tabuleiro válido
-Coluna inválida
-Coluna válida
+Tabuleiro nao nulo
+Espaco tabuleiro invalido
+Espaco tabuleiro valido
+Tipo tabuleiro invalido
+Tipo tabuleiro valido
+Coluna invalida
+Coluna valida
 Acaba verificar tabuleiro
 Verificar coluna
 Coluna nula
-Coluna não nula
-Espaço coluna inválido
-Espaço coluna válido
-Tipo coluna inválido
-Tipo coluna válido
-Avança coluna
-Linha inválida
-Linha válida
-Linhas válidas
+Coluna nao nula
+Espaco coluna invalido
+Espaco coluna valido
+Tipo coluna invalido
+Tipo coluna valido
+Avanca coluna
+Linha invalida
+Linha valida
+Linhas validas
 Acaba verificar coluna
 Verificar linha
 Linha nula
-Linha não nula
-Espaço linha inválido
-Espaço linha válido
-Tipo linha inválido
-Tipo linha válido
-Avança linha
-Elemento inválida
-Elemento válida
-Elementos válidas
+Linha nao nula
+Espaco linha invalido
+Espaco linha valido
+Tipo linha invalido
+Tipo linha valido
+Avanca linha
+Elemento invalido
+Elemento valido
+Elementos validos
 Acaba verificar linha
 Verificar elemento
-Elemento nula
-Elemento não nula
-Espaço elemento inválido
-Espaço elemento válido
-Tipo elemento inválido
-Tipo elemento válido
+Elemento nulo
+Elemento nao nulo
+Espaco elemento invalido
+Espaco elemento valido
+Tipo elemento invalido
+Tipo elemento valido
 Elemento solto
 Elemento ligado
-Proximo elemento tipo inválido
-Proximo elemento tipo válido
-Elemento anterior tipo inválido
-Elemento anterior tipo válido
+Proximo elemento tipo invalido
+Proximo elemento tipo valido
+Elemento anterior tipo invalido
+Elemento anterior tipo valido
 Acaba verificar elemento
 
 XPTO nome adicionado para fins de teste\=-2

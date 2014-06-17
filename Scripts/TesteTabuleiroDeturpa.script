@@ -4,8 +4,14 @@
 // Propósito: Controle de cobertura de instrumentação do módulo tabuleiro
 //
 
-== Declarar os tabuleiros usados
-=declararparm    tab0        int   0
+== Declarar parametros
+=declararparm tab0 int 0
+=declararparm pNaoNull int 1
+=declararparm preto int 0
+=declararparm branco int 1
+=declararparm normal int 0
+=declararparm dama int 1
+=declararparm inval int -1
 
 == Declarar condicoes de retorno
 =declararparm OK int 0
@@ -17,35 +23,71 @@
 =declararparm DeturpaTipoTabuleiro int 1
 =declararparm DeturpaTipoColuna int 2
 =declararparm DeturpaTipoLinha int 3
-=declararparm DeturpaTipoPeca int 4
-=declararparm DeturparEspacoTabuleiro int 5
+=declararparm DeturpaTipoElemento int 4
+=declararparm DeturpaEspacoTabuleiro int 5
 =declararparm DeturpaEspacoColuna int 6
 =declararparm DeturpaEspacoLinha int 7
-=declararparm DeturpaEspacoPeca int 8
+=declararparm DeturpaEspacoElemento int 8
 =declararparm DeturpaPtColunaNulo int 9
 =declararparm DeturpaPtLinhaNulo int 10
-=declararparm DeturpaColunaLixo int 11
-=declararparm DeturpaLinhaLixo int 12
-=declararparm DeturpaPecaLixo int 13
-=declararparm DeturpaPecaStatus int 14
-=declararparm DeturpaPecaCor int 15
+=declararparm DeturpaPtElementoNulo int 11
+=declararparm DeturpaPtProxElementoNulo int 12
+=declararparm DeturpaPtElementoAntNulo int 13
+=declararparm DeturpaConteudoElementoNulo int 14
+=declararparm DeturpaEliminaElemento int 15
+=declararparm DeturpaDesencadeiaElemento int 16
+=declararparm DeturpaColunaLixo int 17
+=declararparm DeturpaLinhaLixo int 18
+=declararparm DeturpaElementoLixo int 19
+=declararparm DeturpaProxElementoLixo int 20
+=declararparm DeturpaElementoAntLixo int 21
 
 == Iniciar contagem
-=inicializarcontadores  ""
-=lercontadores          "..\\scripts\\Tabuleiro"
+=inicializarcontadores ""
+=lercontadores "..\\scripts\\Tabuleiro"
 =iniciarcontagem
+
+== Verificar tabuleiro
+=criartabuleiro   tab0   8  8  pNaoNull
+=incluirpeca tab0 0 0 branco OK
+=verificartabuleiro tab0 OK
+=destruirtabuleiro tab0
 
 == Deturpar tipo tabuleiro
 =criartabuleiro   tab0   8  8  pNaoNull
 =incluirpeca tab0 0 0 branco OK
-=deturpar DeturpaTipoTabuleiro
+=deturpar 0 DeturpaTipoTabuleiro
+=verificartabuleiro tab0 ErroEstrutura
+=AceitaFalhasAcumuladas 1
+=destruirtabuleiro tab0
+
+== Deturpar tipo coluna
+=criartabuleiro   tab0   8  8  pNaoNull
+=incluirpeca tab0 0 0 branco OK
+=deturpar 0 DeturpaTipoColuna
+=verificartabuleiro tab0 ErroEstrutura
+=AceitaFalhasAcumuladas 1
+=destruirtabuleiro tab0
+
+== Deturpar tipo linha
+=criartabuleiro   tab0   8  8  pNaoNull
+=incluirpeca tab0 0 0 branco OK
+=deturpar 0 DeturpaTipoLinha
+=verificartabuleiro tab0 ErroEstrutura
+=AceitaFalhasAcumuladas 1
+=destruirtabuleiro tab0
+
+== Deturpar tipo elemento
+=criartabuleiro   tab0   8  8  pNaoNull
+=incluirpeca tab0 0 0 branco OK
+=deturpar 0 DeturpaTipoElemento
 =verificartabuleiro tab0 ErroEstrutura
 =AceitaFalhasAcumuladas 1
 =destruirtabuleiro tab0
 
 == Terminar controle dos contadores
 =pararcontagem
-=verificarcontagens    0
+//=verificarcontagens 0
 
 == Terminar contagem
 =terminarcontadores

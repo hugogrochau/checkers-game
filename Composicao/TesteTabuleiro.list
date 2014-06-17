@@ -4,7 +4,7 @@ GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
 Composição do construto: TesteTabuleiro.comp
 
    Nome do Construto:           TesteTabuleiro
-   Diretório base:              U:\prog\modular\prog-modular-damas\Composicao
+   Diretório base:              C:\Users\Gustavo\Documents\GitHub\prog-modular-damas\Composicao
 
    Arquivo composição:          TesteTabuleiro.comp
    Arquivo plataforma:          gmake.parm
@@ -28,15 +28,18 @@ Estatísticas do construto
       Linhas de comentário:      17
       Linhas em branco:           4
    Arquivos em que é incluído
+      Lista.c
       Tabuleiro.c
 
    Estatísticas do arquivo: Lista.c
-      Total linhas:             654
-      Linhas de código:         347
-      Linhas de comentário:     158
-      Linhas em branco:         170
+      Total linhas:             799
+      Linhas de código:         434
+      Linhas de comentário:     178
+      Linhas em branco:         222
    Arquivos de inclusão de que necessita
+      ..\\tabelas\\TiposEspacosTabuleiro.def
       cespdin.h
+      conta.h
       generico.h
       lista.h
       tst_espc.h
@@ -50,10 +53,10 @@ Estatísticas do construto
       peca.h
 
    Estatísticas do arquivo: Tabuleiro.c
-      Total linhas:             802
-      Linhas de código:         461
-      Linhas de comentário:     162
-      Linhas em branco:         180
+      Total linhas:             722
+      Linhas de código:         407
+      Linhas de comentário:     156
+      Linhas em branco:         159
    Arquivos de inclusão de que necessita
       ..\\tabelas\\TiposEspacosTabuleiro.def
       cespdin.h
@@ -65,10 +68,10 @@ Estatísticas do construto
       tst_espc.h
 
    Estatísticas do arquivo: TestTab.c
-      Total linhas:             429
-      Linhas de código:         254
+      Total linhas:             434
+      Linhas de código:         258
       Linhas de comentário:      90
-      Linhas em branco:          99
+      Linhas em branco:         100
    Arquivos de inclusão de que necessita
       cespdin.h
       generico.h
@@ -94,6 +97,7 @@ Estatísticas do construto
       Linhas de comentário:     349
       Linhas em branco:          76
    Arquivos em que é incluído
+      Lista.c
       Tabuleiro.c
 
    Estatísticas do arquivo: generico.h
@@ -117,10 +121,10 @@ Estatísticas do construto
       TestTab.c
 
    Estatísticas do arquivo: lista.h
-      Total linhas:             411
-      Linhas de código:          44
-      Linhas de comentário:     312
-      Linhas em branco:          55
+      Total linhas:             422
+      Linhas de código:          49
+      Linhas de comentário:     314
+      Linhas em branco:          59
    Arquivos em que é incluído
       Lista.c
       Tabuleiro.c
@@ -139,10 +143,10 @@ Estatísticas do construto
       tabuleiro.h
 
    Estatísticas do arquivo: tabuleiro.h
-      Total linhas:             327
-      Linhas de código:          64
-      Linhas de comentário:     204
-      Linhas em branco:          59
+      Total linhas:             350
+      Linhas de código:          72
+      Linhas de comentário:     212
+      Linhas em branco:          66
    Arquivos de inclusão de que necessita
       lista.h
       peca.h
@@ -164,10 +168,10 @@ Estatísticas do construto
 Totais por tipo de arquivo
 
   Tipo: h        Path: ..\Fontes
-         Total linhas do tipo:      3298
-         Linhas de código:           368
-         Linhas de comentário:      2446
-         Linhas em branco:           484
+         Total linhas do tipo:      3332
+         Linhas de código:           381
+         Linhas de comentário:      2456
+         Linhas em branco:           495
          Arquivos deste tipo:          8
 
   Tipo: obj      Path: ..\Objetos
@@ -192,17 +196,17 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          1
 
   Tipo: c        Path: ..\Fontes
-         Total linhas do tipo:      2009
-         Linhas de código:          1121
-         Linhas de comentário:       458
-         Linhas em branco:           466
+         Total linhas do tipo:      2079
+         Linhas de código:          1158
+         Linhas de comentário:       472
+         Linhas em branco:           498
          Arquivos deste tipo:          4
 
 Totais para todo o construto TesteTabuleiro
 
-   Total linhas:              5340
-   Linhas de código:          1501
-   Linhas de comentário:      2921
-   Linhas em branco:           954
+   Total linhas:              5444
+   Linhas de código:          1551
+   Linhas de comentário:      2945
+   Linhas em branco:           997
    Arquivos processados:        13
 

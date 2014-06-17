@@ -80,7 +80,7 @@ int ContinuarJogo(JOGO_tppJogo jogo)
 
     if (linhaOrigem == 'd' && linhaDestino == 'd')
     {
-        JOGO_ImprimirComCor(JOGO_ObterJogadorNaoDaVez(jogo)->nome), JOGO_ObterJogadorNaoDaVez(jogo)->cor, TRUE);
+        JOGO_ImprimirComCor(JOGO_ObterJogadorNaoDaVez(jogo)->nome, JOGO_ObterJogadorNaoDaVez(jogo)->cor, TRUE);
         printf(" venceu!\n");
         return FALSE;
     }

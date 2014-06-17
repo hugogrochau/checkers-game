@@ -408,7 +408,10 @@ LIS_tpCondRet LIS_ProcurarValor( LIS_tppLista pLista ,
                                  void *pValor        ) ;
 
 #ifdef _DEBUG
-LIS_tpCondRet VerificarElemento(LIS_tppLista lista);
+
+LIS_tpCondRet LIS_VerificarElemento(LIS_tppLista lista);
+void LIS_DeturparElemento(LIS_tppLista lista, int modoDeturpar);
+
 #endif
 
 #undef LISTA_EXT

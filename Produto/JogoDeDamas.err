@@ -1,5 +1,9 @@
 Princip.c
-Microsoft (R) Incremental Linker Version 10.00.40219.01
+Jogo.c
+Tabuleiro.c
+Lista.c
+Peca.c
+Microsoft (R) Incremental Linker Version 11.00.51106.1
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
 /OUT:..\Produto\JogoDeDamas.exe 
