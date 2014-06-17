@@ -423,7 +423,7 @@ void LIS_SobrescreverValorCorrente ( LIS_tppLista pLista, void *pDado )
 {
     if (pLista != NULL)
 		pLista->pElemCorr->pValor = pDado;
-}
+} /* Fim funcao: LIS  &Sobrescrever valor do elemento corrente */
 
 /***************************************************************************
 *
@@ -582,7 +582,7 @@ LIS_tpCondRet LIS_ProcurarValor( LIS_tppLista pLista ,
 
 /***********************************************************************
 *
-*  $FC Funcao: LIS  -Liberar elemento da lista
+*  $FC Funcao: LIS  &Liberar elemento da lista
 *
 *  $ED Descricao da funcao
 *     Elimina os espacos apontados pelo valor do elemento e o
@@ -604,12 +604,12 @@ void LiberarElemento( LIS_tppLista   pLista ,
 
     pLista->numElem-- ;
 
-} /* Fim funcao: LIS  -Liberar elemento da lista */
+} /* Fim funcao: LIS  &Liberar elemento da lista */
 
 
 /***********************************************************************
 *
-*  $FC Funcao: LIS  -Criar o elemento
+*  $FC Funcao: LIS  &Criar o elemento
 *
 ***********************************************************************/
 
@@ -634,12 +634,12 @@ LIS_tpElemLista *CriarElemento( LIS_tppLista pLista ,
 
     return pElem ;
 
-} /* Fim funcao: LIS  -Criar o elemento */
+} /* Fim funcao: LIS  &Criar o elemento */
 
 
 /***********************************************************************
 *
-*  $FC Funcao: LIS  -Limpar a cabeca da lista
+*  $FC Funcao: LIS  &Limpar a cabeca da lista
 *
 ***********************************************************************/
 
@@ -651,14 +651,14 @@ void LimparCabeca( LIS_tppLista pLista )
     pLista->pElemCorr = NULL ;
     pLista->numElem   = 0 ;
 
-} /* Fim funcao: LIS  -Limpar a cabeca da lista */
+} /* Fim funcao: LIS  &Limpar a cabeca da lista */
 
 
 #ifdef _DEBUG
 
 /***********************************************************************
 *
-*  Funcao: TAB &Verificar Elemento
+*  Funcao: TAB &Verificar elemento
 *
 ***********************************************************************/
 
@@ -705,7 +705,13 @@ LIS_tpCondRet LIS_VerificarElemento(LIS_tppLista lista)
     CNT_CONTAR("Acaba verificar elemento");
 
     return LIS_CondRetOK;
-}
+}  /* Fim funcao: LIS &Verificar elemento */
+
+/***********************************************************************
+*
+*  Funcao: TAB &Deturpar elemento
+*
+***********************************************************************/
 
 void LIS_DeturparElemento(LIS_tppLista lista, int modoDeturpar)
 { 
@@ -725,7 +731,7 @@ void LIS_DeturparElemento(LIS_tppLista lista, int modoDeturpar)
             elem->pProx->pProx = NULL;
             break;
     }
-} 
+}  /* Fim funcao: LIS &Deturpar elemento */
 
 #endif 
 

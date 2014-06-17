@@ -55,6 +55,7 @@ static TAB_tpCondRet TAB_VerificarLinha(LIS_tppLista linha);
 struct TAB_tagTabuleiro
 {
     TAB_tpTamanho tam;
+    /* Tamanho do tabuleiro */
 
     LIS_tppLista coluna;
     /* Ponteiro para o comeco da lista de listas */
@@ -235,7 +236,7 @@ TAB_tpCondRet TAB_IncluirPeca (TAB_tppTabuleiro tab, void *pPeca, TAB_tpPosicao 
 
 /***********************************************************************
 *
-*  Funcao: TAB &Obter tamanho
+*  Funcao: TAB &Mover peca
 *
 ***********************************************************************/
 
@@ -367,6 +368,7 @@ int TAB_ChecarPos (TAB_tppTabuleiro tab, TAB_tpPosicao pos)
 *  Funcao: TAB &Verificar Tabuleiro
 *
 ***********************************************************************/
+
 TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab)
 {
     CNT_CONTAR("Verificar tabuleiro");
@@ -415,6 +417,7 @@ TAB_tpCondRet TAB_VerificarTabuleiro(TAB_tppTabuleiro tab)
 *  Funcao: TAB &Verificar Coluna
 *
 ***********************************************************************/
+
 static TAB_tpCondRet TAB_VerificarColuna(TAB_tppTabuleiro tab)
 {
     LIS_tppLista coluna = tab->coluna;
